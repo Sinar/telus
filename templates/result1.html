@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Flask - Test Result</title>
+  <style>
+      table, th, td {
+          border: 1px solid black;
+          border-collapse: collapse;
+          padding: 5px;
+      }
+  </style>
+</head>
+<body>
+  <p>List entries from table in SQLite</p>
+  <table>
+      <tr>
+          <th>ID</th>
+          <th>First Name</th>
+          <th>Last Name</th>
+          <th>Title Name</th>
+          <th>Title Department</th>
+      </tr>
+      {% for row in ent %}
+      <tr>
+          <td>{{ row['id'] }}</td>
+          <td>{{ row['firstname'] }}</td>
+          <td>{{ row['lastname'] }}</td>
+          <td>{{ row['titlepos'] }}</td>
+          <td>{{ row['titledep'] }}</td>
+      </tr>
+      {% endfor %}
+  </table>
+  <p>This result: {{ msg }}</p>
+  <p><a href="/home">Back to home page</a></p>
+</body>
+</html>
