@@ -1,0 +1,9 @@
+$ FLASK_APP=test1.py flask run
+ * Serving Flask app "test1"
+ * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+127.0.0.1 - - [02/Aug/2017 14:25:41] "GET /create HTTP/1.1" 200 -
+{u'data': [{u'title': {u'department': u'Engineering', u'position': u'Assistant Engineer'}, u'id': 1, u'name': {u'last': u'Doe', u'first': u'John'}}, {u'title': {u'department': u'Human Resource', u'position': u'Secretary'}, u'id': 2, u'name': {u'last': u'Jane', u'first': u'Mary'}}]}
+127.0.0.1 - - [02/Aug/2017 14:25:42] "GET /insert HTTP/1.1" 200 -
+(1, u'John', u'Doe', u'Assistant Engineer', u'Engineering')
+(2, u'Mary', u'Jane', u'Secretary', u'Human Resource')
+127.0.0.1 - - [02/Aug/2017 14:25:42] "GET /select HTTP/1.1" 200 -
