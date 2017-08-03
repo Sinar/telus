@@ -1,0 +1,32 @@
+$ FLASK_APP=test2.py flask run
+ * Serving Flask app "test2"
+ * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+127.0.0.1 - - [03/Aug/2017 16:47:46] "GET / HTTP/1.1" 200 -
+{u'data': [{u'id': 1, u'name': {u'full': u'John Doe', u'last': u'Doe', u'first': u'John'}}, {u'id': 2, u'name': {u'full': u'Mary Jane', u'last': u'Jane', u'first': u'Mary'}}]}
+127.0.0.1 - - [03/Aug/2017 16:47:47] "GET /json_literal HTTP/1.1" 200 -
+{u'data': [{u'id': 1, u'name': {u'full': u'John Doe', u'last': u'Doe', u'first': u'John'}}, {u'id': 2, u'name': {u'full': u'Mary Jane', u'last': u'Jane', u'first': u'Mary'}}]}
+{
+    "data": [
+        {
+            "id": 1, 
+            "name": {
+                "first": "John", 
+                "full": "John Doe", 
+                "last": "Doe"
+            }
+        }, 
+        {
+            "id": 2, 
+            "name": {
+                "first": "Mary", 
+                "full": "Mary Jane", 
+                "last": "Jane"
+            }
+        }
+    ]
+}
+127.0.0.1 - - [03/Aug/2017 16:47:50] "GET /json_string HTTP/1.1" 200 -
+{u'data': [{u'id': 1, u'name': {u'full': u'John Doe', u'last': u'Doe', u'first': u'John'}}, {u'id': 2, u'name': {u'full': u'Mary Jane', u'last': u'Jane', u'first': u'Mary'}}]}
+127.0.0.1 - - [03/Aug/2017 16:47:52] "GET /json_rclass HTTP/1.1" 200 -
+{u'data': [{u'id': 1, u'name': {u'full': u'John Doe', u'last': u'Doe', u'first': u'John'}}, {u'id': 2, u'name': {u'full': u'Mary Jane', u'last': u'Jane', u'first': u'Mary'}}]}
+127.0.0.1 - - [03/Aug/2017 16:47:55] "GET /json_respon HTTP/1.1" 200 -

@@ -1,0 +1,20 @@
+{
+    "data": [
+        {
+            "id": 1, 
+            "name": {
+                "full": "John Doe",
+                "first": "John", 
+                "last": "Doe"
+            }
+        },
+        {
+            "id": 2, 
+            "name": {
+                "full": "Mary Jane",
+                "first": "Mary", 
+                "last": "Jane"
+            }
+        }
+    ]
+}
