@@ -10,6 +10,8 @@ does *not* correlate to improved version of the files. Numbering is made to
 distinguish specific things that have been tried.
 
 * test1.py - first working code using Flask web framework, output to HTML table
+* test2.py - methods for parsing JSON data, output as JSON literal and JSON string
+* test2-N.py - demonstrate each methods in separate files for parsing JSON data
 
 ## Actual codes
 
