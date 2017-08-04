@@ -1,6 +1,6 @@
 #!/usr/bin/python
 
-from flask import Flask, render_template, request, Response
+from flask import Flask, Response
 import sys
 import json
 
