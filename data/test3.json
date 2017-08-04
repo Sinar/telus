@@ -1,0 +1,34 @@
+{
+    "data": [
+        {
+            "id": 1, 
+            "buyer": {
+                "name": "John Doe",
+                "organization": {
+                    "id": 1234,
+                    "name": "Independent"
+                }
+            }
+        },
+        {
+            "id": 2, 
+            "buyer": {
+                "name": "Datuk Paduka Md Rozai Shafian",
+                "organization": {
+                    "id": 2468,
+                    "name": "United Malays National Organization"
+                }
+            }
+        },
+        {
+            "id": 3,
+            "buyer": {
+                "name": "Mary Jane",
+                "organization": {
+                    "id": 9876,
+                    "name": "Freelance Group"
+                }
+            }
+        }
+    ]
+}
