@@ -13,6 +13,7 @@ distinguish specific things that have been tried.
 * test2.py - methods for parsing JSON data, output as JSON literal and JSON string
 * test2-N.py - demonstrate each methods in separate files for parsing JSON data
 * test3.py - request to Popit API, get membership details, output as JSON literal
+* test3-N.py - demonstrate add new entry to parsing, output as JSON literal
 
 ## Actual codes
 
