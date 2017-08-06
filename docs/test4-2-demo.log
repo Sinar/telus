@@ -1,0 +1,122 @@
+$ FLASK_APP=test4-2.py flask run
+ * Serving Flask app "test4-2"
+ * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+Input JSON data from file:
+Query data from http://api.popit.sinarproject.org/en/memberships/545e621b5222837c2c05a806...
+{
+    "result": {
+        "area": null, 
+        "area_id": null, 
+        "contact_details": [], 
+        "created_at": "2015-12-22T09:26:27.673056Z", 
+        "end_date": null, 
+        "id": "545e621b5222837c2c05a806", 
+        "label": null, 
+        "language_code": "en", 
+        "links": [], 
+        "member": null, 
+        "member_id": null, 
+        "on_behalf_of": null, 
+        "on_behalf_of_id": null, 
+        "organization": {
+            "abstract": null, 
+            "area": null, 
+            "classification": "Party", 
+            "contact_details": [], 
+            "created_at": "2015-12-17T09:10:22.786158Z", 
+            "description": "", 
+            "dissolution_date": null, 
+            "founding_date": null, 
+            "id": "5362fcc219ee29270d8a9e22", 
+            "image": "http://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/UMNO_%28Malaysia%29.svg/640px-UMNO_%28Malaysia%29.svg.png", 
+            "language_code": "en", 
+            "links": [], 
+            "name": "United Malays National Organization", 
+            "parent_id": null, 
+            "updated_at": "2016-07-05T15:09:09.556534Z"
+        }, 
+        "organization_id": "5362fcc219ee29270d8a9e22", 
+        "person": {
+            "additional_name": null, 
+            "biography": "", 
+            "birth_date": null, 
+            "contact_details": [], 
+            "created_at": "2015-12-16T16:03:48.413356Z", 
+            "death_date": null, 
+            "email": null, 
+            "family_name": null, 
+            "gender": null, 
+            "given_name": null, 
+            "honorific_prefix": null, 
+            "honorific_suffix": null, 
+            "id": "545e45f05222837c2c05906e", 
+            "identifiers": [], 
+            "image": null, 
+            "language_code": "en", 
+            "links": [], 
+            "name": "Datuk Paduka Md Rozai Shafian", 
+            "national_identity": null, 
+            "other_names": [], 
+            "patronymic_name": null, 
+            "sort_name": null, 
+            "summary": "", 
+            "updated_at": "2015-12-16T16:03:48.413403Z"
+        }, 
+        "person_id": "545e45f05222837c2c05906e", 
+        "post": {
+            "area_id": null, 
+            "contact_details": [], 
+            "created_at": "2015-12-22T07:58:49.997803Z", 
+            "end_date": null, 
+            "id": "545e4d5b5222837c2c05988b", 
+            "label": "Parliamentary Candidate", 
+            "language_code": "en", 
+            "links": [], 
+            "organization_id": null, 
+            "role": null, 
+            "start_date": null, 
+            "updated_at": "2015-12-22T07:58:49.997854Z"
+        }, 
+        "post_id": "545e4d5b5222837c2c05988b", 
+        "role": "Parliamentary Candidate", 
+        "start_date": "2008", 
+        "updated_at": "2016-04-19T02:18:59.458742Z"
+    }
+}
+Save JSON data into database...
+CREATE was successful
+Query data from http://api.popit.sinarproject.org/en/memberships/545e621b5222837c2c05a806...
+INSERT was successful
+Setup has completed
+Read JSON data from database...
+SELECT was successful
+Read has completed
+SELECT was successful
+Parse entry:
+(u'545e621b5222837c2c05a806', u'Datuk Paduka Md Rozai Shafian', None, u'United Malays National Organization', None)
+Append entry to list:
+{'person': {'gender': None, 'name': u'Datuk Paduka Md Rozai Shafian'}, 'post': {'role': None}, 'id': u'545e621b5222837c2c05a806', 'organization': {'name': u'United Malays National Organization'}}
+Append was successful
+Dump has completed
+Output JSON data:
+{
+    "result": [
+        {
+            "id": "545e621b5222837c2c05a806", 
+            "organization": {
+                "name": "United Malays National Organization"
+            }, 
+            "person": {
+                "gender": null, 
+                "name": "Datuk Paduka Md Rozai Shafian"
+            }, 
+            "post": {
+                "role": null
+            }
+        }
+    ]
+}
+Output response:
+<Response 206 bytes [200 OK]>
+127.0.0.1 - - [06/Aug/2017 13:47:13] "GET / HTTP/1.1" 200 -
+

@@ -1,0 +1,43 @@
+{
+    "result": [
+        {
+            "id": 1, 
+            "organization": {
+                "name": "Volunteer Team"
+            }, 
+            "person": {
+                "gender": "Male", 
+                "name": "John Doe"
+            }, 
+            "post": {
+                "role": "Participant"
+            }
+        }, 
+        {
+            "id": 2, 
+            "organization": {
+                "name": "Freelance Group"
+            }, 
+            "person": {
+                "gender": "Female", 
+                "name": "Mary Jane"
+            }, 
+            "post": {
+                "role": "Junior member"
+            }
+        }, 
+        {
+            "id": 3, 
+            "organization": {
+                "name": "Inventor Group"
+            }, 
+            "person": {
+                "gender": "Male", 
+                "name": "Thomas Edison"
+            }, 
+            "post": {
+                "role": "Founder"
+            }
+        }
+    ]
+}

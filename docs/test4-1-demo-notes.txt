@@ -1,0 +1,9 @@
+Running 'test4-1.py' will give same result as 'test4.py'.
+
+Similarities:
+* Log file 'test4-1-demo.log' is same as 'test4-demo.log'
+* PNG file 'test4-1-demo.png' is same as 'test4-demo.png'
+
+Differences:
+* JSON file 'test4-1.json' is used instead of in-built JSON data
+* 'test4-1.py' requires to read JSON file

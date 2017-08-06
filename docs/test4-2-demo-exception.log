@@ -1,0 +1,17 @@
+...
+Exception: string indices must be integers
+Setup has failed
+Setup has completed
+Read JSON data from database...
+SELECT was successful
+Read has completed
+SELECT was successful
+Append was successful
+Dump has completed
+Output JSON data:
+{
+    "result": []
+}
+Output response:
+<Response 14 bytes [200 OK]>
+127.0.0.1 - - [06/Aug/2017 14:08:27] "GET / HTTP/1.1" 200 -
