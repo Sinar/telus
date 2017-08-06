@@ -15,6 +15,7 @@ distinguish specific things that have been tried.
 * test3.py - request to Popit API, get membership details, output as JSON literal
 * test3-N.py - demonstrate add new entry to parsing, output as JSON literal
 * test4.py - read JSON data, save/read using SQLite database, output as JSON literal
+* test4-N.py - use JSON data from file/API, output as JSON literal
 
 ## Actual codes
 
