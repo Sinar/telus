@@ -1,0 +1,17 @@
+Running 'test4.py' has two variations.
+
+1. For entire data, use line 78.
+   See result in 'test4-demo-1.{log,png}' files.
+
+        cursor.execute("SELECT * FROM table4") # entire data
+        #cursor.execute("SELECT * FROM table4 WHERE name = ?",
+        #    ('Thomas Edison',)) # filter data by target name
+        # note that this ^^^^^ last comma is needed, else syntax error
+
+2. For filter data, use line 79-80.
+   See result in 'test4-demo-2.{log,png}' files.
+
+        #cursor.execute("SELECT * FROM table4") # entire data
+        cursor.execute("SELECT * FROM table4 WHERE name = ?",
+            ('Thomas Edison',)) # filter data by target name
+        # note that this ^^^^^ last comma is needed, else syntax error
