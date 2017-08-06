@@ -1,0 +1,63 @@
+{
+    "records": [
+        {
+            "id": 1, 
+            "company": {
+                "name": "John Industry Inc",
+                "owner": {
+                    "name": "John Doe",
+                    "gender": "Male"
+                },
+                "partners": [
+                    {
+                        "name": "Mary Jane",
+                        "gender": "Female"
+                    }
+                ],
+                "status": "active"
+            }
+        },
+        {
+            "id": 2, 
+            "company": {
+                "name": "Maju Manufacturing Bhd",
+                "owner": {
+                    "name": "Datuk Paduka Md Rozai Shafian",
+                    "gender": "Male"
+                },
+                "partners": [
+                    {
+                        "name": "Usman Jawa",
+                        "gender": "Male"
+                    },
+                    {
+                        "name": "Laila Salim",
+                        "gender": "Female"
+                    }
+                ],
+                "status": "active"
+            }
+        },
+        {
+            "id": 3, 
+            "company": {
+                "name": "Arnold Enterprise & Co.",
+                "owner": {
+                    "name": "Mister Arnold",
+                    "gender": "Male"
+                },
+                "partners": [
+                    {
+                        "name": "Arnold Junior",
+                        "gender": "Male"
+                    },
+                    {
+                        "name": "Rover",
+                        "gender": "Male"
+                    }
+                ],
+                "status": "inactive"
+            }
+        }
+    ]
+}

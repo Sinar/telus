@@ -1,0 +1,146 @@
+$ FLASK_APP=test4-3.py flask run
+ * Serving Flask app "test4-3"
+ * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+Input JSON:
+{
+    "records": [
+        {
+            "company": {
+                "name": "John Industry Inc", 
+                "owner": {
+                    "gender": "Male", 
+                    "name": "John Doe"
+                }, 
+                "partners": [
+                    {
+                        "gender": "Female", 
+                        "name": "Mary Jane"
+                    }
+                ], 
+                "status": "active"
+            }, 
+            "id": 1
+        }, 
+        {
+            "company": {
+                "name": "Maju Manufacturing Bhd", 
+                "owner": {
+                    "gender": "Male", 
+                    "name": "Datuk Paduka Md Rozai Shafian"
+                }, 
+                "partners": [
+                    {
+                        "gender": "Male", 
+                        "name": "Usman Jawa"
+                    }, 
+                    {
+                        "gender": "Female", 
+                        "name": "Laila Salim"
+                    }
+                ], 
+                "status": "active"
+            }, 
+            "id": 2
+        }, 
+        {
+            "company": {
+                "name": "Arnold Enterprise & Co.", 
+                "owner": {
+                    "gender": "Male", 
+                    "name": "Mister Arnold"
+                }, 
+                "partners": [
+                    {
+                        "gender": "Male", 
+                        "name": "Arnold Junior"
+                    }, 
+                    {
+                        "gender": "Male", 
+                        "name": "Rover"
+                    }
+                ], 
+                "status": "inactive"
+            }, 
+            "id": 3
+        }
+    ]
+}
+Setup begins
+Setup CREATE parent_table was successful
+Setup CREATE child_table was successful
+Setup INSERT was successful
+Setup has completed
+Read begins
+Read SELECT was successful
+Read has completed
+parent_table:
+[(1, u'John Industry Inc', u'John Doe', u'Male', u'active'), (2, u'Maju Manufacturing Bhd', u'Datuk Paduka Md Rozai Shafian', u'Male', u'active'), (3, u'Arnold Enterprise & Co.', u'Mister Arnold', u'Male', u'inactive')]
+child_table:
+[(1, u'Mary Jane', u'Female'), (2, u'Usman Jawa', u'Male'), (2, u'Laila Salim', u'Female'), (3, u'Arnold Junior', u'Male'), (3, u'Rover', u'Male')]
+Dump begins
+Read begins
+Read SELECT was successful
+Read has completed
+Dump SELECT was successful
+Dump append to list was successful
+Dump has completed
+Output JSON data:
+{
+    "records": [
+        {
+            "company": {
+                "name": "John Industry Inc", 
+                "owner": {
+                    "gender": "Male", 
+                    "name": "John Doe"
+                }, 
+                "partners": [
+                    {
+                        "gender": "Male", 
+                        "name": "Rover"
+                    }
+                ], 
+                "status": "active"
+            }, 
+            "id": 1
+        }, 
+        {
+            "company": {
+                "name": "Maju Manufacturing Bhd", 
+                "owner": {
+                    "gender": "Male", 
+                    "name": "Datuk Paduka Md Rozai Shafian"
+                }, 
+                "partners": [
+                    {
+                        "gender": "Male", 
+                        "name": "Rover"
+                    }
+                ], 
+                "status": "active"
+            }, 
+            "id": 2
+        }, 
+        {
+            "company": {
+                "name": "Arnold Enterprise & Co.", 
+                "owner": {
+                    "gender": "Male", 
+                    "name": "Mister Arnold"
+                }, 
+                "partners": [
+                    {
+                        "gender": "Male", 
+                        "name": "Rover"
+                    }
+                ], 
+                "status": "inactive"
+            }, 
+            "id": 3
+        }
+    ]
+}
+Output response:
+<Response 571 bytes [200 OK]>
+127.0.0.1 - - [06/Aug/2017 22:59:56] "GET / HTTP/1.1" 200 -
+
