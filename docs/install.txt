@@ -1,0 +1,16 @@
+# Install dependencies
+$ sudo apt-get install python
+$ sudo apt-get install python-pip
+
+# Method 1: Install Flask in virtualenv
+$ sudo apt-get install python-virtualenv
+$ mkdir test
+$ cd test
+~/test$ virtualenv venv
+~/test$ . venv/bin/activate
+(venv)~/test$ sudo -H pip install Flask
+(venv)~/test$ deactivate
+~/test$
+
+# Method 2: Install Flask in host system
+$ sudo -H pip install Flask
