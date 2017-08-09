@@ -117,7 +117,7 @@ def base_dump():
         base.close()
         msg = 'Dump has completed'
         print(msg)
-    return new # return as complete dict
+    return new # return as valid JSON literal
 
 @app.route('/')
 @app.route('/home')
@@ -126,10 +126,10 @@ def home():
     source = json_data()
     source_pretty = json.dumps(source, indent=4, sort_keys=True)
     print(source_pretty) # preview input JSON data
-    print('Save JSON data into database...')
-    base_setup() # create database first
-    print('Read JSON data from database...')
-    result = base_dump() # save input JSON data into database, then output
+    print('Save JSON data into SQLite database...')
+    base_setup() # create database and save JSON data
+    print('Read JSON data from SQLite database...')
+    result = base_dump() # dump from database to JSON data again 
     print('Output JSON data:')
     result_pretty = json.dumps(result, indent=4, sort_keys=True)
     print(result_pretty) # output JSON data should appear same as input
@@ -139,4 +139,4 @@ def home():
                 mimetype = 'application/json')
     print('Output response:')
     print(result) # only response status will be printed here
-    return result # return JSON data as object
+    return result # return JSON data as object, visible in web browser

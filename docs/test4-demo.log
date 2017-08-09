@@ -1,0 +1,117 @@
+$ FLASK_APP=test4.py flask run
+ * Serving Flask app "test4"
+ * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+Input JSON data:
+{
+    "result": [
+        {
+            "id": 1, 
+            "organization": {
+                "name": "Volunteer Team"
+            }, 
+            "person": {
+                "gender": "Male", 
+                "name": "John Doe"
+            }, 
+            "post": {
+                "role": "Participant"
+            }
+        }, 
+        {
+            "id": 2, 
+            "organization": {
+                "name": "Freelance Group"
+            }, 
+            "person": {
+                "gender": "Female", 
+                "name": "Mary Jane"
+            }, 
+            "post": {
+                "role": "Junior member"
+            }
+        }, 
+        {
+            "id": 3, 
+            "organization": {
+                "name": "Inventor Group"
+            }, 
+            "person": {
+                "gender": "Male", 
+                "name": "Thomas Edison"
+            }, 
+            "post": {
+                "role": "Founder"
+            }
+        }
+    ]
+}
+Save JSON data into SQLite database...
+CREATE was successful
+INSERT was successful
+Setup has completed
+Read JSON data from SQLite database...
+SELECT was successful
+Read has completed
+SELECT was successful
+Parse entry:
+(1, u'John Doe', u'Male', u'Volunteer Team', u'Participant')
+Append entry to list:
+{'person': {'gender': u'Male', 'name': u'John Doe'}, 'post': {'role': u'Participant'}, 'id': 1, 'organization': {'name': u'Volunteer Team'}}
+Parse entry:
+(2, u'Mary Jane', u'Female', u'Freelance Group', u'Junior member')
+Append entry to list:
+{'person': {'gender': u'Female', 'name': u'Mary Jane'}, 'post': {'role': u'Junior member'}, 'id': 2, 'organization': {'name': u'Freelance Group'}}
+Parse entry:
+(3, u'Thomas Edison', u'Male', u'Inventor Group', u'Founder')
+Append entry to list:
+{'person': {'gender': u'Male', 'name': u'Thomas Edison'}, 'post': {'role': u'Founder'}, 'id': 3, 'organization': {'name': u'Inventor Group'}}
+Append was successful
+Dump has completed
+Output JSON data:
+{
+    "result": [
+        {
+            "id": 1, 
+            "organization": {
+                "name": "Volunteer Team"
+            }, 
+            "person": {
+                "gender": "Male", 
+                "name": "John Doe"
+            }, 
+            "post": {
+                "role": "Participant"
+            }
+        }, 
+        {
+            "id": 2, 
+            "organization": {
+                "name": "Freelance Group"
+            }, 
+            "person": {
+                "gender": "Female", 
+                "name": "Mary Jane"
+            }, 
+            "post": {
+                "role": "Junior member"
+            }
+        }, 
+        {
+            "id": 3, 
+            "organization": {
+                "name": "Inventor Group"
+            }, 
+            "person": {
+                "gender": "Male", 
+                "name": "Thomas Edison"
+            }, 
+            "post": {
+                "role": "Founder"
+            }
+        }
+    ]
+}
+Output response:
+<Response 433 bytes [200 OK]>
+127.0.0.1 - - [09/Aug/2017 14:57:52] "GET / HTTP/1.1" 200 -
+
