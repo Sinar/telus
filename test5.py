@@ -5,7 +5,6 @@ import json
 import pymongo
 from bson import Binary, Code
 from bson import json_util
-from bson.json_util import dumps
 
 app = Flask(__name__)
 
