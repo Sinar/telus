@@ -15,7 +15,7 @@ def fopen():
 @app.route('/')
 @app.route('/home')
 # requires 'from flask import Response'
-def json_respon():
+def main():
     data4 = fopen()
     data4 = Response(response=json.dumps(data4),
             status=200,

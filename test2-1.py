@@ -15,7 +15,7 @@ def fopen():
 @app.route('/')
 @app.route('/home')
 # requires 'from flask import jsonify'
-def json_literal():
+def main():
     data1 = fopen()
     return jsonify(data1)
 

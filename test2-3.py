@@ -15,7 +15,7 @@ def fopen():
 @app.route('/')
 @app.route('/home')
 # requires 'import json' or 'from flask import json'
-def json_rclass():
+def main():
     data3 = fopen()
     data3 = app.response_class(
             response = json.dumps(data3),

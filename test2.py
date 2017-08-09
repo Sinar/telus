@@ -14,7 +14,7 @@ def fopen():
 
 @app.route('/')
 @app.route('/home')
-def home():
+def main():
     txt = "Hello, Flask!"
     return render_template("test2.html", msg = txt)
 

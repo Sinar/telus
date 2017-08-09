@@ -15,7 +15,7 @@ def fopen():
 @app.route('/')
 @app.route('/home')
 # requires 'import json'
-def json_string():
+def main():
     data2 = fopen()
     data2 = json.dumps(data2, indent=4, sort_keys=True) # pretty
     print(data2) # verbose

@@ -115,7 +115,7 @@ def base_dump():
 
 @app.route('/')
 @app.route('/home')
-def home():
+def main():
     print('Input JSON data from file:')
     source = json_data()
     source_pretty = json.dumps(source, indent=4, sort_keys=True)
@@ -134,3 +134,6 @@ def home():
     print('Output response:')
     print(result) # only response status will be printed here
     return result # return JSON data as object
+
+if __name__ == '__main__':
+    app.run()

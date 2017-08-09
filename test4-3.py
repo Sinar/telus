@@ -150,7 +150,7 @@ def base_dump():
 
 @app.route('/')
 @app.route('/home')
-def home():
+def main():
     print('Input JSON:')
     #empty = empty_record() # preview empty record of JSON data
     #print(empty)
@@ -172,3 +172,6 @@ def home():
     print('Output response:')
     print(result)
     return result
+
+if __name__ == '__main__':
+    app.run()

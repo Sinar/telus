@@ -40,7 +40,7 @@ def amend():
 
 @app.route('/')
 @app.route('/home')
-def home():
+def main():
     result = amend()
     print(result) # verbose
     result = app.response_class(

@@ -18,7 +18,7 @@ def aread():
 
 @app.route('/')
 @app.route('/home')
-def home():
+def main():
     result = aread()
     print(result) # verbose
     result = app.response_class(
