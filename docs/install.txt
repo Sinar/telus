@@ -1,16 +1,50 @@
-# Install dependencies
+Dependencies
+------------
 $ sudo apt-get install python
 $ sudo apt-get install python-pip
 
-# Method 1: Install Flask in virtualenv
+Flask (system wide)
+--------------------
+$ sudo -H pip install Flask
+
+MongoDB and Python support (system wide)
+----------------------------------------
+$ sudo apt-get install mongodb
+$ sudo -H pip install pymongo
+
+Python packages in virtualenv (advanced use)
+--------------------------------------------
 $ sudo apt-get install python-virtualenv
 $ mkdir test
 $ cd test
 ~/test$ virtualenv venv
 ~/test$ . venv/bin/activate
-(venv)~/test$ sudo -H pip install Flask
+(venv)~/test$ pip install Flask
 (venv)~/test$ deactivate
 ~/test$
 
-# Method 2: Install Flask in host system
-$ sudo -H pip install Flask
+Not just Flask, but applicable to any Python packages that
+can be installed via pip command.
+
+Remarks
+-------
+Decide whether to install Python packages using pip command
+on host system or virtualenv.
+
+* You have nothing to install in virtualenv, if the package
+  has been installed earlier at system wide.
+
+* Installing the same Python package in different directory
+  of virtualenv will install using cache files, from the
+  previously downloaded ones.
+
+* Always start with empty directory, before running the
+  virtualenv command. Some, if not all, existing files may
+  cause virtualenv setup to fail.
+
+If you are working on different codes that require multiple
+versions of Python, then you might want to use virtualenv.
+
+To be simple, install Python packages at system wide but
+use `sudo -H pip install <package>` command. However, in
+svirtualenv, just use `pip install <package>` command.
