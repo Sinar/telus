@@ -17,6 +17,7 @@ distinguish specific things that have been tried.
 * test4.py - read JSON data, save/read using SQLite database, output as JSON literal
 * test4-N.py - use JSON data from file/API, output as JSON literal
 * test5.py - similar to test4.py, except using MongoDB instead of SQLite
+* test5-N.py - use JSON data from in-built, file, API, output as JSON literal
 
 ## Actual codes
 
