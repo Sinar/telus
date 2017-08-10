@@ -1,0 +1,25 @@
+{
+  "A": [
+    {
+      "id": 1,
+      "person": {
+        "name": "John Doe",
+        "gender": "Male"
+      },
+      "organization": {
+        "name": "Volunteer Team"
+      },
+      "post": {
+        "role": "Participant"
+      }
+    },
+    {
+      "id": 2,
+      "person": {}
+    },
+    {
+      "id": 3,
+      "person": {}
+    }
+  ]
+}

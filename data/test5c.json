@@ -1,0 +1,25 @@
+{
+  "C": [
+    {
+      "id": 1,
+      "person": {
+        "name": "Thomas Edison",
+        "gender": "Male"
+      },
+      "organization": {
+        "name": "Inventor Group"
+      },
+      "post": {
+        "role": "Founder"
+      }
+    },
+    {
+      "id": 2,
+      "person": {}
+    },
+    {
+      "id": 3,
+      "person": {}
+    }
+  ]
+}

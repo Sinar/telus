@@ -1,0 +1,25 @@
+{
+  "B": [
+    {
+      "id": 2,
+      "person": {
+        "name": "Mary Jane",
+        "gender": "Female"
+      },
+      "organization": {
+        "name": "Freelance Group"
+      },
+      "post": {
+        "role": "Junior member"
+      }
+    },
+    {
+      "id": 2,
+      "person": {}
+    },
+    {
+      "id": 3,
+      "person": {}
+    }
+  ]
+}

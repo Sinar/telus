@@ -1,0 +1,185 @@
+$ FLASK_APP=test5-1.py flask run
+ * Serving Flask app "test5-1"
+ * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+Input JSON data:
+{
+    "A": [
+        {
+            "id": 1, 
+            "organization": {
+                "name": "Volunteer Team"
+            }, 
+            "person": {
+                "gender": "Male", 
+                "name": "John Doe"
+            }, 
+            "post": {
+                "role": "Participant"
+            }
+        }, 
+        {
+            "id": 2, 
+            "person": {}
+        }, 
+        {
+            "id": 3, 
+            "person": {}
+        }
+    ], 
+    "B": [
+        {
+            "id": 2, 
+            "organization": {
+                "name": "Freelance Group"
+            }, 
+            "person": {
+                "gender": "Female", 
+                "name": "Mary Jane"
+            }, 
+            "post": {
+                "role": "Junior member"
+            }
+        }, 
+        {
+            "id": 2, 
+            "person": {}
+        }, 
+        {
+            "id": 3, 
+            "person": {}
+        }
+    ], 
+    "C": [
+        {
+            "id": 1, 
+            "organization": {
+                "name": "Inventor Group"
+            }, 
+            "person": {
+                "gender": "Male", 
+                "name": "Thomas Edison"
+            }, 
+            "post": {
+                "role": "Founder"
+            }
+        }, 
+        {
+            "id": 2, 
+            "person": {}
+        }, 
+        {
+            "id": 3, 
+            "person": {}
+        }
+    ]
+}
+Save JSON data to MongoDB BSON...
+Create collection was successful
+Insert JSON data was successful
+Setup has completed
+Read JSON data from MongoDB BSON...
+Find collection from MongoDB BSON
+Print data from MongoDB BSON
+<pymongo.cursor.Cursor object at 0xb69cda4c>
+{u'A': [{u'person': {u'gender': u'Male', u'name': u'John Doe'}, u'post': {u'role': u'Participant'}, u'id': 1, u'organization': {u'name': u'Volunteer Team'}}, {u'person': {}, u'id': 2}, {u'person': {}, u'id': 3}], u'_id': ObjectId('598c076e9b72260b4e8952a6')}
+<type 'str'>
+{"A": [{"person": {"gender": "Male", "name": "John Doe"}, "post": {"role": "Participant"}, "id": 1, "organization": {"name": "Volunteer Team"}}, {"person": {}, "id": 2}, {"person": {}, "id": 3}], "_id": {"$oid": "598c076e9b72260b4e8952a6"}}
+<type 'dict'>
+{u'A': [{u'person': {u'gender': u'Male', u'name': u'John Doe'}, u'post': {u'role': u'Participant'}, u'id': 1, u'organization': {u'name': u'Volunteer Team'}}, {u'person': {}, u'id': 2}, {u'person': {}, u'id': 3}], u'_id': {u'$oid': u'598c076e9b72260b4e8952a6'}}
+{u'B': [{u'person': {u'gender': u'Female', u'name': u'Mary Jane'}, u'post': {u'role': u'Junior member'}, u'id': 2, u'organization': {u'name': u'Freelance Group'}}, {u'person': {}, u'id': 2}, {u'person': {}, u'id': 3}], u'_id': ObjectId('598c076e9b72260b4e8952a7')}
+<type 'str'>
+{"B": [{"person": {"gender": "Female", "name": "Mary Jane"}, "post": {"role": "Junior member"}, "id": 2, "organization": {"name": "Freelance Group"}}, {"person": {}, "id": 2}, {"person": {}, "id": 3}], "_id": {"$oid": "598c076e9b72260b4e8952a7"}}
+<type 'dict'>
+{u'B': [{u'person': {u'gender': u'Female', u'name': u'Mary Jane'}, u'post': {u'role': u'Junior member'}, u'id': 2, u'organization': {u'name': u'Freelance Group'}}, {u'person': {}, u'id': 2}, {u'person': {}, u'id': 3}], u'_id': {u'$oid': u'598c076e9b72260b4e8952a7'}}
+{u'C': [{u'person': {u'gender': u'Male', u'name': u'Thomas Edison'}, u'post': {u'role': u'Founder'}, u'id': 1, u'organization': {u'name': u'Inventor Group'}}, {u'person': {}, u'id': 2}, {u'person': {}, u'id': 3}], u'_id': ObjectId('598c076e9b72260b4e8952a8')}
+<type 'str'>
+{"C": [{"person": {"gender": "Male", "name": "Thomas Edison"}, "post": {"role": "Founder"}, "id": 1, "organization": {"name": "Inventor Group"}}, {"person": {}, "id": 2}, {"person": {}, "id": 3}], "_id": {"$oid": "598c076e9b72260b4e8952a8"}}
+<type 'dict'>
+{u'C': [{u'person': {u'gender': u'Male', u'name': u'Thomas Edison'}, u'post': {u'role': u'Founder'}, u'id': 1, u'organization': {u'name': u'Inventor Group'}}, {u'person': {}, u'id': 2}, {u'person': {}, u'id': 3}], u'_id': {u'$oid': u'598c076e9b72260b4e8952a8'}}
+Preview list of dictionaries
+<type 'list'>
+[{u'A': [{u'person': {u'gender': u'Male', u'name': u'John Doe'}, u'post': {u'role': u'Participant'}, u'id': 1, u'organization': {u'name': u'Volunteer Team'}}, {u'person': {}, u'id': 2}, {u'person': {}, u'id': 3}], u'_id': {u'$oid': u'598c076e9b72260b4e8952a6'}}, {u'B': [{u'person': {u'gender': u'Female', u'name': u'Mary Jane'}, u'post': {u'role': u'Junior member'}, u'id': 2, u'organization': {u'name': u'Freelance Group'}}, {u'person': {}, u'id': 2}, {u'person': {}, u'id': 3}], u'_id': {u'$oid': u'598c076e9b72260b4e8952a7'}}, {u'C': [{u'person': {u'gender': u'Male', u'name': u'Thomas Edison'}, u'post': {u'role': u'Founder'}, u'id': 1, u'organization': {u'name': u'Inventor Group'}}, {u'person': {}, u'id': 2}, {u'person': {}, u'id': 3}], u'_id': {u'$oid': u'598c076e9b72260b4e8952a8'}}]
+Put the dictionaries into single dictionary...
+Preview JSON literal:
+<type 'dict'>
+{u'A': [{u'person': {u'gender': u'Male', u'name': u'John Doe'}, u'post': {u'role': u'Participant'}, u'id': 1, u'organization': {u'name': u'Volunteer Team'}}, {u'person': {}, u'id': 2}, {u'person': {}, u'id': 3}], u'B': [{u'person': {u'gender': u'Female', u'name': u'Mary Jane'}, u'post': {u'role': u'Junior member'}, u'id': 2, u'organization': {u'name': u'Freelance Group'}}, {u'person': {}, u'id': 2}, {u'person': {}, u'id': 3}], u'_id': {u'$oid': u'598c076e9b72260b4e8952a8'}, u'C': [{u'person': {u'gender': u'Male', u'name': u'Thomas Edison'}, u'post': {u'role': u'Founder'}, u'id': 1, u'organization': {u'name': u'Inventor Group'}}, {u'person': {}, u'id': 2}, {u'person': {}, u'id': 3}]}
+Dump has completed
+Output JSON data:
+{
+    "A": [
+        {
+            "id": 1, 
+            "organization": {
+                "name": "Volunteer Team"
+            }, 
+            "person": {
+                "gender": "Male", 
+                "name": "John Doe"
+            }, 
+            "post": {
+                "role": "Participant"
+            }
+        }, 
+        {
+            "id": 2, 
+            "person": {}
+        }, 
+        {
+            "id": 3, 
+            "person": {}
+        }
+    ], 
+    "B": [
+        {
+            "id": 2, 
+            "organization": {
+                "name": "Freelance Group"
+            }, 
+            "person": {
+                "gender": "Female", 
+                "name": "Mary Jane"
+            }, 
+            "post": {
+                "role": "Junior member"
+            }
+        }, 
+        {
+            "id": 2, 
+            "person": {}
+        }, 
+        {
+            "id": 3, 
+            "person": {}
+        }
+    ], 
+    "C": [
+        {
+            "id": 1, 
+            "organization": {
+                "name": "Inventor Group"
+            }, 
+            "person": {
+                "gender": "Male", 
+                "name": "Thomas Edison"
+            }, 
+            "post": {
+                "role": "Founder"
+            }
+        }, 
+        {
+            "id": 2, 
+            "person": {}
+        }, 
+        {
+            "id": 3, 
+            "person": {}
+        }
+    ], 
+    "_id": {
+        "$oid": "598c076e9b72260b4e8952a8"
+    }
+}
+Output response:
+<Response 637 bytes [200 OK]>
+127.0.0.1 - - [10/Aug/2017 15:12:46] "GET / HTTP/1.1" 200 -
+

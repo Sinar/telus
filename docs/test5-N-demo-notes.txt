@@ -1,0 +1,6 @@
+Running 'test5-N.py' will all give same results, except 'test5-3.py' will return different print messages and different result for the third object.
+
+Differences:
+* 'test5-1.py' reads JSON data from in-built
+* 'test5-2.py' reads JSON data from JSON files 'test5{a,b,c}.json'
+* 'test5-3.py' reads JSON data from in-built, JSON file 'test5b.json' and get external JSON data via Popit API (same data used in 'test3.py')
