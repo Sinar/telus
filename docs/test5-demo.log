@@ -47,22 +47,24 @@ Input JSON data:
 }
 Save JSON data to MongoDB BSON...
 Create collection was successful
-Save JSON data has completed
+Insert JSON data was successful
+Setup has completed
 Read JSON data from MongoDB BSON...
-Find collection was successful
+Find collection from MongoDB BSON
 Print data from MongoDB BSON
-<pymongo.cursor.Cursor object at 0xb69af70c>
-{u'_id': ObjectId('598ab2d59b72260a35acce06'), u'result': [{u'person': {u'gender': u'Male', u'name': u'John Doe'}, u'post': {u'role': u'Participant'}, u'id': 1, u'organization': {u'name': u'Volunteer Team'}}, {u'person': {u'gender': u'Female', u'name': u'Mary Jane'}, u'post': {u'role': u'Junior member'}, u'id': 2, u'organization': {u'name': u'Freelance Group'}}, {u'person': {u'gender': u'Male', u'name': u'Thomas Edison'}, u'post': {u'role': u'Founder'}, u'id': 3, u'organization': {u'name': u'Inventor Group'}}]}
+<pymongo.cursor.Cursor object at 0xb690670c>
+{u'_id': ObjectId('598c072b9b72260b15978c87'), u'result': [{u'person': {u'gender': u'Male', u'name': u'John Doe'}, u'post': {u'role': u'Participant'}, u'id': 1, u'organization': {u'name': u'Volunteer Team'}}, {u'person': {u'gender': u'Female', u'name': u'Mary Jane'}, u'post': {u'role': u'Junior member'}, u'id': 2, u'organization': {u'name': u'Freelance Group'}}, {u'person': {u'gender': u'Male', u'name': u'Thomas Edison'}, u'post': {u'role': u'Founder'}, u'id': 3, u'organization': {u'name': u'Inventor Group'}}]}
 Preview JSON string:
 <type 'str'>
-{"_id": {"$oid": "598ab2d59b72260a35acce06"}, "result": [{"person": {"gender": "Male", "name": "John Doe"}, "post": {"role": "Participant"}, "id": 1, "organization": {"name": "Volunteer Team"}}, {"person": {"gender": "Female", "name": "Mary Jane"}, "post": {"role": "Junior member"}, "id": 2, "organization": {"name": "Freelance Group"}}, {"person": {"gender": "Male", "name": "Thomas Edison"}, "post": {"role": "Founder"}, "id": 3, "organization": {"name": "Inventor Group"}}]}
+{"_id": {"$oid": "598c072b9b72260b15978c87"}, "result": [{"person": {"gender": "Male", "name": "John Doe"}, "post": {"role": "Participant"}, "id": 1, "organization": {"name": "Volunteer Team"}}, {"person": {"gender": "Female", "name": "Mary Jane"}, "post": {"role": "Junior member"}, "id": 2, "organization": {"name": "Freelance Group"}}, {"person": {"gender": "Male", "name": "Thomas Edison"}, "post": {"role": "Founder"}, "id": 3, "organization": {"name": "Inventor Group"}}]}
 Preview JSON literal:
 <type 'dict'>
-{u'_id': {u'$oid': u'598ab2d59b72260a35acce06'}, u'result': [{u'person': {u'gender': u'Male', u'name': u'John Doe'}, u'post': {u'role': u'Participant'}, u'id': 1, u'organization': {u'name': u'Volunteer Team'}}, {u'person': {u'gender': u'Female', u'name': u'Mary Jane'}, u'post': {u'role': u'Junior member'}, u'id': 2, u'organization': {u'name': u'Freelance Group'}}, {u'person': {u'gender': u'Male', u'name': u'Thomas Edison'}, u'post': {u'role': u'Founder'}, u'id': 3, u'organization': {u'name': u'Inventor Group'}}]}
+{u'_id': {u'$oid': u'598c072b9b72260b15978c87'}, u'result': [{u'person': {u'gender': u'Male', u'name': u'John Doe'}, u'post': {u'role': u'Participant'}, u'id': 1, u'organization': {u'name': u'Volunteer Team'}}, {u'person': {u'gender': u'Female', u'name': u'Mary Jane'}, u'post': {u'role': u'Junior member'}, u'id': 2, u'organization': {u'name': u'Freelance Group'}}, {u'person': {u'gender': u'Male', u'name': u'Thomas Edison'}, u'post': {u'role': u'Founder'}, u'id': 3, u'organization': {u'name': u'Inventor Group'}}]}
+Dump has completed
 Output JSON data:
 {
     "_id": {
-        "$oid": "598ab2d59b72260a35acce06"
+        "$oid": "598c072b9b72260b15978c87"
     }, 
     "result": [
         {
@@ -108,5 +110,5 @@ Output JSON data:
 }
 Output response:
 <Response 478 bytes [200 OK]>
-127.0.0.1 - - [09/Aug/2017 14:59:33] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [10/Aug/2017 15:11:39] "GET / HTTP/1.1" 200 -
 

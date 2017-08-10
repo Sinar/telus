@@ -29,36 +29,44 @@ def json_data():
     return data
 
 def mongo_setup():
-    client = pymongo.MongoClient()
-    database = client.test
-    collection = database.persons
-    print('Create collection was successful')
-    collection.drop() # empty collection before insert new data
-    collection.insert_one(json_data()) # in-built data has one dict only 
-    print('Save JSON data has completed')
+    try:
+        client = pymongo.MongoClient()
+        database = client.test
+        collection = database.persons
+        print('Create collection was successful')
+        collection.drop() # empty collection before insert new data
+        collection.insert_one(json_data()) # in-built data has one dict only 
+        print('Insert JSON data was successful')
+    except Exception as e:
+        print('Exception: {0}'.format(e))
+    finally:
+        print('Setup has completed')
     return 0
 
 def mongo_dump():
-    client = pymongo.MongoClient()
-    database = client.test
-    collection = database.persons.find()
-    print('Find collection was successful')
-    # print and convert cursor object to JSON string
-    print('Print data from MongoDB BSON')
-    print(collection) # <pymongo.cursor.Cursor object at ...>
-    data = {} # use an empty dict, unlike { "result": [] } in test4.py
-    for item in collection:
-        print(item) # {u'_id': ObjectId...}
-        data = json.dumps(item, default=json_util.default)
-    # preview JSON string output
-    print('Preview JSON string:')
-    print(type(data)) # <type 'str'>
-    print(data)
-    # parse into json.loads() to get 'dict' output
-    print('Preview JSON literal:')
-    data = json.loads(data)
-    print(type(data)) # <type 'dict'>
-    print(data) # visible u'' strings in Terminal only
+    try:
+        client = pymongo.MongoClient()
+        database = client.test
+        print('Find collection from MongoDB BSON')
+        collection = database.persons.find()
+        print('Print data from MongoDB BSON')
+        # need to convert cursor object -> JSON string -> JSON literal
+        print(collection) # <pymongo.cursor.Cursor object at ...>
+        data = {} # use an empty dict to hold single dict
+        for item in collection:
+            print(item) # {u'_id': ObjectId...}
+            data = json.dumps(item, default=json_util.default)
+        print('Preview JSON string:')
+        print(type(data)) # <type 'str'>
+        print(data)
+        print('Preview JSON literal:')
+        data = json.loads(data)
+        print(type(data)) # <type 'dict'>
+        print(data) # visible u'' strings in terminal emulator only
+    except Exception as e:
+        print('Exception: {0}'.format(e))
+    finally:
+        print('Dump has completed')
     return data # return as valid JSON literal
 
 @app.route('/')
