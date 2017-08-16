@@ -61,13 +61,13 @@ def mongo_dump():
         print(collection) # <pymongo.cursor.Cursor object at ...>
         data_list = [] # use an empty list to hold multiple dict
         for item in collection:
-            print(item) # {u'_id': ObjectId...}
+            print(item) # {u'_id': ObjectId('...}
             parse = json.dumps(item, default=json_util.default)
             print(type(parse)) # <type 'str'>
-            print(parse) # {u'_id': "$oid"...}
+            print(parse) # {"_id": "$oid": "...}
             parse = json.loads(parse)
             print(type(parse)) # <type 'dict'>
-            print(parse)
+            print(parse) # {u'_id': u'$oid': u'...}
             data_list.append(parse)
         print('Preview list of dictionaries')
         print(type(data_list))
