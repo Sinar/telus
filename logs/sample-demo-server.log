@@ -1,0 +1,5 @@
+$ FLASK_APP=sample.py flask run
+ * Serving Flask app "sample"
+ * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+127.0.0.1 - - [18/Aug/2017 15:56:05] "GET /release/1 HTTP/1.1" 200 -
+127.0.0.1 - - [18/Aug/2017 15:56:07] "GET /release/2 HTTP/1.1" 200 -
