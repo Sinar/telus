@@ -17,20 +17,20 @@ def main():
 @app.route('/release/1',methods=['GET'])
 def get_tender():
     parse = json_file('data/tender.json')
-    tender = app.response_class(
+    data = app.response_class(
                 response = json.dumps(parse),
                 status = 200,
                 mimetype = 'application/json')
-    return tender
+    return data
 
 @app.route('/release/2',methods=['GET'])
 def get_award():
     parse = json_file('data/award.json')
-    tender = app.response_class(
+    data = app.response_class(
                 response = json.dumps(parse),
                 status = 200,
                 mimetype = 'application/json')
-    return tender
+    return data
 
 if __name__ == '__main__':
     app.run()
