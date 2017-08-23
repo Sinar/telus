@@ -31,6 +31,21 @@ def get_award():
                 status = 200,
                 mimetype = 'application/json')
     return data
+    
+@app.route('/release/tender/title=<title>',methods=['GET'])
+def get_tender_by_title(title):
+    parse = json_file('data/release_test.json')
+    if title == parse['tender']['title']:
+        parse = parse['tender']
+        status_code = 200
+    else:
+        parse = { "result": "Not found" }
+        status_code = 404
+    data = app.response_class(
+                response = json.dumps(parse),
+                status = status_code,
+                mimetype = 'application/json')
+    return data
 
 if __name__ == '__main__':
     app.run()

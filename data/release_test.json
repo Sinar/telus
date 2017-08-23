@@ -1,0 +1,214 @@
+{
+  "ocid": "ocds-213czf-000-00002",
+  "id": "ocds-213czf-000-00002-01-release",
+  "date": "",
+  "tag": [],
+  "initiationType": "string from initiationType codelist",
+  "tender": {
+    "id": "ocds-213czf-000-00001-01-tender",
+    "title": "foo",
+    "description": "string",
+    "status": "string from tenderStatus codelist",
+    "procuringEntity": {
+      "name": "string",
+      "id": "string"
+    },
+    "items": [
+      {
+        "id": "string",
+        "description": "string",
+        "classification": {
+          "scheme": "string",
+          "id": "string",
+          "description": "string",
+          "uri": "string"
+        },
+        "additionalClassifications": [
+          {
+            "scheme": "string",
+            "id": "string",
+            "description": "string",
+            "uri": "string"
+          }
+        ],
+        "quantity": "number",
+        "unit": {
+          "scheme": "string",
+          "id": "string",
+          "name": "string",
+          "value": {
+            "amount": "number",
+            "currency": "string"
+          },
+          "uri": "string"
+        }
+      }
+    ],
+    "value": {
+      "amount": "1000",
+      "currency": "USD"
+    },
+    "minValue": {
+      "amount": "number",
+      "currency": "string"
+    },
+    "procurementMethod": "string",
+    "procurementMethodDetails": "string",
+    "procurementMethodRationale": "string",
+    "mainProcurementCategory": "string",
+    "additionalProcurementCategories": "array",
+    "awardCriteria": "string",
+    "awardCriteriaDetails": "string",
+    "submissionMethod": "array",
+    "submissionMethodDetails": "string",
+    "tenderPeriod": {
+      "startDate": "string",
+      "endDate": "string",
+      "maxExtentDate": "string",
+      "durationInDays": "integer"
+    },
+    "enquiryPeriod": {
+      "startDate": "string",
+      "endDate": "string",
+      "maxExtentDate": "string",
+      "durationInDays": "integer"
+    },
+    "hasEnquiries": "boolean",
+    "eligibilityCriteria": "string",
+    "awardPeriod": {
+      "startDate": "string",
+      "endDate": "string",
+      "maxExtentDate": "string",
+      "durationInDays": "integer"
+    },
+    "contractPeriod": {
+      "startDate": "string",
+      "endDate": "string",
+      "maxExtentDate": "string",
+      "durationInDays": "integer"
+    },
+    "numberOfTenderers": "integer",
+    "tenderers": [
+      {
+        "name": "string",
+        "id": "string"
+      }
+    ],
+    "documents": [
+      {
+        "id": "string",
+        "documentType": "string",
+        "title": "string",
+        "description": "string",
+        "url": "string",
+        "datePublished": "string",
+        "dateModified": "string",
+        "format": "string",
+        "language": "string"
+      }
+    ],
+    "milestones": [
+      {
+        "id": "string",
+        "title": "string",
+        "type": "string",
+        "description": "string",
+        "code": "string",
+        "dueDate": "string",
+        "dateMet": "string",
+        "dateModified": "string",
+        "status": "string from milestoneStatus codelist"
+      }
+    ],
+    "amendments": [
+      {
+        "date": "string",
+        "rationale": "string",
+        "id": "string",
+        "description": "string",
+        "amendsReleaseID": "string",
+        "releaseID": "string"
+      }
+    ]
+  },
+  "awards": [
+    {
+      "id": "ocds-213czf-000-00002-award-supplier-one",
+      "title": "Award of contract to create the data merging tool.",
+      "description": "string",
+      "status": "active",
+      "date": "2016-03-01T09:30:00Z",
+      "value": {
+        "amount": "string",
+        "currency": "string"
+      },
+      "suppliers": [
+        {
+          "name": "string",
+          "id": "string"
+        }
+      ],
+      "items": [
+        {
+          "id": "string",
+          "description": "string",
+          "classification": {
+            "scheme": "string",
+            "id": "string",
+            "description": "string",
+            "uri": "string"
+          },
+          "additionalClassifications": [
+            {
+              "scheme": "string",
+              "id": "string",
+              "description": "string",
+              "uri": "string"
+            }
+          ],
+          "quantity": "number",
+          "unit": {
+            "scheme": "string",
+            "id": "string",
+            "name": "string",
+            "value": {
+              "amount": "number",
+              "currency": "string"
+            },
+            "uri": "string"
+          }
+        }
+      ],
+      "contractPeriod": {
+        "startDate": "string",
+        "endDate": "string",
+        "maxExtentDate": "string",
+        "durationInDays": "integer"
+      },
+      "documents": [
+        {
+          "id": "string",
+          "documentType": "string",
+          "title": "string",
+          "description": "string",
+          "url": "string",
+          "datePublished": "string",
+          "dateModified": "string",
+          "format": "string",
+          "language": "string"
+        }
+      ],
+      "amendments": [
+        {
+          "date": "string",
+          "rationale": "string",
+          "id": "string",
+          "description": "string",
+          "amendsReleaseID": "string",
+          "releaseID": "string"
+        }
+      ]
+    }
+  ],
+  "language": "string"
+}
