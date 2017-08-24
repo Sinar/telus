@@ -9,6 +9,8 @@ older systems with long term support.
 The code syntax shall be as much as compatible with Python 3.
 """
 
+from __future__ import print_function
+
 def main():
     """The main function and default route for app."""
     msg = 'Hello, telus!'
