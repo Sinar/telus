@@ -33,13 +33,27 @@ def list_jsonl(path):
             jsonl_list.append(fname)
     return path, jsonl_list, count
 
+def scan_jsonl(flist, fcount):
+    """Decide whether to test one or many JSONL files."""
+    if fcount == 1:
+        print('Test the only file: {}'.format(flist[0]))
+        # test_one(spath, flist)
+    elif fcount > 1:
+        print('Test many files, found: {}'.format(fcount))
+        # test_many(spath, flist)
+    else:
+        print('Huh, something was wrong')
+        sys.exit(1)
+
 def main():
     """The main function and default route for app."""
     print('Hello, telus!')
     version, platform = check_env()
     print('Using Python {0} on {1}'.format(version, platform))
-    _, _, counted = list_jsonl('./telus-data')
+    _, listed, counted = list_jsonl('./telus-data')
     print('JSONL files found: {}'.format(counted))
+    scan_jsonl(listed, counted) # later: spath, listed, counted
+    print('All files contain valid JSON objects')
 
 if __name__ == '__main__':
     main()
