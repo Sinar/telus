@@ -13,8 +13,7 @@ from __future__ import print_function
 
 def main():
     """The main function and default route for app."""
-    msg = 'Hello, telus!'
-    print(msg)
+    print('Hello, telus!')
 
 if __name__ == '__main__':
     main()
