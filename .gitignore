@@ -1,0 +1,7 @@
+# Ignore files related to Python
+# Read briefly at https://stackoverflow.com/q/8822335
+__pycache__/
+*.py[cod]
+*$py.class
+
+# More suggestions at https://github.com/github/gitignore
