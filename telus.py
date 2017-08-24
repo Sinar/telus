@@ -48,6 +48,18 @@ def test_one(spath, fname):
         print('Unexpected JSON object, check the syntax')
         raise
 
+def test_many(path, flist):
+    """Test many JSONL files."""
+    try:
+        files = 0
+        for fname in flist:
+            files = files + 1
+            test_one(path, fname)
+        print('Parsed files in total: {}'.format(files))
+    except:
+        print('Bad JSON list file')
+        raise
+
 def scan_jsonl(spath, flist, fcount):
     """Decide whether to test one or many JSONL files."""
     if fcount == 1:
@@ -55,7 +67,7 @@ def scan_jsonl(spath, flist, fcount):
         test_one(spath, flist[0])
     elif fcount > 1:
         print('Test many files')
-        # test_many(spath, flist)
+        test_many(spath, flist)
     else:
         print('Huh, something was wrong')
         sys.exit(1)
