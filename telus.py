@@ -14,6 +14,7 @@ from __future__ import print_function
 import sys
 import os
 import fnmatch
+import json
 
 def check_env():
     """Return Python version and system platform."""
@@ -33,13 +34,27 @@ def list_jsonl(path):
             jsonl_list.append(fname)
     return path, jsonl_list, count
 
-def scan_jsonl(flist, fcount):
+def test_one(spath, fname):
+    """Test one JSONL file."""
+    try:
+        full_path = spath + '/' + fname
+        print('Read {}'.format(full_path))
+        lines = 0
+        for jobject in open(full_path, 'r'):
+            lines = lines + 1
+            json.loads(jobject)
+        print('Parsed objects: {}'.format(lines))
+    except:
+        print('Unexpected JSON object, check the syntax')
+        raise
+
+def scan_jsonl(spath, flist, fcount):
     """Decide whether to test one or many JSONL files."""
     if fcount == 1:
-        print('Test the only file: {}'.format(flist[0]))
-        # test_one(spath, flist)
+        print('Test the only file')
+        test_one(spath, flist[0])
     elif fcount > 1:
-        print('Test many files, found: {}'.format(fcount))
+        print('Test many files')
         # test_many(spath, flist)
     else:
         print('Huh, something was wrong')
@@ -50,9 +65,9 @@ def main():
     print('Hello, telus!')
     version, platform = check_env()
     print('Using Python {0} on {1}'.format(version, platform))
-    _, listed, counted = list_jsonl('./telus-data')
+    spath, listed, counted = list_jsonl('./telus-data')
     print('JSONL files found: {}'.format(counted))
-    scan_jsonl(listed, counted) # later: spath, listed, counted
+    scan_jsonl(spath, listed, counted)
     print('All files contain valid JSON objects')
 
 if __name__ == '__main__':
