@@ -6,6 +6,8 @@ Use this module to validate JSON objects in one or many JSONL files.
 The validation make use of Python module `json`.
 """
 
+from __future__ import print_function
+
 import sys
 import json
 
