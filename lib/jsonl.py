@@ -10,7 +10,7 @@ import sys
 import json
 
 def test_one(spath, fname):
-    """Test one JSONL file."""
+    """Test JSON objects in one JSONL file."""
     try:
         full_path = spath + '/' + fname
         print('Read {}'.format(full_path))
@@ -24,7 +24,7 @@ def test_one(spath, fname):
         raise
 
 def test_many(spath, flist):
-    """Test many JSONL files."""
+    """Test JSON objects in many JSONL files."""
     try:
         files = 0
         for fname in flist:
@@ -32,16 +32,16 @@ def test_many(spath, flist):
             test_one(spath, fname)
         print('Parsed files in total: {}'.format(files))
     except:
-        print('Bad JSON list file')
+        print('Bad JSONL file')
         raise
 
 def scan_jsonl(spath, flist, fcount):
-    """Decide whether to test one or many JSONL files."""
+    """Decide whether to parse one or many JSONL files."""
     if fcount == 1:
-        print('Test the only file')
+        print('Parse the only file')
         test_one(spath, flist[0])
     elif fcount > 1:
-        print('Test many files')
+        print('Parse many files')
         test_many(spath, flist)
     else:
         print('Huh, something was wrong')
