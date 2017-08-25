@@ -76,7 +76,7 @@ def main():
     print('Hello, telus!')
     version, platform = check_env()
     print('Using Python {0} on {1}'.format(version, platform))
-    spath, listed, counted = list_files('./telus-data', '*.jsonl')
+    spath, listed, counted = list_files('./data', '*.jsonl')
     print('JSONL files found: {}'.format(counted))
     scan_jsonl(spath, listed, counted)
     print('All files contain valid JSON objects')
