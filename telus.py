@@ -4,7 +4,7 @@ This is the main script for telus.
 
 telus is a project implemented in Python. The codes are developed
 using Python 2.7 to be compatible with most Python frameworks and
-older systems with long term support.
+Python packages in older systems with long term support.
 
 The code syntax shall be as much as compatible with Python 3.
 """
@@ -17,7 +17,7 @@ import fnmatch
 import lib.jsonl
 
 def check_env():
-    """Return Python version and system platform."""
+    """Return strings of Python version, system platform."""
     xyz, _ = sys.version.split(' ', 1)
     sps = sys.platform
     return xyz, sps
