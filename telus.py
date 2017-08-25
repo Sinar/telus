@@ -22,17 +22,16 @@ def check_env():
     sps = sys.platform
     return xyz, sps
 
-def list_jsonl(path):
-    """Return path, list and count of JSONL files."""
-    jsonl_list = []
-    blob = '*.jsonl'
-    count = 0
-    for fname in os.listdir(path):
+def list_files(spath, blob):
+    """Return path, list, count of files with specified type."""
+    slist = []
+    scount = 0
+    for fname in os.listdir(spath):
         if fnmatch.fnmatch(fname, blob):
-            count = count + 1
+            scount = scount + 1
             print('Found {}'.format(fname))
-            jsonl_list.append(fname)
-    return path, jsonl_list, count
+            slist.append(fname)
+    return spath, slist, scount
 
 def test_one(spath, fname):
     """Test one JSONL file."""
@@ -77,7 +76,7 @@ def main():
     print('Hello, telus!')
     version, platform = check_env()
     print('Using Python {0} on {1}'.format(version, platform))
-    spath, listed, counted = list_jsonl('./telus-data')
+    spath, listed, counted = list_files('./telus-data', '*.jsonl')
     print('JSONL files found: {}'.format(counted))
     scan_jsonl(spath, listed, counted)
     print('All files contain valid JSON objects')
