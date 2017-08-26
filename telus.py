@@ -58,6 +58,11 @@ def set_database(client, dbname):
     database = client[dbname]
     return database
 
+def set_collection(client, dbname, ccname):
+    """Return collection with specified name on MongoDB."""
+    collection = client[dbname][ccname]
+    return collection
+
 def main():
     """The main function and default route for app."""
     print('Hello, telus!')
@@ -70,6 +75,8 @@ def main():
     client = use_conn()
     database = set_database(client, 'telus')
     print('Created database: {}'.format(database.name))
+    collection = set_collection(client, 'telus', 'example')
+    print('Created collection: {}'.format(collection.name))
 
 if __name__ == '__main__':
     main()
