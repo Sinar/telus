@@ -53,6 +53,11 @@ def use_conn():
     client = pymongo.MongoClient()
     return client
 
+def set_database(client, dbname):
+    """Return database with specified name on MongoDB."""
+    database = client[dbname]
+    return database
+
 def main():
     """The main function and default route for app."""
     print('Hello, telus!')
@@ -63,7 +68,8 @@ def main():
     lib.jsonl.scan_jsonl(spath, listed, counted)
     test_conn()
     client = use_conn()
-    print('Client object: {}'.format(client))
+    database = set_database(client, 'telus')
+    print('Created database: {}'.format(database.name))
 
 if __name__ == '__main__':
     main()
