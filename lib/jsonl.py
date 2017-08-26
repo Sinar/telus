@@ -14,10 +14,10 @@ import json
 def test_one(spath, fname):
     """Test JSON objects in one JSONL file."""
     try:
-        full_path = spath + '/' + fname
-        print('Read {}'.format(full_path))
+        fpath = spath + '/' + fname
+        print('Read {}'.format(fpath))
         lines = 0
-        for jobject in open(full_path, 'r'):
+        for jobject in open(fpath, 'r'):
             lines = lines + 1
             json.loads(jobject)
         print('Tested valid objects: {}'.format(lines))
