@@ -17,11 +17,21 @@ import fnmatch
 import lib.jsonl
 import pymongo
 
-def check_env():
-    """Return strings of Python version, system platform."""
+def get_version():
+    """Return the version number of Python interpreter."""
     xyz, _ = sys.version.split(' ', 1)
+    return xyz
+
+def get_platform():
+    """Return the identity of system on which Python is running."""
     sps = sys.platform
-    return xyz, sps
+    return sps
+
+def print_env():
+    """Print information of system environment."""
+    version = get_version()
+    platform = get_platform()
+    print('Using Python {0} on {1}'.format(version, platform))
 
 def list_files(spath, blob):
     """Return list, count of files with specified type."""
@@ -77,8 +87,7 @@ def set_collection(dbname, ccname):
 def main():
     """The main function and default route for app."""
     print('Hello, telus!')
-    version, platform = check_env()
-    print('Using Python {0} on {1}'.format(version, platform))
+    print_env()
     listed, counted = list_files('./data', '*.jsonl')
     print('JSONL files found: {}'.format(counted))
     lib.jsonl.scan_jsonl('./data', listed, counted)
