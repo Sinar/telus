@@ -27,15 +27,11 @@ def test_one(spath, fname):
 
 def test_many(spath, flist):
     """Test JSON objects in many JSONL files."""
-    try:
-        files = 0
-        for fname in flist:
-            files = files + 1
-            test_one(spath, fname)
-        print('Parsed files in total: {}'.format(files))
-    except:
-        print('Bad JSONL file')
-        raise
+    files = 0
+    for fname in flist:
+        files = files + 1
+        test_one(spath, fname)
+    print('Parsed files in total: {}'.format(files))
 
 def scan_jsonl(spath, flist, fcount):
     """Decide whether to parse one or many JSONL files."""
