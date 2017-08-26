@@ -15,6 +15,7 @@ import sys
 import os
 import fnmatch
 import lib.jsonl
+import pymongo
 
 def check_env():
     """Return strings of Python version, system platform."""
@@ -33,6 +34,19 @@ def list_files(spath, blob):
             slist.append(fname)
     return spath, slist, scount
 
+def test_conn():
+    """Test connection to MongoDB server."""
+    try:
+        print('Using PyMongo {}'.format(pymongo.version))
+        client = pymongo.MongoClient(
+                    connectTimeoutMS=2000,
+                    serverSelectionTimeoutMS=3000)
+        client.admin.command("ismaster")
+    except pymongo.errors.ConnectionFailure:
+        print('Refused connection, check if server is running')
+    else:
+        print('Connected to server')
+
 def main():
     """The main function and default route for app."""
     print('Hello, telus!')
@@ -41,6 +55,7 @@ def main():
     spath, listed, counted = list_files('./data', '*.jsonl')
     print('JSONL files found: {}'.format(counted))
     lib.jsonl.scan_jsonl(spath, listed, counted)
+    test_conn()
 
 if __name__ == '__main__':
     main()
