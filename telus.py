@@ -44,15 +44,13 @@ def test_conn():
         client.admin.command("ismaster")
     except pymongo.errors.ConnectionFailure:
         print('Refused connection, check if server is running')
+        sys.exit(1)
     else:
         print('Connected to server')
 
 def use_conn():
     """Return client for a MongoDB instance."""
-    try:
-        client = pymongo.MongoClient()
-    except pymongo.errors.PyMongoError as pme:
-        print(pme)
+    client = pymongo.MongoClient()
     return client
 
 def main():
