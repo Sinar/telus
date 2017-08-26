@@ -47,6 +47,14 @@ def test_conn():
     else:
         print('Connected to server')
 
+def use_conn():
+    """Return client for a MongoDB instance."""
+    try:
+        client = pymongo.MongoClient()
+    except pymongo.errors.PyMongoError as pme:
+        print(pme)
+    return client
+
 def main():
     """The main function and default route for app."""
     print('Hello, telus!')
@@ -56,6 +64,8 @@ def main():
     print('JSONL files found: {}'.format(counted))
     lib.jsonl.scan_jsonl(spath, listed, counted)
     test_conn()
+    client = use_conn()
+    print('Client object: {}'.format(client))
 
 if __name__ == '__main__':
     main()
