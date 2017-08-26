@@ -32,7 +32,7 @@ def list_files(spath, blob):
             scount = scount + 1
             print('Found {}'.format(fname))
             slist.append(fname)
-    return spath, slist, scount
+    return slist, scount
 
 def test_conn():
     """Test connection to MongoDB server."""
@@ -70,9 +70,9 @@ def main():
     print('Hello, telus!')
     version, platform = check_env()
     print('Using Python {0} on {1}'.format(version, platform))
-    spath, listed, counted = list_files('./data', '*.jsonl')
+    listed, counted = list_files('./data', '*.jsonl')
     print('JSONL files found: {}'.format(counted))
-    lib.jsonl.scan_jsonl(spath, listed, counted)
+    lib.jsonl.scan_jsonl('./data', listed, counted)
     test_conn()
     database = set_database('telus')
     print('Created database: {}'.format(database.name))
