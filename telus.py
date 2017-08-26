@@ -24,7 +24,7 @@ def check_env():
     return xyz, sps
 
 def list_files(spath, blob):
-    """Return path, list, count of files with specified type."""
+    """Return list, count of files with specified type."""
     slist = []
     scount = 0
     for fname in os.listdir(spath):
