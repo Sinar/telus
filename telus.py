@@ -34,6 +34,15 @@ def list_files(spath, blob):
             slist.append(fname)
     return slist, scount
 
+def list_objects(fpath):
+    """Return list, count of objects from specified file."""
+    slist = []
+    lines = 0
+    for sobject in open(fpath, 'r'):
+        lines = lines + 1
+        slist.append(sobject)
+    return slist, lines
+
 def test_conn():
     """Test connection to MongoDB server."""
     try:
@@ -78,6 +87,9 @@ def main():
     print('Created database: {}'.format(database.name))
     collection = set_collection('telus', 'example')
     print('Created collection: {}'.format(collection.name))
+    listed2, counted2 = list_objects('./data/jkr-keputusan_tender.jsonl')
+    print('Preview counted objects: {}'.format(counted2))
+    print('Preview first object: {}'.format(listed2[0]))
 
 if __name__ == '__main__':
     main()
