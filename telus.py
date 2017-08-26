@@ -53,13 +53,15 @@ def use_conn():
     client = pymongo.MongoClient()
     return client
 
-def set_database(client, dbname):
+def set_database(dbname):
     """Return database with specified name on MongoDB."""
+    client = use_conn()
     database = client[dbname]
     return database
 
-def set_collection(client, dbname, ccname):
+def set_collection(dbname, ccname):
     """Return collection with specified name on MongoDB."""
+    client = use_conn()
     collection = client[dbname][ccname]
     return collection
 
@@ -72,10 +74,9 @@ def main():
     print('JSONL files found: {}'.format(counted))
     lib.jsonl.scan_jsonl(spath, listed, counted)
     test_conn()
-    client = use_conn()
-    database = set_database(client, 'telus')
+    database = set_database('telus')
     print('Created database: {}'.format(database.name))
-    collection = set_collection(client, 'telus', 'example')
+    collection = set_collection('telus', 'example')
     print('Created collection: {}'.format(collection.name))
 
 if __name__ == '__main__':
