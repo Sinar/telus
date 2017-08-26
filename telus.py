@@ -41,7 +41,6 @@ def main():
     spath, listed, counted = list_files('./data', '*.jsonl')
     print('JSONL files found: {}'.format(counted))
     lib.jsonl.scan_jsonl(spath, listed, counted)
-    print('All files contain valid JSON objects')
 
 if __name__ == '__main__':
     main()
