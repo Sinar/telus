@@ -20,7 +20,7 @@ def test_one(spath, fname):
         for jobject in open(full_path, 'r'):
             lines = lines + 1
             json.loads(jobject)
-        print('Parsed objects: {}'.format(lines))
+        print('Tested valid objects: {}'.format(lines))
     except:
         print('Unexpected JSON object, check the syntax')
         raise
