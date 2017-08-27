@@ -51,9 +51,7 @@ def main():
     """The main function and default route for app."""
     print('Hello, telus!')
     lib.query.print_env()
-    listed, counted = lib.query.list_files('./data', '*.jsonl')
-    print('JSONL files found: {}'.format(counted))
-    lib.jsonl.scan_jsonl('./data', listed, counted)
+    lib.jsonl.scan_jsonl('./data')
     test_conn()
     database = set_database('telus')
     print('Created database: {}'.format(database.name))

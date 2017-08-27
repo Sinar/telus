@@ -10,6 +10,7 @@ from __future__ import print_function
 
 import sys
 import json
+import lib.query
 
 def test_one(spath, fname):
     """Test JSON objects in one JSONL file."""
@@ -33,8 +34,10 @@ def test_many(spath, flist):
         test_one(spath, fname)
     print('Parsed files in total: {}'.format(files))
 
-def scan_jsonl(spath, flist, fcount):
+def scan_jsonl(spath):
     """Decide whether to parse one or many JSONL files."""
+    flist, fcount = lib.query.list_files(spath, '*.jsonl')
+    print('JSONL files found: {}'.format(fcount))
     if fcount == 1:
         print('Parse the only file')
         test_one(spath, flist[0])
