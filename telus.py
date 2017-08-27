@@ -15,6 +15,9 @@ import sys
 import lib.query
 import lib.jsonl
 import pymongo
+import json
+from bson.objectid import ObjectId
+from bson import json_util
 
 def test_conn():
     """Test connection to MongoDB server."""
@@ -47,6 +50,26 @@ def set_collection(dbname, ccname):
     collection = client[dbname][ccname]
     return collection
 
+def add_test(ccobject, olist):
+    """Test add objects from list into specified collection."""
+    if ccobject.count == 0:
+        pass
+    else:
+        print('Collection was not empty, drop first')
+        ccobject.drop()
+    tcount = 0
+    for sobject in olist:
+        tcount = tcount + 1
+        jobject = json.loads(sobject)
+        result = ccobject.insert_one(jobject)
+        mobjectid = result.inserted_id
+        if tcount == 1:
+            fmoid = mobjectid
+        else:
+            lmoid = mobjectid
+        #print('Inserted object {0}: {1}'.format(tcount, mobjectid))
+    return fmoid, lmoid
+
 def main():
     """The main function and default route for app."""
     print('Hello, telus!')
@@ -61,6 +84,11 @@ def main():
                             './data/jkr-keputusan_tender.jsonl')
     print('Preview counted objects: {}'.format(counted2))
     print('Preview first object: {}'.format(listed2[0]))
+    fmoid, _ = add_test(collection, listed2)
+    print('Review inserted objects: {}'.format(collection.count()))
+    rdict_fmoid = collection.find_one({'_id':ObjectId(fmoid)})
+    jdict_fmoid = json.dumps(rdict_fmoid, default=json_util.default)
+    print('Review first inserted object: {}'.format(jdict_fmoid))
 
 if __name__ == '__main__':
     main()
