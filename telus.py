@@ -72,6 +72,20 @@ def add_test(ccobject, olist):
         #print('Inserted object {0}: {1}'.format(tcount, mobjectid))
     return fmoid, lmoid
 
+def store_awards():
+    """Store awards from JSONL into MongoDB."""
+    print('Prepare to store awards')
+    collection = set_collection('telus', 'example')
+    listed2, counted2 = lib.query.list_objects(
+                            './data/jkr-keputusan_tender.jsonl')
+    print('Preview counted objects: {}'.format(counted2))
+    print('Preview first object: {}'.format(listed2[0]))
+    fmoid, _ = add_test(collection, listed2)
+    print('Inserted objects: {}'.format(collection.count()))
+    rdict_fmoid = collection.find_one({'_id':ObjectId(fmoid)})
+    jdict_fmoid = json.dumps(rdict_fmoid, default=json_util.default)
+    print('Inserted first object: {}'.format(jdict_fmoid))
+
 def main():
     """The main function and default route for app."""
     print('Hello, telus!')
@@ -79,16 +93,7 @@ def main():
     lib.jsonl.scan_jsonl('./data')
     test_conn()
     database = set_database('telus')
-    collection = set_collection('telus', 'example')
-    listed2, counted2 = lib.query.list_objects(
-                            './data/jkr-keputusan_tender.jsonl')
-    print('Preview counted objects: {}'.format(counted2))
-    print('Preview first object: {}'.format(listed2[0]))
-    fmoid, _ = add_test(collection, listed2)
-    print('Review inserted objects: {}'.format(collection.count()))
-    rdict_fmoid = collection.find_one({'_id':ObjectId(fmoid)})
-    jdict_fmoid = json.dumps(rdict_fmoid, default=json_util.default)
-    print('Review first inserted object: {}'.format(jdict_fmoid))
+    store_awards()
 
 if __name__ == '__main__':
     main()
