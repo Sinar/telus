@@ -91,7 +91,7 @@ def main():
     lib.query.print_env()
     lib.jsonl.scan_jsonl('./data')
     test_conn()
-    database = set_database('telus')
+    set_database('telus')
     store_awards('./data/jkr-keputusan_tender.jsonl')
 
 if __name__ == '__main__':
