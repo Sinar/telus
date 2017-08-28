@@ -42,12 +42,14 @@ def set_database(dbname):
     """Return database with specified name on MongoDB."""
     client = use_conn()
     database = client[dbname]
+    print('Created database: {}'.format(database.name))
     return database
 
 def set_collection(dbname, ccname):
     """Return collection with specified name on MongoDB."""
     client = use_conn()
     collection = client[dbname][ccname]
+    print('Created collection: {}'.format(collection.name))
     return collection
 
 def add_test(ccobject, olist):
@@ -77,9 +79,7 @@ def main():
     lib.jsonl.scan_jsonl('./data')
     test_conn()
     database = set_database('telus')
-    print('Created database: {}'.format(database.name))
     collection = set_collection('telus', 'example')
-    print('Created collection: {}'.format(collection.name))
     listed2, counted2 = lib.query.list_objects(
                             './data/jkr-keputusan_tender.jsonl')
     print('Preview counted objects: {}'.format(counted2))
