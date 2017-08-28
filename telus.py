@@ -72,12 +72,11 @@ def add_test(ccobject, olist):
         #print('Inserted object {0}: {1}'.format(tcount, mobjectid))
     return fmoid, lmoid
 
-def store_awards():
+def store_awards(fpath):
     """Store awards from JSONL into MongoDB."""
     print('Prepare to store awards')
     collection = set_collection('telus', 'example')
-    listed2, counted2 = lib.query.list_objects(
-                            './data/jkr-keputusan_tender.jsonl')
+    listed2, counted2 = lib.query.list_objects(fpath)
     print('Preview counted objects: {}'.format(counted2))
     print('Preview first object: {}'.format(listed2[0]))
     fmoid, _ = add_test(collection, listed2)
@@ -93,7 +92,7 @@ def main():
     lib.jsonl.scan_jsonl('./data')
     test_conn()
     database = set_database('telus')
-    store_awards()
+    store_awards('./data/jkr-keputusan_tender.jsonl')
 
 if __name__ == '__main__':
     main()
