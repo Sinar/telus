@@ -43,10 +43,13 @@ def test_conn():
         return client
 
 def get_conn():
-    """Print versions of MongoDB and PyMongo when available."""
+    """Return versions of MongoDB and PyMongo when available."""
     client = test_conn()
-    print('Using MongoDB {}'.format(client.server_info()['version']))
-    print('Using PyMongo {}'.format(pymongo.version))
+    server_version = client.server_info()['version']
+    driver_version = pymongo.version
+    print('Using MongoDB {0} with PyMongo {1}'.format(
+            server_version, driver_version))
+    return server_version, driver_version
 
 def use_conn():
     """Return client for a MongoDB instance."""
