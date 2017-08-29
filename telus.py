@@ -20,7 +20,7 @@ def main():
     print('Hello, telus!')
     lib.query.print_env()
     lib.jsonl.scan_jsonl('./data')
-    lib.pymg3.test_conn()
+    lib.pymg3.test_conn('localhost', 27017)
     lib.pymg3.set_database('telus')
     lib.pymg3.store_awards('./data/jkr-keputusan_tender.jsonl')
 

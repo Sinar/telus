@@ -28,10 +28,12 @@ from bson import json_util
 
 import lib.query
 
-def test_conn():
+def test_conn(host, port):
     """Test connection to MongoDB server."""
     try:
         client = pymongo.MongoClient(
+                    host,
+                    port,
                     connectTimeoutMS=2000,
                     serverSelectionTimeoutMS=3000)
         client.admin.command("ismaster")
@@ -42,9 +44,9 @@ def test_conn():
         print('Connected to server')
         return client
 
-def get_conn():
+def get_conn(host, port):
     """Return versions of MongoDB and PyMongo when available."""
-    client = test_conn()
+    client = test_conn(host, port)
     server_version = client.server_info()['version']
     driver_version = pymongo.version
     print('Using MongoDB {0} with PyMongo {1}'.format(
