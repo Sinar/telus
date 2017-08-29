@@ -35,6 +35,7 @@ def test_conn():
         client = pymongo.MongoClient(
                     connectTimeoutMS=2000,
                     serverSelectionTimeoutMS=3000)
+        print('Using MongoDB {}'.format(client.server_info()['version']))
         client.admin.command("ismaster")
     except pymongo.errors.ConnectionFailure:
         print('Refused connection, check if server is running')
