@@ -31,17 +31,22 @@ import lib.query
 def test_conn():
     """Test connection to MongoDB server."""
     try:
-        print('Using PyMongo {}'.format(pymongo.version))
         client = pymongo.MongoClient(
                     connectTimeoutMS=2000,
                     serverSelectionTimeoutMS=3000)
-        print('Using MongoDB {}'.format(client.server_info()['version']))
         client.admin.command("ismaster")
     except pymongo.errors.ConnectionFailure:
         print('Refused connection, check if server is running')
         sys.exit(1)
     else:
         print('Connected to server')
+        return client
+
+def get_conn():
+    """Print versions of MongoDB and PyMongo when available."""
+    client = test_conn()
+    print('Using MongoDB {}'.format(client.server_info()['version']))
+    print('Using PyMongo {}'.format(pymongo.version))
 
 def use_conn():
     """Return client for a MongoDB instance."""
