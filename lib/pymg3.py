@@ -84,10 +84,10 @@ def add_test(ccobject, olist):
 def store_awards(fpath):
     """Store awards from JSONL into MongoDB."""
     print('Prepare to store awards')
-    collection = set_collection('telus', 'awards')
     listed2, counted2 = lib.query.list_objects(fpath)
     print('Preview counted objects: {}'.format(counted2))
     print('Preview first object: {}'.format(listed2[0]))
+    collection = set_collection('telus', 'awards')
     fmoid, _ = add_test(collection, listed2)
     print('Inserted objects: {}'.format(collection.count()))
     rdict_fmoid = collection.find_one({'_id':ObjectId(fmoid)})
