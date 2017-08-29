@@ -21,8 +21,10 @@ def main():
     lib.query.print_env()
     lib.jsonl.scan_jsonl('./data')
     lib.pymg3.test_conn('localhost', 27017)
-    lib.pymg3.set_database('telus')
-    lib.pymg3.store_awards('./data/jkr-keputusan_tender.jsonl')
+    client = lib.pymg3.use_conn('localhost', 27017)
+    lib.pymg3.set_database(client, 'telus')
+    lib.pymg3.store_awards(client,
+                            './data/jkr-keputusan_tender.jsonl')
 
 if __name__ == '__main__':
     main()

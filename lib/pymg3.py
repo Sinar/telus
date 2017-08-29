@@ -53,21 +53,19 @@ def get_conn(host, port):
             server_version, driver_version))
     return server_version, driver_version
 
-def use_conn():
+def use_conn(host, port):
     """Return client for a MongoDB instance."""
-    client = pymongo.MongoClient()
+    client = pymongo.MongoClient(host, port)
     return client
 
-def set_database(dbname):
+def set_database(client, dbname):
     """Return database with specified name on MongoDB."""
-    client = use_conn()
     database = client[dbname]
     print('Created database: {}'.format(database.name))
     return database
 
-def set_collection(dbname, ccname):
+def set_collection(client, dbname, ccname):
     """Return collection with specified name on MongoDB."""
-    client = use_conn()
     collection = client[dbname][ccname]
     print('Created collection: {}'.format(collection.name))
     return collection
@@ -92,13 +90,13 @@ def add_test(ccobject, olist):
         #print('Inserted object {0}: {1}'.format(tcount, mobjectid))
     return fmoid, lmoid
 
-def store_awards(fpath):
+def store_awards(client, fpath):
     """Store awards from JSONL into MongoDB."""
     print('Prepare to store awards')
     listed2, counted2 = lib.query.list_objects(fpath)
     print('Preview counted objects: {}'.format(counted2))
     print('Preview first object: {}'.format(listed2[0]))
-    collection = set_collection('telus', 'awards')
+    collection = set_collection(client, 'telus', 'awards')
     fmoid, _ = add_test(collection, listed2)
     print('Inserted objects: {}'.format(collection.count()))
     rdict_fmoid = collection.find_one({'_id':ObjectId(fmoid)})
