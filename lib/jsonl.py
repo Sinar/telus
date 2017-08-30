@@ -36,7 +36,6 @@ def test_many(spath, flist):
 def scan_jsonl(spath):
     """Decide whether to parse one or many JSONL files."""
     flist, fcount = lib.query.list_files(spath, '*.jsonl')
-    print('JSONL files found: {}'.format(fcount))
     if fcount == 1:
         print('Parse the only file')
         test_one(spath, flist[0])
@@ -45,4 +44,4 @@ def scan_jsonl(spath):
         test_many(spath, flist)
     else:
         print('Did not parse')
-        raise ValueError('Unexpected number of files found')
+        raise ValueError('Unexpected number of files found', fcount)
