@@ -8,7 +8,6 @@ The validation make use of Python module `json`.
 
 from __future__ import print_function
 
-import sys
 import json
 import lib.query
 
@@ -45,5 +44,5 @@ def scan_jsonl(spath):
         print('Parse many files')
         test_many(spath, flist)
     else:
-        print('Huh, something was wrong')
-        sys.exit(1)
+        print('Did not parse')
+        raise ValueError('Unexpected number of files found')
