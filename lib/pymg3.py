@@ -24,7 +24,6 @@ import json
 import pymongo
 from bson.objectid import ObjectId
 from bson import json_util
-
 import lib.query
 
 def test_conn(host, port):
@@ -69,18 +68,18 @@ def set_collection(client, dbname, ccname):
     print('Created collection: {}'.format(collection.name))
     return collection
 
-def add_test(ccobject, olist):
+def add_test(collection, olist):
     """Test add objects from list into specified collection."""
-    if ccobject.count == 0:
+    if collection.count == 0:
         pass
     else:
         print('Collection was not empty, drop first')
-        ccobject.drop()
+        collection.drop()
     tcount = 0
     for sobject in olist:
         tcount = tcount + 1
         jobject = json.loads(sobject)
-        result = ccobject.insert_one(jobject)
+        result = collection.insert_one(jobject)
         mobjectid = result.inserted_id
         if tcount == 1:
             fmoid = mobjectid
