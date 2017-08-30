@@ -12,7 +12,8 @@ stable release (http://flask.pocoo.org/docs/0.12/python3/).
 
 from __future__ import print_function
 
-from flask import Flask
+from flask import Flask, json
+import telus
 
 APP = Flask(__name__)
 
@@ -22,6 +23,27 @@ def home():
     msg = 'Hello, telus! from Flask'
     print(msg)
     return msg
+
+@APP.route('/demo')
+def demo():
+    """Demonstrate running function from main script."""
+    try:
+        telus.dry_run()
+    except ValueError:
+        detail = {"result": "Failed to process"}
+        status = 400
+    except RuntimeError:
+        detail = {"result": "Failed to connect"}
+        status = 404
+    else:
+        detail = {"result": "Successful"}
+        status = 200
+    finally:
+        result = APP.response_class(
+                    response=json.dumps(detail),
+                    status=status,
+                    mimetype='application/json')
+    return result
 
 if __name__ == '__main__':
     APP.run()
