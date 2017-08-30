@@ -53,7 +53,7 @@ def get_conn(host, port):
 
 def use_conn(host, port):
     """Return client for a MongoDB instance."""
-    client = pymongo.MongoClient(host, port)
+    client = test_conn(host, port)
     return client
 
 def set_database(client, dbname):

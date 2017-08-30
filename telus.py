@@ -31,7 +31,6 @@ def test_awards():
 def main():
     """Default function for main script."""
     print('Hello, telus!')
-    dry_run()
     test_awards()
 
 if __name__ == '__main__':
