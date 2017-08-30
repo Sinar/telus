@@ -21,14 +21,18 @@ def dry_run():
     lib.jsonl.scan_jsonl('./data')
     lib.pymg3.test_conn('localhost', 27017)
 
-def main():
-    """Default function for main script."""
-    print('Hello, telus!')
-    dry_run()
+def test_awards():
+    """Test store awards using basic operations."""
     client = lib.pymg3.use_conn('localhost', 27017)
     lib.pymg3.set_database(client, 'telus')
     lib.pymg3.store_awards(client,
                             './data/jkr-keputusan_tender.jsonl')
+
+def main():
+    """Default function for main script."""
+    print('Hello, telus!')
+    dry_run()
+    test_awards()
 
 if __name__ == '__main__':
     main()
