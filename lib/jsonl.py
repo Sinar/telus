@@ -21,7 +21,7 @@ def test_one(spath, fname):
             lines = lines + 1
             json.loads(jobject)
         print('Tested valid objects: {}'.format(lines))
-    except:
+    except ValueError:
         print('Unexpected JSON object, check the syntax')
         raise
 
