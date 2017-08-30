@@ -20,7 +20,6 @@ for PyMongo 3.0 and newer. Avoid deprecated API mentioned by docs.
 
 from __future__ import print_function
 
-import sys
 import json
 import pymongo
 from bson.objectid import ObjectId
@@ -38,8 +37,8 @@ def test_conn(host, port):
                     serverSelectionTimeoutMS=3000)
         client.admin.command("ismaster")
     except pymongo.errors.ConnectionFailure:
-        print('Refused connection, check if server is running')
-        sys.exit(1)
+        print('Failed to connect')
+        raise RuntimeError('Server not available', host, port)
     else:
         print('Connected to server')
         return client
