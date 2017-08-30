@@ -18,11 +18,11 @@ import lib.pymg3
 def dry_run():
     """Print information without running any operations."""
     lib.query.print_env()
-    lib.jsonl.scan_jsonl('./data')
     lib.pymg3.test_conn('localhost', 27017)
 
 def test_awards():
     """Test store awards using basic operations."""
+    lib.jsonl.scan_jsonl('./data')
     client = lib.pymg3.use_conn('localhost', 27017)
     lib.pymg3.set_database(client, 'telus')
     lib.pymg3.store_awards(client,
