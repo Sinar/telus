@@ -70,7 +70,7 @@ def set_collection(client, dbname, ccname):
 
 def add_test(collection, olist):
     """Test add objects from list into specified collection."""
-    if collection.count == 0:
+    if collection.count() == 0:
         pass
     else:
         print('Collection was not empty, drop first')
