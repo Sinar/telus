@@ -16,7 +16,7 @@ import lib.jsonl
 import lib.pymg3
 
 def main():
-    """The main function and default route for app."""
+    """Default function for main script."""
     print('Hello, telus!')
     lib.query.print_env()
     lib.jsonl.scan_jsonl('./data')
