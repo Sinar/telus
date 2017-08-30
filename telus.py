@@ -20,6 +20,7 @@ def dry_run():
     lib.query.print_env()
     lib.jsonl.scan_jsonl('./data')
     lib.pymg3.test_conn('localhost', 27017)
+    return True
 
 def main():
     """Default function for main script."""
