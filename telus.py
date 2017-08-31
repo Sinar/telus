@@ -32,7 +32,18 @@ def test_awards():
 def main():
     """Default function for main script."""
     print('Hello, telus!')
-    test_awards()
+    try:
+        test_awards()
+    except IOError as error:
+        detail = error
+    except ValueError as error:
+        detail = error
+    except RuntimeError as error:
+        detail = error
+    else:
+        detail = 'Done'
+    finally:
+        print(detail)
 
 if __name__ == '__main__':
     main()
