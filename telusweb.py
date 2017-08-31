@@ -29,18 +29,22 @@ def demo():
     """Demonstrate running function from main script."""
     try:
         telus.dry_run()
-    except ValueError:
-        detail = {"result": "Failed to process"}
+    except ValueError as error:
+        detail = error
+        parse = {"result": "Failed to process"}
         status = 400
-    except RuntimeError:
-        detail = {"result": "Failed to connect"}
+    except RuntimeError as error:
+        detail = error
+        parse = {"result": "Failed to connect"}
         status = 404
     else:
-        detail = {"result": "Successful"}
+        detail = 'Done'
+        parse = {"result": "Successful"}
         status = 200
     finally:
+        print(detail)
         result = APP.response_class(
-                    response=json.dumps(detail),
+                    response=json.dumps(parse),
                     status=status,
                     mimetype='application/json')
     return result
