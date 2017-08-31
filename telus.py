@@ -18,6 +18,7 @@ import lib.pymg3
 def dry_run():
     """Print information without running any operations."""
     lib.query.print_env()
+    lib.jsonl.scan_jsonl('./data')
     lib.pymg3.test_conn('localhost', 27017)
 
 def test_awards():
