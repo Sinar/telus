@@ -24,7 +24,6 @@ import json
 import pymongo
 from bson.objectid import ObjectId
 from bson import json_util
-import lib.query
 
 def test_conn(host, port):
     """Test connection to MongoDB server."""
@@ -88,10 +87,19 @@ def add_test(collection, olist):
         #print('Inserted object {0}: {1}'.format(tcount, mobjectid))
     return fmoid, lmoid
 
+def list_objects(fpath):
+    """Return list, count of objects from specified file."""
+    slist = []
+    lines = 0
+    for sobject in open(fpath, 'r'):
+        lines = lines + 1
+        slist.append(sobject)
+    return slist, lines
+
 def store_awards(client, fpath):
     """Store awards from JSONL into MongoDB."""
     print('Prepare to store awards')
-    listed2, counted2 = lib.query.list_objects(fpath)
+    listed2, counted2 = list_objects(fpath)
     print('Preview counted objects: {}'.format(counted2))
     print('Preview first object: {}'.format(listed2[0]))
     collection = set_collection(client, 'telus', 'awards')
