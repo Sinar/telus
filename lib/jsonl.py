@@ -9,7 +9,8 @@ The validation make use of Python module `json`.
 from __future__ import print_function
 
 import json
-import lib.query
+import os
+import fnmatch
 
 def test_one(spath, fname):
     """Test JSON objects in one JSONL file."""
@@ -33,15 +34,26 @@ def test_many(spath, flist):
         test_one(spath, fname)
     print('Parsed files in total: {}'.format(files))
 
+def list_jsonl(spath):
+    """Return list, count of JSONL files."""
+    flist = []
+    count = 0
+    for fname in os.listdir(spath):
+        if fnmatch.fnmatch(fname, '*.jsonl'):
+            count = count + 1
+            print('Found {0}: {1}'.format(count, fname))
+            flist.append(fname)
+    return flist, count
+
 def scan_jsonl(spath):
     """Decide whether to parse one or many JSONL files."""
-    flist, fcount = lib.query.list_files(spath, '*.jsonl')
-    if fcount == 1:
+    flist, count = list_jsonl(spath)
+    if count == 1:
         print('Parse the only file')
         test_one(spath, flist[0])
-    elif fcount > 1:
+    elif count > 1:
         print('Parse many files')
         test_many(spath, flist)
     else:
         print('Did not parse')
-        raise ValueError('Unexpected number of files found', fcount)
+        raise ValueError('Unexpected number of files found', count)
