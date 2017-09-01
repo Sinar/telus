@@ -32,13 +32,13 @@ def print_env():
 def list_files(spath, blob):
     """Return list, count of files with specified type."""
     slist = []
-    scount = 0
+    count = 0
     for fname in os.listdir(spath):
         if fnmatch.fnmatch(fname, blob):
-            scount = scount + 1
-            print('Found {}'.format(fname))
+            count = count + 1
+            print('Found {0}: {1}'.format(count, fname))
             slist.append(fname)
-    return slist, scount
+    return slist, count
 
 def list_objects(fpath):
     """Return list, count of objects from specified file."""
