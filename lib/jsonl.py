@@ -12,10 +12,9 @@ import json
 import os
 import fnmatch
 
-def test_one(spath, fname):
+def test_one(fpath):
     """Test JSON objects in one JSONL file."""
     try:
-        fpath = spath + '/' + fname
         print('Read {}'.format(fpath))
         lines = 0
         for jobject in open(fpath, 'r'):
@@ -31,7 +30,8 @@ def test_many(spath, flist):
     files = 0
     for fname in flist:
         files = files + 1
-        test_one(spath, fname)
+        fpath = spath + '/' + fname
+        test_one(fpath)
     print('Parsed files in total: {}'.format(files))
 
 def list_jsonl(spath):
@@ -50,7 +50,8 @@ def scan_jsonl(spath):
     flist, count = list_jsonl(spath)
     if count == 1:
         print('Parse the only file')
-        test_one(spath, flist[0])
+        fpath = spath + '/' + flist[0]
+        test_one(fpath)
     elif count > 1:
         print('Parse many files')
         test_many(spath, flist)
