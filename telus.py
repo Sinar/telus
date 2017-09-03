@@ -23,10 +23,10 @@ def dry_run():
 
 def test_awards():
     """Test store awards using basic operations."""
-    lib.jsonl.test_one('./data/jkr-keputusan_tender.jsonl')
+    fpath = './data/jkr-keputusan_tender.jsonl'
+    lib.jsonl.test_one(fpath)
     client = lib.pymg3.use_conn('localhost', 27017)
-    lib.pymg3.store_awards(client,
-                            './data/jkr-keputusan_tender.jsonl')
+    lib.pymg3.store_awards(client, fpath)
 
 def main():
     """Default function for main script."""
