@@ -105,8 +105,7 @@ def add_objects(collection, olist):
 def store_awards(client, fpath):
     """Store awards from JSONL into MongoDB."""
     print('Prepare to store awards')
-    listed2, counted2 = list_objects(fpath)
-    print('Preview counted objects: {}'.format(counted2))
+    listed2, _ = list_objects(fpath)
     print('Preview first object: {}'.format(listed2[0]))
     _, collection = use_setup(client, 'telus', 'awards')
     fmoid, _ = add_objects(collection, listed2)
