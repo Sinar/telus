@@ -23,7 +23,7 @@ def dry_run():
 
 def test_awards():
     """Test store awards using basic operations."""
-    lib.jsonl.scan_jsonl('./data')
+    lib.jsonl.test_one('./data/jkr-keputusan_tender.jsonl')
     client = lib.pymg3.use_conn('localhost', 27017)
     lib.pymg3.store_awards(client,
                             './data/jkr-keputusan_tender.jsonl')
