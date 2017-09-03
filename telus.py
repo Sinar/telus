@@ -25,7 +25,6 @@ def test_awards():
     """Test store awards using basic operations."""
     lib.jsonl.scan_jsonl('./data')
     client = lib.pymg3.use_conn('localhost', 27017)
-    lib.pymg3.set_database(client, 'telus')
     lib.pymg3.store_awards(client,
                             './data/jkr-keputusan_tender.jsonl')
 
