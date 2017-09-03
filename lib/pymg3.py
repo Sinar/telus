@@ -58,14 +58,20 @@ def use_conn(host, port):
 def set_database(client, dbname):
     """Return database with specified name on MongoDB."""
     database = client[dbname]
-    print('Created database: {}'.format(database.name))
+    print('Setup database: {}'.format(database.name))
     return database
 
 def set_collection(client, dbname, ccname):
     """Return collection with specified name on MongoDB."""
     collection = client[dbname][ccname]
-    print('Created collection: {}'.format(collection.name))
+    print('Setup collection: {}'.format(collection.name))
     return collection
+
+def use_setup(client, dbname, ccname):
+    """Return database and collection that were setup on MongoDB."""
+    database = set_database(client, dbname)
+    collection = set_collection(client, dbname, ccname)
+    return database, collection
 
 def add_test(collection, olist):
     """Test add objects from list into specified collection."""
