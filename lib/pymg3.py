@@ -73,7 +73,16 @@ def use_setup(client, dbname, ccname):
     collection = set_collection(client, dbname, ccname)
     return database, collection
 
-def add_test(collection, olist):
+def list_objects(fpath):
+    """Return list, count of objects from specified file."""
+    slist = []
+    lines = 0
+    for sobject in open(fpath, 'r'):
+        lines = lines + 1
+        slist.append(sobject)
+    return slist, lines
+
+def add_objects(collection, olist):
     """Test add objects from list into specified collection."""
     if collection.count() == 0:
         pass
@@ -93,15 +102,6 @@ def add_test(collection, olist):
         #print('Inserted object {0}: {1}'.format(tcount, mobjectid))
     return fmoid, lmoid
 
-def list_objects(fpath):
-    """Return list, count of objects from specified file."""
-    slist = []
-    lines = 0
-    for sobject in open(fpath, 'r'):
-        lines = lines + 1
-        slist.append(sobject)
-    return slist, lines
-
 def store_awards(client, fpath):
     """Store awards from JSONL into MongoDB."""
     print('Prepare to store awards')
@@ -109,7 +109,7 @@ def store_awards(client, fpath):
     print('Preview counted objects: {}'.format(counted2))
     print('Preview first object: {}'.format(listed2[0]))
     _, collection = use_setup(client, 'telus', 'awards')
-    fmoid, _ = add_test(collection, listed2)
+    fmoid, _ = add_objects(collection, listed2)
     print('Inserted objects: {}'.format(collection.count()))
     rdict_fmoid = collection.find_one({'_id':ObjectId(fmoid)})
     jdict_fmoid = json.dumps(rdict_fmoid, default=json_util.default)
