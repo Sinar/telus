@@ -93,22 +93,20 @@ def drop_objects(collection):
 def store_awards(client, fpath):
     """Store awards from JSONL into MongoDB."""
     print('Prepare to store awards')
-    listed2, _ = list_objects(fpath)
-    print('Preview first object: {}'.format(listed2[0]))
-    _, collection = use_setup(client, 'telus', 'awards')
-    drop_objects(collection)
+    awards_ls, _ = list_objects(fpath)
+    print('Preview first object: {}'.format(awards_ls[0]))
+    _, awards = use_setup(client, 'telus', 'awards')
+    drop_objects(awards)
     tcount = 0
-    for sobject in listed2:
+    for sobject in awards_ls:
         tcount = tcount + 1
         jobject = json.loads(sobject)
-        result = collection.insert_one(jobject)
-        mobjectid = result.inserted_id
+        result = awards.insert_one(jobject)
+        awards_id = result.inserted_id
         if tcount == 1:
-            fmoid = mobjectid
-        else:
-            lmoid = mobjectid
-        #print('Inserted object {0}: {1}'.format(tcount, mobjectid))
-    print('Inserted objects: {}'.format(collection.count()))
-    rdict_fmoid = collection.find_one({'_id':ObjectId(fmoid)})
+            fmoid = awards_id
+        #print('Inserted object {0}: {1}'.format(tcount, awards_id))
+    print('Inserted objects: {}'.format(awards.count()))
+    rdict_fmoid = awards.find_one({'_id':ObjectId(fmoid)})
     jdict_fmoid = json.dumps(rdict_fmoid, default=json_util.default)
     print('Inserted first object: {}'.format(jdict_fmoid))
