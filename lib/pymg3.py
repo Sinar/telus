@@ -90,6 +90,24 @@ def drop_objects(collection):
         print('Collection was not empty, drop first')
         collection.drop()
 
+def check_buyer(jobject):
+    """Check non-empty buyer in parsed JSON object."""
+    buyer_field = 'offering_office' # non-OCDS
+    buyer_value = jobject[buyer_field]
+    isbuyer = 'no'
+    if buyer_value != "":
+        isbuyer = 'yes'
+    return isbuyer
+
+def check_seller(jobject):
+    """Check non-empty seller in parsed JSON object."""
+    seller_field = 'contractor' # non-OCDS
+    seller_value = jobject[seller_field]
+    isseller = 'no'
+    if seller_value != "":
+        isseller = 'yes'
+    return isseller
+
 def store_awards(client, fpath):
     """Store awards from JSONL into MongoDB."""
     print('Prepare to store awards')
@@ -97,12 +115,22 @@ def store_awards(client, fpath):
     print('Preview first object: {}'.format(awards_ls[0]))
     _, awards = use_setup(client, 'telus', 'awards')
     drop_objects(awards)
+    buyers_num = 0
+    sellers_num = 0
     for each in awards_ls:
         jobject = json.loads(each)
+        isbuyer = check_buyer(jobject)
+        if isbuyer != 'no':
+            buyers_num = buyers_num + 1
+        isseller = check_seller(jobject)
+        if isseller != 'no':
+            sellers_num = sellers_num + 1
         result = awards.insert_one(jobject)
         awards_id = result.inserted_id
         if awards.count() == 1:
             first_id = awards_id
+    print('Total non-empty buyers: {}'.format(buyers_num))
+    print('Total non-empty sellers: {}'.format(sellers_num))
     print('Inserted objects: {}'.format(awards.count()))
     first_obj = awards.find_one({'_id':ObjectId(first_id)})
     first_obj = json.dumps(first_obj, default=json_util.default)
