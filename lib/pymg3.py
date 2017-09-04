@@ -90,11 +90,15 @@ def drop_objects(collection):
         print('Collection was not empty, drop first')
         collection.drop()
 
-def add_objects(collection, olist):
-    """Test add objects from list into specified collection."""
+def store_awards(client, fpath):
+    """Store awards from JSONL into MongoDB."""
+    print('Prepare to store awards')
+    listed2, _ = list_objects(fpath)
+    print('Preview first object: {}'.format(listed2[0]))
+    _, collection = use_setup(client, 'telus', 'awards')
     drop_objects(collection)
     tcount = 0
-    for sobject in olist:
+    for sobject in listed2:
         tcount = tcount + 1
         jobject = json.loads(sobject)
         result = collection.insert_one(jobject)
@@ -104,15 +108,6 @@ def add_objects(collection, olist):
         else:
             lmoid = mobjectid
         #print('Inserted object {0}: {1}'.format(tcount, mobjectid))
-    return fmoid, lmoid
-
-def store_awards(client, fpath):
-    """Store awards from JSONL into MongoDB."""
-    print('Prepare to store awards')
-    listed2, _ = list_objects(fpath)
-    print('Preview first object: {}'.format(listed2[0]))
-    _, collection = use_setup(client, 'telus', 'awards')
-    fmoid, _ = add_objects(collection, listed2)
     print('Inserted objects: {}'.format(collection.count()))
     rdict_fmoid = collection.find_one({'_id':ObjectId(fmoid)})
     jdict_fmoid = json.dumps(rdict_fmoid, default=json_util.default)
