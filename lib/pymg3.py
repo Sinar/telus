@@ -82,13 +82,17 @@ def list_objects(fpath):
         slist.append(sobject)
     return slist, lines
 
-def add_objects(collection, olist):
-    """Test add objects from list into specified collection."""
+def drop_objects(collection):
+    """Remove all objects from specified collection if not empty."""
     if collection.count() == 0:
         pass
     else:
         print('Collection was not empty, drop first')
         collection.drop()
+
+def add_objects(collection, olist):
+    """Test add objects from list into specified collection."""
+    drop_objects(collection)
     tcount = 0
     for sobject in olist:
         tcount = tcount + 1
