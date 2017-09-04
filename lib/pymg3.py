@@ -98,15 +98,15 @@ def store_awards(client, fpath):
     _, awards = use_setup(client, 'telus', 'awards')
     drop_objects(awards)
     tcount = 0
-    for sobject in awards_ls:
+    for each in awards_ls:
         tcount = tcount + 1
-        jobject = json.loads(sobject)
+        jobject = json.loads(each)
         result = awards.insert_one(jobject)
         awards_id = result.inserted_id
         if tcount == 1:
-            fmoid = awards_id
+            first_id = awards_id
         #print('Inserted object {0}: {1}'.format(tcount, awards_id))
     print('Inserted objects: {}'.format(awards.count()))
-    rdict_fmoid = awards.find_one({'_id':ObjectId(fmoid)})
-    jdict_fmoid = json.dumps(rdict_fmoid, default=json_util.default)
-    print('Inserted first object: {}'.format(jdict_fmoid))
+    first_obj = awards.find_one({'_id':ObjectId(first_id)})
+    first_obj = json.dumps(first_obj, default=json_util.default)
+    print('Inserted first object: {}'.format(first_obj))
