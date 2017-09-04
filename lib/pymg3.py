@@ -97,15 +97,12 @@ def store_awards(client, fpath):
     print('Preview first object: {}'.format(awards_ls[0]))
     _, awards = use_setup(client, 'telus', 'awards')
     drop_objects(awards)
-    tcount = 0
     for each in awards_ls:
-        tcount = tcount + 1
         jobject = json.loads(each)
         result = awards.insert_one(jobject)
         awards_id = result.inserted_id
-        if tcount == 1:
+        if awards.count() == 1:
             first_id = awards_id
-        #print('Inserted object {0}: {1}'.format(tcount, awards_id))
     print('Inserted objects: {}'.format(awards.count()))
     first_obj = awards.find_one({'_id':ObjectId(first_id)})
     first_obj = json.dumps(first_obj, default=json_util.default)
