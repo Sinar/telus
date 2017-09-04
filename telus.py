@@ -39,6 +39,9 @@ def main():
         detail = error
     except RuntimeError as error:
         detail = error
+    except Exception as error:
+        detail = error
+        raise
     else:
         detail = 'Done'
     finally:
