@@ -36,7 +36,7 @@ def demo():
     except RuntimeError as error:
         detail = error
         parse = {"result": "Failed to connect"}
-        status = 404 # Not found
+        status = 503 # Service Unavailable
     else:
         detail = 'Done'
         parse = {"result": "Successful"}
