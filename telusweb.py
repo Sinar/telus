@@ -37,6 +37,10 @@ def demo():
         detail = error
         parse = {"result": "Failed to connect"}
         status = 503 # Service Unavailable
+    except Exception as error:
+        detail = error
+        parse = {"result": "Something has failed"}
+        status = 500 # Internal Server Error
     else:
         detail = 'Done'
         parse = {"result": "Successful"}
