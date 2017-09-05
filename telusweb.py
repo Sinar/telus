@@ -32,15 +32,15 @@ def demo():
     except ValueError as error:
         detail = error
         parse = {"result": "Failed to process"}
-        status = 400
+        status = 400 # Bad request
     except RuntimeError as error:
         detail = error
         parse = {"result": "Failed to connect"}
-        status = 404
+        status = 404 # Not found
     else:
         detail = 'Done'
         parse = {"result": "Successful"}
-        status = 200
+        status = 200 # OK
     finally:
         print(detail)
         result = APP.response_class(
