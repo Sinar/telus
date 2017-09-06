@@ -14,16 +14,17 @@ import fnmatch
 
 def test_one(fpath):
     """Test JSON objects in one JSONL file."""
+    print('Read {}'.format(fpath))
     try:
-        print('Read {}'.format(fpath))
         lines = 0
-        for jobject in open(fpath, 'r'):
+        for each in open(fpath, 'r'):
             lines = lines + 1
-            json.loads(jobject)
-        print('Tested valid objects: {}'.format(lines))
+            json.loads(each)
     except ValueError:
         print('Unexpected JSON object, check the syntax')
         raise
+    else:
+        print('Tested valid objects: {}'.format(lines))
 
 def test_many(spath, flist):
     """Test JSON objects in many JSONL files."""
