@@ -74,13 +74,11 @@ def use_setup(client, dbname, ccname):
     return database, collection
 
 def list_objects(fpath):
-    """Return list, count of objects from specified file."""
-    slist = []
-    lines = 0
-    for sobject in open(fpath, 'r'):
-        lines = lines + 1
-        slist.append(sobject)
-    return slist, lines
+    """Return list of objects from specified file."""
+    obj_ls = []
+    for each in open(fpath, 'r'):
+        obj_ls.append(each)
+    return obj_ls
 
 def drop_objects(collection):
     """Remove all objects from specified collection if not empty."""
@@ -126,7 +124,7 @@ def scan_field(jobject, jstring):
 def store_awards(client, fpath):
     """Store awards from JSONL into MongoDB."""
     print('Prepare to store awards')
-    awards_ls, _ = list_objects(fpath)
+    awards_ls = list_objects(fpath)
     print('Preview first object: {}'.format(awards_ls[0]))
     _, awards = use_setup(client, 'telus', 'awards')
     drop_objects(awards)
