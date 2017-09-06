@@ -125,7 +125,6 @@ def store_awards(client, fpath):
     """Store awards from JSONL into MongoDB."""
     print('Prepare to store awards')
     awards_ls = list_objects(fpath)
-    print('Preview first object: {}'.format(awards_ls[0]))
     _, awards = use_setup(client, 'telus', 'awards')
     drop_objects(awards)
     buyers_num = 0
