@@ -90,6 +90,30 @@ def drop_objects(collection):
         print('Collection was not empty, drop first')
         collection.drop()
 
+def find_objects(collection, jobject):
+    """Return JSON objects from specified collection if any."""
+    obj_ls = []
+    if type(jobject) is type({}):
+        obj = collection.find(jobject)
+        obj = list(obj)
+        count = 0
+        for each in obj:
+            count = count + 1
+            parse = json.dumps(each, default=json_util.default)
+            obj_ls.append(parse)
+        if count == 0:
+            print('Not found')
+            return None
+        elif count == 1:
+            print('Found one object')
+            return obj_ls[0]
+        else:
+            print('Found {} objects in a list'.format(count))
+            return obj_ls
+    else:
+        print('Did not find')
+        raise TypeError('Unexpected type of object', type(jobject))
+
 def scan_field(jobject, jstring):
     """Match non-empty value for specified string in JSON object."""
     this_string = jstring
@@ -123,6 +147,5 @@ def store_awards(client, fpath):
     print('Total non-empty buyers: {}'.format(buyers_num))
     print('Total non-empty sellers: {}'.format(sellers_num))
     print('Inserted objects: {}'.format(awards.count()))
-    first_obj = awards.find_one({'_id':ObjectId(first_id)})
-    first_obj = json.dumps(first_obj, default=json_util.default)
-    print('Inserted first object: {}'.format(first_obj))
+    first_obj = find_objects(awards, {'_id':ObjectId(first_id)})
+    print('Found first object: {}'.format(first_obj))
