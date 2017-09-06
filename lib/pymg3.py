@@ -97,7 +97,8 @@ def find_objects(collection, jobject):
         count = 0
         for each in obj:
             count = count + 1
-            parse = json.dumps(each, default=json_util.default)
+            parse = json.dumps(each, default=json_util.default,
+                                sort_keys=True)
             obj_ls.append(parse)
         if count == 0:
             print('Not found')
