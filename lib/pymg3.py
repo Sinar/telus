@@ -90,23 +90,14 @@ def drop_objects(collection):
         print('Collection was not empty, drop first')
         collection.drop()
 
-def check_buyer(jobject):
-    """Check non-empty buyer in parsed JSON object."""
-    buyer_field = 'offering_office' # non-OCDS
-    buyer_value = jobject[buyer_field]
-    isbuyer = 'no'
-    if buyer_value != "":
-        isbuyer = 'yes'
-    return isbuyer
-
-def check_seller(jobject):
-    """Check non-empty seller in parsed JSON object."""
-    seller_field = 'contractor' # non-OCDS
-    seller_value = jobject[seller_field]
-    isseller = 'no'
-    if seller_value != "":
-        isseller = 'yes'
-    return isseller
+def scan_field(jobject, jstring):
+    """Match non-empty value for specified string in JSON object."""
+    this_string = jstring
+    this_value = jobject[this_string]
+    ismatch = 'no'
+    if this_value != "":
+        ismatch = 'yes'
+    return ismatch
 
 def store_awards(client, fpath):
     """Store awards from JSONL into MongoDB."""
@@ -119,10 +110,10 @@ def store_awards(client, fpath):
     sellers_num = 0
     for each in awards_ls:
         jobject = json.loads(each)
-        isbuyer = check_buyer(jobject)
+        isbuyer = scan_field(jobject, 'offering_office') # non-OCDS
         if isbuyer != 'no':
             buyers_num = buyers_num + 1
-        isseller = check_seller(jobject)
+        isseller = scan_field(jobject, 'contractor') # non-OCDS
         if isseller != 'no':
             sellers_num = sellers_num + 1
         result = awards.insert_one(jobject)
