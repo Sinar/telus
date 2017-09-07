@@ -31,20 +31,20 @@ def print_env():
 
 def list_files(spath, blob):
     """Return list, count of files with specified type."""
-    slist = []
+    name_ls = []
     count = 0
-    for fname in os.listdir(spath):
-        if fnmatch.fnmatch(fname, blob):
+    for name in os.listdir(spath):
+        if fnmatch.fnmatch(name, blob):
             count = count + 1
-            print('Found {0}: {1}'.format(count, fname))
-            slist.append(fname)
-    return slist, count
+            print('Found {0}: {1}'.format(count, name))
+            name_ls.append(name)
+    return name_ls, count
 
 def list_objects(fpath):
     """Return list, count of objects from specified file."""
-    slist = []
+    obj_ls = []
     lines = 0
-    for sobject in open(fpath, 'r'):
+    for obj in open(fpath, 'r'):
         lines = lines + 1
-        slist.append(sobject)
-    return slist, lines
+        obj_ls.append(obj)
+    return obj_ls, lines
