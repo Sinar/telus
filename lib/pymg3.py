@@ -117,9 +117,9 @@ def scan_field(jobject, jstring):
     """Match non-empty value for specified string in JSON object."""
     this_string = jstring
     this_value = jobject[this_string]
-    ismatch = 'no'
+    ismatch = False
     if this_value != "":
-        ismatch = 'yes'
+        ismatch = True
     return ismatch
 
 def store_awards(client, fpath):
@@ -132,11 +132,9 @@ def store_awards(client, fpath):
     sellers_num = 0
     for each in awards_ls:
         jobject = json.loads(each)
-        isbuyer = scan_field(jobject, 'offering_office') # non-OCDS
-        if isbuyer != 'no':
+        if scan_field(jobject, 'offering_office'):
             buyers_num = buyers_num + 1
-        isseller = scan_field(jobject, 'contractor') # non-OCDS
-        if isseller != 'no':
+        if scan_field(jobject, 'contractor'):
             sellers_num = sellers_num + 1
         result = awards.insert_one(jobject)
         awards_id = result.inserted_id
