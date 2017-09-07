@@ -113,6 +113,11 @@ def find_objects(collection, jobject):
         print('Did not find')
         raise TypeError('Unexpected type of object', type(jobject))
 
+def show_objects(collection, obj):
+    """Show JSON objects from specified collection in MongoDB."""
+    obj = find_objects(collection, obj)
+    print('Show target object: {}'.format(obj))
+
 def scan_field(jobject, jstring):
     """Match non-empty value for specified string in JSON object."""
     this_string = jstring
@@ -143,5 +148,4 @@ def store_awards(client, fpath):
     print('Total non-empty buyers: {}'.format(buyers_num))
     print('Total non-empty sellers: {}'.format(sellers_num))
     print('Inserted objects: {}'.format(awards.count()))
-    first_obj = find_objects(awards, {'_id':ObjectId(first_id)})
-    print('Found first object: {}'.format(first_obj))
+    show_objects(awards, {'_id':ObjectId(first_id)})
