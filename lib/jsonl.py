@@ -25,9 +25,9 @@ def test_obj(obj):
 def test_line(fpath, lnum):
     """Test JSON object at specified line in JSONL file."""
     print('Read {}'.format(fpath))
-    if type(lnum) is not type(0):
+    if type(lnum) is not type(1):
         raise TypeError('Unexpected type of line', type(lnum))
-    elif lnum < 0:
+    elif lnum < 1:
         raise ValueError('Unexpected value of line', lnum)
     else:
         print('Look up line {}'.format(lnum))
