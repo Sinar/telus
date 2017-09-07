@@ -53,36 +53,36 @@ def test_one(fpath):
         test_obj(each)
     print('Tested valid objects: {}'.format(lines))
 
-def test_many(spath, flist):
+def test_many(spath, nlist):
     """Test JSON objects in many JSONL files."""
     files = 0
-    for fname in flist:
+    for name in nlist:
         files = files + 1
-        fpath = spath + '/' + fname
+        fpath = spath + '/' + name
         test_one(fpath)
     print('Parsed files in total: {}'.format(files))
 
 def list_jsonl(spath):
     """Return list, count of JSONL files."""
-    flist = []
+    name_ls = []
     count = 0
-    for fname in os.listdir(spath):
-        if fnmatch.fnmatch(fname, '*.jsonl'):
+    for name in os.listdir(spath):
+        if fnmatch.fnmatch(name, '*.jsonl'):
             count = count + 1
-            print('Found {0}: {1}'.format(count, fname))
-            flist.append(fname)
-    return flist, count
+            print('Found {0}: {1}'.format(count, name))
+            name_ls.append(name)
+    return name_ls, count
 
 def scan_jsonl(spath):
     """Decide whether to parse one or many JSONL files."""
-    flist, count = list_jsonl(spath)
+    name_ls, count = list_jsonl(spath)
     if count == 1:
         print('Parse the only file')
-        fpath = spath + '/' + flist[0]
+        fpath = spath + '/' + name_ls[0]
         test_one(fpath)
     elif count > 1:
         print('Parse many files')
-        test_many(spath, flist)
+        test_many(spath, name_ls)
     else:
         print('Did not parse')
         raise ValueError('Unexpected number of files found', count)
