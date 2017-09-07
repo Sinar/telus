@@ -37,6 +37,8 @@ def test_line(fpath, lnum):
         if lines == lnum:
             parse = json.dumps(each)
             break
+    if lines < lnum:
+        raise ValueError('Nonexistent value of line', lnum)
     # parse object as JSON formatted str, then convert to Python dict
     # end result is same as viewing in Web browser and Terminal
     obj = test_obj(parse)
