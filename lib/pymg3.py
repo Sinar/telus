@@ -90,6 +90,7 @@ def drop_objects(collection):
 
 def find_objects(collection, jobject):
     """Return JSON objects from specified collection if any."""
+    print('Query argument: {}'.format(jobject))
     obj_ls = []
     if type(jobject) is type({}):
         obj = collection.find(jobject)
@@ -113,10 +114,21 @@ def find_objects(collection, jobject):
         print('Did not find')
         raise TypeError('Unexpected type of object', type(jobject))
 
-def show_objects(collection, obj):
+def show_objects(collection, args):
     """Show JSON objects from specified collection in MongoDB."""
-    obj = find_objects(collection, obj)
-    print('Show target object: {}'.format(obj))
+    obj = find_objects(collection, args)
+    if type(obj) is type(''):
+        print('Show target object: {}'.format(obj))
+    elif type(obj) is type([]):
+        print('Show only first 3 objects:')
+        num = 0
+        for each in obj:
+            print(each)
+            num = num + 1
+            if num == 3:
+                break
+    else:
+        raise TypeError('Unexpected type of object', type(obj))
 
 def scan_field(jobject, jstring):
     """Match non-empty value for specified string in JSON object."""
