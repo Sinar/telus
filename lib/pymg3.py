@@ -142,21 +142,20 @@ def scan_field(jobject, jstring):
 def store_awards(client, fpath):
     """Store awards from JSONL into MongoDB."""
     print('Prepare to store awards')
-    awards_ls = list_objects(fpath)
     _, awards = use_setup(client, 'telus', 'awards')
     drop_objects(awards)
     buyers_num = 0
     sellers_num = 0
+    awards_ls = list_objects(fpath)
     for each in awards_ls:
-        jobject = json.loads(each)
-        if scan_field(jobject, 'offering_office'):
+        obj = json.loads(each)
+        if scan_field(obj, 'offering_office'):
             buyers_num = buyers_num + 1
-        if scan_field(jobject, 'contractor'):
+        if scan_field(obj, 'contractor'):
             sellers_num = sellers_num + 1
-        result = awards.insert_one(jobject)
-        awards_id = result.inserted_id
+        result = awards.insert_one(obj)
         if awards.count() == 1:
-            first_id = awards_id
+            first_id = result.inserted_id
     print('Total non-empty buyers: {}'.format(buyers_num))
     print('Total non-empty sellers: {}'.format(sellers_num))
     print('Inserted objects: {}'.format(awards.count()))
