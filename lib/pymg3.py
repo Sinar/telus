@@ -128,12 +128,11 @@ def show_objects(collection, args):
     else:
         raise TypeError('Unexpected type of object', type(obj))
 
-def scan_field(jobject, jstring):
+def scan_field(obj, string):
     """Match non-empty value for specified string in JSON object."""
-    this_string = jstring
-    this_value = jobject[this_string]
+    value = obj[string]
     ismatch = False
-    if this_value != "":
+    if value != "":
         ismatch = True
     return ismatch
 
