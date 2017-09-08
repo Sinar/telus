@@ -139,24 +139,23 @@ def scan_field(jobject, jstring):
         ismatch = True
     return ismatch
 
-def store_awards(client, fpath):
-    """Store awards from JSONL into MongoDB."""
-    print('Prepare to store awards')
-    _, awards = use_setup(client, 'telus', 'awards')
-    drop_objects(awards)
+def store_objects(collection, fpath):
+    """Store objects from JSONL into MongoDB."""
+    print('Store objects into {}'.format(collection.name))
+    drop_objects(collection)
     buyers_num = 0
     sellers_num = 0
-    awards_ls = list_objects(fpath)
-    for each in awards_ls:
+    obj_ls = list_objects(fpath)
+    for each in obj_ls:
         obj = json.loads(each)
         if scan_field(obj, 'offering_office'):
             buyers_num = buyers_num + 1
         if scan_field(obj, 'contractor'):
             sellers_num = sellers_num + 1
-        result = awards.insert_one(obj)
-        if awards.count() == 1:
+        result = collection.insert_one(obj)
+        if collection.count() == 1:
             first_id = result.inserted_id
     print('Total non-empty buyers: {}'.format(buyers_num))
     print('Total non-empty sellers: {}'.format(sellers_num))
-    print('Inserted objects: {}'.format(awards.count()))
-    show_objects(awards, {'_id':ObjectId(first_id)})
+    print('Inserted objects: {}'.format(collection.count()))
+    show_objects(collection, {'_id':ObjectId(first_id)})

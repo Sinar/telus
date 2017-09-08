@@ -27,7 +27,8 @@ def test_awards():
     lib.jsonl.test_one(fpath)
     lib.jsonl.test_line(fpath, 1)
     client = lib.pymg3.use_conn('localhost', 27017)
-    lib.pymg3.store_awards(client, fpath)
+    _, awards = lib.pymg3.use_setup(client, 'telus', 'awards')
+    lib.pymg3.store_objects(awards, fpath)
 
 def main():
     """Default function for main script."""
