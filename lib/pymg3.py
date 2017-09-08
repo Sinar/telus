@@ -136,6 +136,12 @@ def scan_field(obj, string):
         ismatch = True
     return ismatch
 
+def copy_field(obj, string):
+    """Return standalone object of specified string in JSON object."""
+    value = obj[string]
+    new_obj = {string: value}
+    return new_obj
+
 def store_objects(collection, fpath):
     """Store objects from JSONL into MongoDB."""
     print('Store objects into {}'.format(collection.name))
