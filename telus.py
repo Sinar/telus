@@ -28,6 +28,7 @@ def test_awards():
     lib.jsonl.test_line(fpath, 1)
     client = lib.pymg3.use_conn('localhost', 27017)
     _, awards = lib.pymg3.use_setup(client, 'telus', 'awards')
+    lib.pymg3.drop_objects(awards)
     lib.pymg3.store_objects(awards, fpath)
 
 def main():

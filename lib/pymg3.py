@@ -145,7 +145,6 @@ def copy_field(obj, string):
 def store_objects(collection, fpath):
     """Store objects from JSONL into MongoDB."""
     print('Store objects into {}'.format(collection.name))
-    drop_objects(collection)
     buyers_num = 0
     sellers_num = 0
     obj_ls = list_objects(fpath)
