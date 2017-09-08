@@ -82,10 +82,8 @@ def list_objects(fpath):
 
 def drop_objects(collection):
     """Remove all objects from specified collection if not empty."""
-    if collection.count() == 0:
-        pass
-    else:
-        print('Collection was not empty, drop first')
+    if collection.count() != 0:
+        print('{} was not empty, drop first'.format(collection.name))
         collection.drop()
 
 def find_objects(collection, jobject):
