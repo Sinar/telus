@@ -145,6 +145,18 @@ def copy_field(obj, string):
 def store_objects(collection, fpath):
     """Store objects from JSONL into MongoDB."""
     print('Store objects into {}'.format(collection.name))
+    obj_ls = list_objects(fpath)
+    for each in obj_ls:
+        obj = json.loads(each)
+        result = collection.insert_one(obj)
+        if collection.count() == 1:
+            first_id = result.inserted_id
+    print('Inserted objects: {}'.format(collection.count()))
+    show_objects(collection, {'_id':ObjectId(first_id)})
+
+def store_nested(collection, fpath):
+    """Temporary copy of store_objects"""
+    print('Store objects into {}'.format(collection.name))
     buyers_num = 0
     sellers_num = 0
     obj_ls = list_objects(fpath)
