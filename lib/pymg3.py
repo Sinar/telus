@@ -154,22 +154,30 @@ def store_objects(collection, fpath):
     print('Inserted objects: {}'.format(collection.count()))
     show_objects(collection, {'_id':ObjectId(first_id)})
 
-def store_nested(collection, fpath):
-    """Temporary copy of store_objects"""
-    print('Store objects into {}'.format(collection.name))
-    buyers_num = 0
-    sellers_num = 0
+def store_nested(client, collection, fpath):
+    """
+    Store objects and the contained nested objects from JSONL into
+    MongoDB. The nested objects are expected to be found in objects
+    from JSONL file and have been predefined (buyer, seller).
+    """
+    print('Store source objects and nested objects')
+    buyers = set_collection(client, 'telus', 'buyers')
+    drop_objects(buyers)
+    sellers = set_collection(client, 'telus', 'sellers')
+    drop_objects(sellers)
     obj_ls = list_objects(fpath)
     for each in obj_ls:
         obj = json.loads(each)
         if scan_field(obj, 'offering_office'):
-            buyers_num = buyers_num + 1
+            buyers.insert_one(
+                        copy_field(obj, 'offering_office'))
         if scan_field(obj, 'contractor'):
-            sellers_num = sellers_num + 1
+            sellers.insert_one(
+                        copy_field(obj, 'contractor'))
         result = collection.insert_one(obj)
         if collection.count() == 1:
             first_id = result.inserted_id
-    print('Total non-empty buyers: {}'.format(buyers_num))
-    print('Total non-empty sellers: {}'.format(sellers_num))
-    print('Inserted objects: {}'.format(collection.count()))
+    print('Inserted buyers: {}'.format(buyers.count()))
+    print('Inserted sellers: {}'.format(sellers.count()))
+    print('Inserted source objects: {}'.format(collection.count()))
     show_objects(collection, {'_id':ObjectId(first_id)})
