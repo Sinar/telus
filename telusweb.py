@@ -24,6 +24,34 @@ def home():
     print(msg)
     return msg
 
+@APP.route('/test')
+def test():
+    """Test return one JSON object from a collection in MongoDB."""
+    try:
+        parse = telus.find_awards()
+        peek = json.loads(parse)
+    except RuntimeError as error:
+        detail = error
+        parse = {"result": "Failed to connect"}
+        status = 503 # Service Unavailable
+    except Exception as error:
+        detail = error
+        parse = {"result": "Something has failed"}
+        status = 500 # Internal Server Error
+    else:
+        detail = 'Found object id: {}'.format(peek['_id']['$oid'])
+        parse = parse
+        status = 200 # OK
+    finally:
+        print(detail)
+        if status != 200:
+            parse = json.dumps(parse)
+        result = APP.response_class(
+                    response=parse,
+                    status=status,
+                    mimetype='application/json')
+    return result
+
 @APP.route('/demo')
 def demo():
     """Demonstrate running function from main script."""
