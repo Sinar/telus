@@ -184,12 +184,12 @@ def store_nested(client, collection, fpath):
     obj_ls = list_objects(fpath)
     for each in obj_ls:
         obj = json.loads(each)
-        if scan_field(obj, 'offering_office'):
-            buyers.insert_one(
-                        copy_field(obj, 'offering_office'))
-        if scan_field(obj, 'contractor'):
-            sellers.insert_one(
-                        copy_field(obj, 'contractor'))
+        buyer_string = 'offering_office' # non-OCDS
+        if scan_field(obj, buyer_string):
+            buyers.insert_one(copy_field(obj, buyer_string))
+        seller_string = 'contractor' # non-OCDS
+        if scan_field(obj, seller_string):
+            sellers.insert_one(copy_field(obj, seller_string))
         collection.insert_one(obj)
     print('Inserted buyers: {}'.format(buyers.count()))
     print('Inserted sellers: {}'.format(sellers.count()))
