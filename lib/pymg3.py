@@ -194,3 +194,27 @@ def store_nested(client, collection, fpath):
     print('Inserted buyers: {}'.format(buyers.count()))
     print('Inserted sellers: {}'.format(sellers.count()))
     print('Inserted source objects: {}'.format(collection.count()))
+
+def show_nested(client, collection):
+    """
+    Show object and the contained nested objects that have been stored
+    in respective collections in MongoDB. The nested objects have been
+    predefined (buyer, seller).
+    """
+    print('Show source object and nested objects')
+    target = find_object(collection)
+    print('Source object: {}'.format(target))
+    buyers = set_collection(client, 'telus', 'buyers')
+    sellers = set_collection(client, 'telus', 'sellers')
+    print('Nested objects:')
+    target = json.loads(target)
+    buyer_string = 'offering_office' # non-OCDS
+    if scan_field(target, buyer_string):
+        show_objects(buyers, copy_field(target, buyer_string))
+    else:
+        print('No available buyer')
+    seller_string = 'contractor' # non-OCDS
+    if scan_field(target, seller_string):
+        show_objects(sellers, copy_field(target, seller_string))
+    else:
+        print('No available seller')
