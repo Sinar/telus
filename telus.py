@@ -53,4 +53,7 @@ def main():
         print(detail)
 
 if __name__ == '__main__':
+    print('Execute {}'.format(__file__))
     main()
+else:
+    print('Import {}'.format(__file__))

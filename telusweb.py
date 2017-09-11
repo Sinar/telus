@@ -54,4 +54,5 @@ def demo():
     return result
 
 if __name__ == '__main__':
+    print('Execute {}'.format(__file__))
     APP.run()
