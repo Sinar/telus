@@ -68,19 +68,17 @@ def test_many(spath, nlist):
     print('Parsed files in total: {}'.format(files))
 
 def list_jsonl(spath):
-    """Return list, count of JSONL files."""
+    """Return list of JSONL files."""
     name_ls = []
-    count = 0
     for name in os.listdir(spath):
         if fnmatch.fnmatch(name, '*.jsonl'):
-            count = count + 1
-            print('Found {0}: {1}'.format(count, name))
             name_ls.append(name)
-    return name_ls, count
+    return name_ls
 
 def scan_jsonl(spath):
     """Decide whether to parse one or many JSONL files."""
-    name_ls, count = list_jsonl(spath)
+    name_ls = list_jsonl(spath)
+    count = len(name_ls)
     if count == 1:
         print('Parse the only file')
         fpath = spath + '/' + name_ls[0]
