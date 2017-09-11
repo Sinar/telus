@@ -33,6 +33,19 @@ def test_awards():
     lib.pymg3.store_nested(client, awards, fpath)
     lib.pymg3.show_nested(client, awards)
 
+def setup_awards():
+    """
+    Setup awards, buyers and sellers in MongoDB. This will run only
+    essential operations at every time when main script is imported
+    as module. Then the importer script i.e. web framework script
+    can run relevant commands to query objects in MongoDB.
+    """
+    fpath = './data/jkr-keputusan_tender.jsonl'
+    client = lib.pymg3.use_conn('localhost', 27017)
+    _, awards = lib.pymg3.use_setup(client, 'telus', 'awards')
+    lib.pymg3.drop_objects(awards)
+    lib.pymg3.store_nested(client, awards, fpath)
+
 def main():
     """Default function for main script."""
     print('Hello, telus!')
@@ -57,3 +70,4 @@ if __name__ == '__main__':
     main()
 else:
     print('Import {}'.format(__file__))
+    setup_awards()
