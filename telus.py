@@ -25,7 +25,7 @@ def test_awards():
     """Test store awards using basic operations."""
     fpath = './data/jkr-keputusan_tender.jsonl'
     lib.jsonl.test_one(fpath)
-    lib.jsonl.test_line(fpath, 1)
+    lib.jsonl.show_line(fpath, 1)
     client = lib.pymg3.use_conn('localhost', 27017)
     _, awards = lib.pymg3.use_setup(client, 'telus', 'awards')
     lib.pymg3.drop_objects(awards)

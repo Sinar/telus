@@ -23,7 +23,7 @@ def test_obj(obj):
         return obj
 
 def test_line(fpath, lnum):
-    """Test JSON object at specified line in JSONL file."""
+    """Test and return JSON object at specified line in JSONL file."""
     print('Read {}'.format(fpath))
     if type(lnum) is not type(1):
         raise TypeError('Unexpected type of line', type(lnum))
@@ -42,7 +42,12 @@ def test_line(fpath, lnum):
     # parse object as JSON formatted str, then convert to Python dict
     # end result is same as viewing in Web browser and Terminal
     obj = test_obj(parse)
-    print('Preview target object: {}'.format(obj))
+    return obj
+
+def show_line(fpath, lnum):
+    """Show one JSON object at specified line in JSONL file."""
+    obj = test_line(fpath, lnum)
+    print('Show line object: {}'.format(obj))
 
 def test_one(fpath):
     """Test JSON objects in one JSONL file."""
