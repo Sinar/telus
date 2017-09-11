@@ -190,10 +190,8 @@ def store_nested(client, collection, fpath):
         if scan_field(obj, 'contractor'):
             sellers.insert_one(
                         copy_field(obj, 'contractor'))
-        result = collection.insert_one(obj)
-        if collection.count() == 1:
-            first_id = result.inserted_id
+        collection.insert_one(obj)
     print('Inserted buyers: {}'.format(buyers.count()))
     print('Inserted sellers: {}'.format(sellers.count()))
     print('Inserted source objects: {}'.format(collection.count()))
-    show_objects(collection, {'_id':ObjectId(first_id)})
+    show_object(collection)
