@@ -194,4 +194,3 @@ def store_nested(client, collection, fpath):
     print('Inserted buyers: {}'.format(buyers.count()))
     print('Inserted sellers: {}'.format(sellers.count()))
     print('Inserted source objects: {}'.format(collection.count()))
-    show_object(collection)
