@@ -120,6 +120,14 @@ def find_objects(collection, args):
         print('Did not find')
         raise TypeError('Unexpected type of argument', type(args))
 
+def show_object(collection):
+    """
+    Show one JSON object from specified collection in MongoDB. This
+    depends on find_object function that return an object.
+    """
+    obj = find_object(collection)
+    print('Show first object: {}'.format(obj))
+
 def show_objects(collection, args):
     """Show JSON objects from specified collection in MongoDB."""
     obj = find_objects(collection, args)
