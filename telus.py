@@ -31,7 +31,7 @@ def test_awards():
     _, awards = lib.pymg3.use_setup(client, 'telus', 'awards')
     lib.pymg3.drop_objects(awards)
     lib.pymg3.store_nested(client, awards, fpath)
-    lib.pymg3.show_object(awards)
+    lib.pymg3.show_nested(client, awards)
 
 def main():
     """Default function for main script."""
