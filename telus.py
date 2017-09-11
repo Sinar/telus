@@ -46,6 +46,17 @@ def setup_awards():
     lib.pymg3.drop_objects(awards)
     lib.pymg3.store_nested(client, awards, fpath)
 
+def find_awards():
+    """
+    Find one JSON object from awards collection in MongoDB. This will
+    always return one object at a time. This does not accept argument
+    to manipulate the result for now.
+    """
+    client = lib.pymg3.use_conn('localhost', 27017)
+    _, awards = lib.pymg3.use_setup(client, 'telus', 'awards')
+    parse = lib.pymg3.find_object(awards)
+    return parse
+
 def main():
     """Default function for main script."""
     print('Hello, telus!')
