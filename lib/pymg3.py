@@ -86,6 +86,14 @@ def drop_objects(collection):
         print('{} was not empty, drop first'.format(collection.name))
         collection.drop()
 
+def find_object(collection):
+    """
+    Return one JSON object from specified collection.
+    """
+    obj = collection.find_one()
+    parse = json.dumps(obj, default=json_util.default, sort_keys=True)
+    return parse
+
 def find_objects(collection, args):
     """Return JSON objects from specified collection if any."""
     print('Query argument: {}'.format(args))
