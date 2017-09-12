@@ -24,11 +24,13 @@ def home():
     print(msg)
     return msg
 
-@APP.route('/test')
-def test():
-    """Test return one JSON object from a collection in MongoDB."""
+def respond(function):
+    """
+    Generic function that parses a function that return JSON object
+    and feeds into a response in Flask.
+    """
     try:
-        parse = telus.find('awards')
+        parse = function
         peek = json.loads(parse)
     except RuntimeError as error:
         detail = error
@@ -50,6 +52,12 @@ def test():
                     response=parse,
                     status=status,
                     mimetype='application/json')
+    return result
+
+@APP.route('/test')
+def test():
+    """Test return one JSON object from a collection in MongoDB."""
+    result = respond(telus.find('awards'))
     return result
 
 @APP.route('/demo')
