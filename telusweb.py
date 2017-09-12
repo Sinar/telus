@@ -28,7 +28,7 @@ def home():
 def test():
     """Test return one JSON object from a collection in MongoDB."""
     try:
-        parse = telus.find_awards()
+        parse = telus.find('awards')
         peek = json.loads(parse)
     except RuntimeError as error:
         detail = error

@@ -46,15 +46,20 @@ def setup_awards():
     lib.pymg3.drop_objects(awards)
     lib.pymg3.store_nested(client, awards, fpath)
 
-def find_awards():
+def find(cname):
     """
-    Find one JSON object from awards collection in MongoDB. This will
-    always return one object at a time. This does not accept argument
-    to manipulate the result for now.
+    Generic function to find an object from the specified collection
+    name in MongoDB. This will always return one object at a time.
+    This does not accept argument to manipulate the result for now.
     """
     client = lib.pymg3.use_conn('localhost', 27017)
-    _, awards = lib.pymg3.use_setup(client, 'telus', 'awards')
-    parse = lib.pymg3.find_object(awards)
+    cname_ls = ['awards', 'buyers', 'sellers']
+    if cname in cname_ls:
+        pass
+    else:
+        raise ValueError('Unexpected name of collection', cname)
+    _, collection = lib.pymg3.use_setup(client, 'telus', cname)
+    parse = lib.pymg3.find_object(collection)
     return parse
 
 def main():
