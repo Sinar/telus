@@ -54,10 +54,22 @@ def respond(function):
                     mimetype='application/json')
     return result
 
-@APP.route('/test')
-def test():
-    """Test return one JSON object from a collection in MongoDB."""
+@APP.route('/awards')
+def awards():
+    """Return one JSON object from awards collection in MongoDB."""
     result = respond(telus.find('awards'))
+    return result
+
+@APP.route('/buyers')
+def buyers():
+    """Return one JSON object from buyers collection in MongoDB."""
+    result = respond(telus.find('buyers'))
+    return result
+
+@APP.route('/sellers')
+def sellers():
+    """Return one JSON object from sellers collection in MongoDB."""
+    result = respond(telus.find('sellers'))
     return result
 
 @APP.route('/demo')
