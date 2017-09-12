@@ -164,11 +164,8 @@ def store_objects(collection, fpath):
     obj_ls = list_objects(fpath)
     for each in obj_ls:
         obj = json.loads(each)
-        result = collection.insert_one(obj)
-        if collection.count() == 1:
-            first_id = result.inserted_id
+        collection.insert_one(obj)
     print('Inserted objects: {}'.format(collection.count()))
-    show_objects(collection, {'_id':ObjectId(first_id)})
 
 def store_nested(client, collection, fpath):
     """
