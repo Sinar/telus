@@ -7,9 +7,10 @@ import datetime
 
 class CIDBProcessor(object):
 
-    def __init__(self, uri='mongodb://localhost:27017/', datapath="./data/cidb"):
+    def __init__(self, uri='mongodb://localhost:27017/', datapath="./data/cidb", db="cidb"):
         self.client = MongoClient(uri)
         self.datapath = datapath
+        self.db = self.client[db]
 
     def read_jsonl(self):
         for item in os.listdir(self.datapath):
@@ -18,14 +19,17 @@ class CIDBProcessor(object):
             for entry in f:
                 data = json.loads(entry)
                 cidb = CIDBData(data)
-                yield cidb.ocds_record()
+                yield cidb
 
     def store_result(self):
-        for record in self.read_jsonl():
-            # TODO: Save record
-            pass
+        for item in self.read_jsonl():
+            vendor_col = db["vendor"]
+            record_col = db["record"]
+            vendor_col.insert_one(item.ocds_parties)
+            for record in item.ocds_record():
+                record_col.insert_one(record)
 
-
+            
 # TODO: try to see if we can fit in tender
 # TODO: CIDB project is mostly about completed. 
 class CIDBData(object):
@@ -68,12 +72,16 @@ class CIDBData(object):
     # So instead of have a list awards, we convert project into record
     # 
     def ocds_award(self, data):
+        amount = data["value"]
+        amount = amount.replace(",", "")
         data = {
             "id": uuid.uuid4(),
             "description": data["project"], # Oops this is not necessary in english
             "status": "complete", # CIDB Record is about completed project mostly
             "date": data["dates"],
-            "value": data["value"] # TODO: Does OCDS record this as a number?
+            "value": {
+                "amount": float(amount)
+                "currency": "MYR"
         }
 
         return data
@@ -97,15 +105,15 @@ class CIDBData(object):
                             ],
                             "buyer": {}, # TODO: We don't have that
                             "date": now.strftime("%Y-%m-%dT%H:%M:%SZ"),
-                            "id": uuid.uuid4(),
-                            "initiationType": "", # TODO: Check OCDS Value
+                            "id": uuid.uuid4().hex,
+                            "initiationType": "tender", 
                             "language": "en",
-                            "ocid": "", # TODO Fine OCDS ID
+                            "ocid": uuid.uuid4().hex, 
                             "parties": parties,
-                            "tag": [], # TODO: Look at OCDS tag
+                            "tag": [ "compiled" ], 
                             "tender": [] # We have no tender information
                         },
-                        "ocid": uuid.uuid4(), #TODO Look at ocid
+                        "ocid": uuid.uuid4().hex, 
                         "releases": [] # TODO look at the value
                     }
                 ],
