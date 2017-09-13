@@ -7,14 +7,14 @@ import datetime
 
 class CIDBProcessor(object):
 
-    def __init__(self, uri='mongodb://localhost:27017/', datapath="./"):
+    def __init__(self, uri='mongodb://localhost:27017/', datapath="./data/cidb"):
         self.client = MongoClient(uri)
         self.datapath = datapath
 
     def read_jsonl(self):
         for item in os.listdir(self.datapath):
             # TODO: Might need a path.join here
-            f = open(item)
+            f = open(os.path.join(self.datapath,item))
             for entry in f:
                 data = json.loads(entry)
                 cidb = CIDBData(data)
@@ -56,7 +56,7 @@ class CIDBData(object):
     def ocds_parties(self):
         data = {
             "id": self.profiles["Nombor Pendaftaran"],
-            "name": self.data["name"]
+            "name": self.data["name"],
             "identifier": self.ocds_vendor_identifier,
             "role": "supplier" # CIDB is all contractors, they supply service
         }
@@ -87,30 +87,32 @@ class CIDBData(object):
             now = datetime.datetime.now()
             data = {
                 "packages":[], # TODO: Fix this
-                "publishedDate": now.strftime("%Y-%m-%dT%H:%M:%sZ"),
-                "publisher": {}i, # Create us as publisher
+                "publishedDate": now.strftime("%Y-%m-%dT%H:%M:%SZ"),
+                "publisher": {}, # Create us as publisher
                 "records":[
                     {
                         "compiledRelease": {
                             "award": [
                                 award
                             ],
-                            "buyer": {} # TODO: We don't have that
-                            "date": now.strftime("%Y-%m-%dT%H:%M:%sZ"),
+                            "buyer": {}, # TODO: We don't have that
+                            "date": now.strftime("%Y-%m-%dT%H:%M:%SZ"),
                             "id": uuid.uuid4(),
-                            "initiationType": "" # TODO: Check OCDS Value
+                            "initiationType": "", # TODO: Check OCDS Value
                             "language": "en",
-                            "ocid": "" # TODO Fine OCDS ID
-                            "parties": parties
-                            "tag": [] # TODO: Look at OCDS tag
+                            "ocid": "", # TODO Fine OCDS ID
+                            "parties": parties,
+                            "tag": [], # TODO: Look at OCDS tag
                             "tender": [] # We have no tender information
-                        }
+                        },
                         "ocid": uuid.uuid4(), #TODO Look at ocid
                         "releases": [] # TODO look at the value
+                    }
+                ],
 
-                ]
 
             }
+            yield data
 
 
 
