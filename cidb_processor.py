@@ -86,6 +86,7 @@ class CIDBData(object):
             "value": {
                 "amount": float(amount)
                 "currency": "MYR"
+            }
         }
 
         return data
