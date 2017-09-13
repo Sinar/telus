@@ -80,8 +80,9 @@ class CIDBData(object):
             "status": "complete", # CIDB Record is about completed project mostly
             "date": data["dates"],
             "value": {
-                "amount": float(amount)
+                "amount": float(amount),
                 "currency": "MYR"
+            }
         }
 
         return data
