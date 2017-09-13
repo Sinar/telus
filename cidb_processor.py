@@ -23,9 +23,9 @@ class CIDBProcessor(object):
 
     def store_result(self):
         for item in self.read_jsonl():
-            vendor_col = db["vendor"]
-            record_col = db["record"]
-            award_col = db["award"]
+            vendor_col = self.db["vendor"]
+            record_col = self.db["record"]
+            award_col = self.db["award"]
             vendor_col.insert_one(item.ocds_parties)
             for record in item.ocds_record():
                 record_col.insert_one(record)
@@ -84,7 +84,7 @@ class CIDBData(object):
             "status": "complete", # CIDB Record is about completed project mostly
             "date": data["dates"],
             "value": {
-                "amount": float(amount)
+                "amount": float(amount),
                 "currency": "MYR"
             }
         }
