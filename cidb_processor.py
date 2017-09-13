@@ -25,9 +25,13 @@ class CIDBProcessor(object):
         for item in self.read_jsonl():
             vendor_col = db["vendor"]
             record_col = db["record"]
+            award_col = db["award"]
             vendor_col.insert_one(item.ocds_parties)
             for record in item.ocds_record():
                 record_col.insert_one(record)
+
+            for project in item.ocds_projects():
+                award_col.insert_one(project)
 
             
 # TODO: try to see if we can fit in tender
@@ -85,6 +89,10 @@ class CIDBData(object):
         }
 
         return data
+
+    def ocds_awards(self):
+        for project in projects:
+            yield self.ocds_award(project)
 
     def ocds_record(self):
         parties = self.ocds_parties
