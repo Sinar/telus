@@ -5,7 +5,7 @@ import datetime
 
 
 class DocumentProcessor(object):
-    def __init__(self, datapath, uri='mongodb://localhost:27017/', db="ocdb_hack"):
+    def __init__(self, datapath, uri='mongodb://localhost:27017/', db="ocds_hack"):
         self.client = MongoClient(uri)
         self.datapath = datapath
         self.db = self.client[db]
@@ -21,9 +21,13 @@ class DocumentProcessor(object):
     
     # Assume data is well formed
     def store_record(self, collection_name, data):
-        
+        print(data)
         collection = self.db[collection_name]
-        collection.insert_one(data)
+        if "_id" in data:
+            del data["_id"]
+        collection.update({"id":data["id"]}, data, upsert=True)
+        
+
 
     # Assume item_id is in ocid. 
     def fetch_record(self, collection_name, item_id):
