@@ -1,0 +1,4 @@
+Flask==0.11.1
+pymongo==3.5.1
+PyYAML==3.12
+requests==2.18.4
