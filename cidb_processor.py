@@ -1,42 +1,23 @@
-from pymongo import MongoClient
-import json
-import os
+from processor import DocumentProcessor
 import uuid
-import datetime
 
 
-class CIDBProcessor(object):
+class CIDBProcessor(DocumentProcessor):
+    def __init__(self):
+        super().__init__("data/cidb")
 
-    def __init__(self, uri='mongodb://localhost:27017/', datapath="./data/cidb", db="cidb"):
-        self.client = MongoClient(uri)
-        self.datapath = datapath
-        self.db = self.client[db]
-
-    def read_jsonl(self):
-        for item in os.listdir(self.datapath):
-            # TODO: Might need a path.join here
-            f = open(os.path.join(self.datapath,item))
-            for entry in f:
-                data = json.loads(entry)
-                cidb = CIDBData(data)
-                yield cidb
-
-    def store_result(self):
+    def process_documents(self):
         for item in self.read_jsonl():
-            vendor_col = self.db["vendor"]
-            record_col = self.db["record"]
-            award_col = self.db["award"]
-            vendor_col.insert_one(item.ocds_parties)
-            for record in item.ocds_record():
-                record_col.insert_one(record)
+            parser = CIDBParser(item)
 
-            for project in item.ocds_projects():
-                award_col.insert_one(project)
+            seller = parser.ocds_party
+            self.store_record("seller", seller)
+            for project in parser.projects:
+                award = parser.ocds_award(project)
+                self.store_record("award", award)
 
-            
-# TODO: try to see if we can fit in tender
-# TODO: CIDB project is mostly about completed. 
-class CIDBData(object):
+
+class CIDBParser(object):
     def __init__(self, data):
         self.data = data
 
@@ -48,29 +29,16 @@ class CIDBData(object):
     def profiles(self):
         return self.data["Profil"]
 
-    # We don't have SSM in OCDB record, 
-    # TODO: Look at open corporates list
     @property
-    def ocds_vendor_identifier(self):
-        data = {
-            "scheme":"CIDB",
-            "id": self.profiles["Nombor Pendaftaran"],
-            "legalName": self.data["name"],
-        }
-
-        return data 
-
-    @property
-    def ocds_parties(self):
+    def ocds_party(self):
         data = {
             "id": self.profiles["Nombor Pendaftaran"],
             "name": self.data["name"],
-            "identifier": self.ocds_vendor_identifier,
             "role": "supplier" # CIDB is all contractors, they supply service
         }
 
         # Each CIDB record is about 1 party. 1 contractor. 
-        return [ data ]
+        return data 
 
     # CIDB entry have multiple projects/award
     # So instead of have a list awards, we convert project into record
@@ -79,7 +47,7 @@ class CIDBData(object):
         amount = data["value"]
         amount = amount.replace(",", "")
         data = {
-            "id": uuid.uuid4(),
+            "id": uuid.uuid4().hex,
             "description": data["project"], # Oops this is not necessary in english
             "status": "complete", # CIDB Record is about completed project mostly
             "date": data["dates"],
@@ -91,45 +59,9 @@ class CIDBData(object):
 
         return data
 
-    def ocds_awards(self):
-        for project in projects:
-            yield self.ocds_award(project)
-
-    def ocds_record(self):
-        parties = self.ocds_parties
-
-        # Each project 1 record
-        for project in self.projects:
-            award = self.ocds_award(project)
-            now = datetime.datetime.now()
-            data = {
-                "packages":[], # TODO: Fix this
-                "publishedDate": now.strftime("%Y-%m-%dT%H:%M:%SZ"),
-                "publisher": {}, # Create us as publisher
-                "records":[
-                    {
-                        "compiledRelease": {
-                            "award": [
-                                award
-                            ],
-                            "buyer": {}, # TODO: We don't have that
-                            "date": now.strftime("%Y-%m-%dT%H:%M:%SZ"),
-                            "id": uuid.uuid4().hex,
-                            "initiationType": "tender", 
-                            "language": "en",
-                            "ocid": uuid.uuid4().hex, 
-                            "parties": parties,
-                            "tag": [ "compiled" ], 
-                            "tender": [] # We have no tender information
-                        },
-                        "ocid": uuid.uuid4().hex, 
-                        "releases": [] # TODO look at the value
-                    }
-                ],
 
 
-            }
-            yield data
+
 
 
 
