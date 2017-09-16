@@ -1,5 +1,6 @@
 from processor import DocumentProcessor
 import uuid
+import datetime
 
 
 class CIDBProcessor(DocumentProcessor):
@@ -59,6 +60,25 @@ class CIDBParser(object):
 
         return data
 
+    def ocds_award_record(self, data):
+        ocid = uuid.uuid4().hex
+        now = datetime.datetime.now().strftime("%Y-%m-%dT%H:%M:%SZ")
+
+        data = {
+            "ocid": ocid,
+            "id": ocid + "01-award",
+            "date": now,
+            "language":"en",
+            "tag":[ "contract" ], 
+            "initiationType":"Tender", # We assume that CIDB initiated by tender. Mostly true
+            "parties": [ self.party ],
+            "buyer": [], # CIDB record don't show buyer information
+            "award":[
+                self.ocds_award(data),
+            ]
+        }
+        
+        return data
 
 
 

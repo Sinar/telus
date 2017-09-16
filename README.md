@@ -18,7 +18,7 @@ pip install -r requirements.txt
 
 # To run
 ```
-$ export FLASK_APP=api.py
+$ export FLASK_APP=web.py
 $ export FLASK_DEBUG=1
 $ flask run
 ```
