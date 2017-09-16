@@ -14,7 +14,7 @@ class CIDBProcessor(DocumentProcessor):
             seller = parser.ocds_party
             self.store_record("seller", seller)
             for project in parser.projects:
-                award = parser.ocds_award(project)
+                award = parser.ocds_award_record(project)
                 self.store_record("award", award)
 
 

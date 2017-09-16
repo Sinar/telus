@@ -16,7 +16,7 @@ class JKRProcessor(DocumentProcessor):
             parser = JKRParser(item)
             self.store_record("seller", parser.ocds_seller())
             self.store_record("buyer", parser.ocds_buyer())
-            self.store_record("award", parser.ocds_award())
+            self.store_record("award", parser.ocds_award_record())
 
 
 # Each of the data parser(?) is different. 
