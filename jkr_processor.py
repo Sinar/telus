@@ -143,24 +143,27 @@ class JKRParser(object):
             return "complete" #Assume complete. We don't know for sure actually 
 
     def ocds_award_record(self):
-        ocis = uuid.uuid4().hex
+        ocid = uuid.uuid4().hex
 
         now = datetime.datetime.now().strftime("%Y-%m-%dT%H:%M:%SZ")
 
-        data = {
+        output = {
             "ocid": ocid,
             "id": ocid + "01-award",
             "date": now,
             "language":"en",
             "tag":[ "award" ], 
             "initiationType":"Tender", # We assume that CIDB initiated by tender. Mostly true
-            "parties": [ self.party ],
-            "buyer": [], # CIDB record don't show buyer information
+            "parties": [ 
+                self.ocds_seller(),
+                self.ocds_buyer()
+            ],
+            "buyer": self.ocds_buyer(),
             "award":[
-                self.ocds_award(data),
+                self.ocds_award(),
             ]
         }
         
-        return data
+        return output
 
 

@@ -1,9 +1,16 @@
 from flask import Flask
 from flask import jsonify
+from flask import render_template
 from pymongo import MongoClient
 import popit
 
 app = Flask(__name__)
+
+def conn_wrapper(entity):
+    client = MongoClient('mongodb://localhost:27017/')
+    db = client["ocds_hack"]
+    collection = db[entity]
+    return collection
 
 @app.route("/ocds/<entity>/")
 def list_ocds_entity(entity):
@@ -37,35 +44,69 @@ def get_organizations():
     popit_client = popit.PopitClient()
     organizations = popit_client.get_entities("organizations")
     if "error" in organizations:
-        pass
-    
-    pass
+        return render_template("error.html", error=organizations["error"])
+
+    return render_template("agency.html", organization=organizations["result"], contracts=contracts)
 
 @app.router("/organizations/<entity_id>")
 def get_organization(entity_id):
     popit_client = popit.PopitClient()
     organization = popit_client.get_entity("organizations", entity_id)
     if "error" in organization:
-        pass
+        return render_template("error.html", error=organizations["error"])
 
-    pass
+    coll = conn_wrapper("award")
+    result = organizations["result"]
+    contracts = []
+    for contract in coll.find({"buyer.name": result["name"]}):
+        company = None
+        for supplier in contract["parties"]:
+            if supplier["role"] == "supplier":
+                company = supplier["name"]
+
+        temp = {
+            "company": company,
+            "description": contraction["awards"][0]["description"],
+            "procuring_agency":contract["buyer"]["name"],
+            "start_date": contract["date"],
+            "amount": contract.value.amount
+
+        }
+        contracts.append(temp)
+
+    return render_template("agency.html", organization=organizations["result"], contracts=contracts)
 
 @app.route("/persons/")
 def get_persons():
     popit_client = popit.PopitClient()
     organizations = popit_client.get_entities("persons")
     if "error" in organizations:
-        pass
+        return render_template("error.html", error=organizations["error"])
     
     pass
 
 @app.router("/persons/<entity_id>")
 def get_person(entity_id):
     popit_client = popit.PopitClient()
-    organization = popit_client.get_entity("persons", entity_id)
+    person = popit_client.get_entity("persons", entity_id)
     if "error" in organization:
-        pass
+        return render_template("error.html", error=organizations["error"])
 
-    pass
+    coll = conn_wrapper("award")
+    result = person["result"]
+    contracts = []
+
+    for membership in result["memberships"]:
+        for contract in coll.find({ "parties.name": membership["organizations"]["name"]}):
+            temp = {
+                "company": membership["organizations"]["name"],
+                "description": contraction["awards"][0]["description"],
+                "procuring_agency":contract["buyer"]["name"],
+                "start_date": contract["date"],
+                "amount": contract.value.amount
+            }
+            contracts.appennd(temp)
+    
+    return render_template("person.html", person=result, contracts=contracts)
 
 

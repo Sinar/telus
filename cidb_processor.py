@@ -71,7 +71,7 @@ class CIDBParser(object):
             "language":"en",
             "tag":[ "contract" ], 
             "initiationType":"Tender", # We assume that CIDB initiated by tender. Mostly true
-            "parties": [ self.party ],
+            "parties": [ self.ocds_party ],
             "buyer": [], # CIDB record don't show buyer information
             "award":[
                 self.ocds_award(data),
