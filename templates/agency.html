@@ -81,17 +81,17 @@
             </thead>
 
             <tbody>
-                {% for membership in organization.memberships %}
+                {% for membership in memberships %}
                 <tr>
                     <td><img height="80px" 
                              src="{{ membership.person.image }}" />
                     </td>
-                    <td>{{ membership.person.name }}</td>
-                    <td>{{ membership.post.label</td>
+                    <td>{{ membership.person_name }}</td>
+                    <td>{{ membership.post_label</td>
                     <td>{{ membership.start_date</td>
                     <td>{{ membership.end_date }}</td>
-                    <td>{{ membership.contact.phone }}</td>
-                    <td>{{ membership.contact.email }}</td>
+                    <td>{{ membership.phone }}</td>
+                    <td>{{ membership.email }}</td>
                 </tr>
                 {% endfor %}
            </tbody>

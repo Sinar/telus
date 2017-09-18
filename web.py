@@ -48,16 +48,46 @@ def get_organizations():
 
     return render_template("agency.html", organization=organizations["result"], contracts=contracts)
 
-@app.router("/organizations/<entity_id>")
+@app.route("/organizations/<entity_id>")
 def get_organization(entity_id):
     popit_client = popit.PopitClient()
     organization = popit_client.get_entity("organizations", entity_id)
     if "error" in organization:
         return render_template("error.html", error=organizations["error"])
 
+    memberships = []
+
+    for membership in organization.memberships:
+        email = ""
+        phone = ""
+        for contact_details in membership["contact_details"]:
+            if contact_details["type"] == "phone":
+                phone = value
+                continue
+            if contact_details["type"] == "email":
+                email = email
+                continue
+        
+        if membership.post:
+            post_label = membership["post"]["label"]
+        else:
+            post_label = ""
+
+        temp = {
+            "person_name": membership["person"]["name"],
+            "post_label": post_label,
+            "start_date": membership["start_date"],
+            "end_date": membership["end_date"],
+            "phone": phone,
+            "email": email,
+
+        }
+        memberships.append(temp)
+
     coll = conn_wrapper("award")
     result = organizations["result"]
     contracts = []
+
     for contract in coll.find({"buyer.name": result["name"]}):
         company = None
         for supplier in contract["parties"]:
@@ -74,7 +104,8 @@ def get_organization(entity_id):
         }
         contracts.append(temp)
 
-    return render_template("agency.html", organization=organizations["result"], contracts=contracts)
+    return render_template("agency.html", organization=organizations["result"], contracts=contracts, 
+                           memberships=memberships)
 
 @app.route("/persons/")
 def get_persons():
@@ -85,11 +116,11 @@ def get_persons():
     
     pass
 
-@app.router("/persons/<entity_id>")
+@app.route("/persons/<entity_id>")
 def get_person(entity_id):
     popit_client = popit.PopitClient()
     person = popit_client.get_entity("persons", entity_id)
-    if "error" in organization:
+    if "error" in person:
         return render_template("error.html", error=organizations["error"])
 
     coll = conn_wrapper("award")
@@ -105,8 +136,28 @@ def get_person(entity_id):
                 "start_date": contract["date"],
                 "amount": contract.value.amount
             }
-            contracts.appennd(temp)
+            contracts.append(temp)
     
     return render_template("person.html", person=result, contracts=contracts)
+
+@app.route("/contracts/<entity_id>")
+def get_contract(entity_id):
+    popit_client = popit.PopitClient()
+
+    coll = conn_wrapper("award")
+    contract = coll.find_one({"id":entity_id})
+    
+    supplier = None
+    for party in contract["parties"]:
+        if party["role"] == "supplier":
+            supplier = party
+            break
+
+    result = popit_client.search_entity("organizations", "name", supplier["name"])
+    if result["results"]:
+        organization = result["results"][0]
+    else:
+        organization = {}
+    return render_template("contracts.html", organization=organization)
 
 

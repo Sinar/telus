@@ -77,9 +77,11 @@
                     <td>{{ membership.role }}</td>
                     {% if membership.post %}
                     <td>{{ membership.post.label }}</td>
+                    {% else %}
+                    <td></td>
                     {% endif %}
-                    <td>{{ membership.start_date</td>
-                    <td>{{ membership.end_date</td>
+                    <td>{{ membership.start_date}}</td>
+                    <td>{{ membership.end_date}}</td>
                     <td>{{ membership.organization.name }}</td>
                 </tr>
                 {% endfor %}

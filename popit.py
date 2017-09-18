@@ -17,6 +17,12 @@ class PopitClient(object):
         response = self.request_wrapper(url, params=search_params) 
         return response
 
+    def search_entity(self, entity, key, value):
+        url = self.search_pattern.format(url=self.url, language=self.language, entity=entity)
+        search_params = "{key}:{value}".format(key=key, value=value)
+        response = self.request_wrapper(url, params=search_params) 
+        return response
+
     def get_entities(self, entity):
         url = self.entities_pattern.format(url=self.url, language=self.langauge, entity=entity)
         response = self.requests_wrapper(url)
@@ -27,7 +33,7 @@ class PopitClient(object):
         response = self.request_wrapper(url)
         return response
         
-    def requests_wrapper(self, url, params={}):
+    def request_wrapper(self, url, params={}):
         
         r = requests.get(url, params=params)
         if r.status_code == 200:
