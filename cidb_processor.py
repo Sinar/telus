@@ -1,6 +1,7 @@
 from processor import DocumentProcessor
 import uuid
 import datetime
+import json
 
 
 class CIDBProcessor(DocumentProcessor):
@@ -10,6 +11,18 @@ class CIDBProcessor(DocumentProcessor):
     def process_documents(self):
         for item in self.read_jsonl():
             parser = CIDBParser(item)
+
+            seller = parser.ocds_party
+            self.store_record("seller", seller)
+            for project in parser.projects:
+                award = parser.ocds_award_record(project)
+                self.store_record("award", award)
+            self.store_record("director", parser.company_with_director)
+
+    def process_document(self, path):
+        f = open(path)
+        for item in f:
+            parser = CIDBParser(json.loads(item))
 
             seller = parser.ocds_party
             self.store_record("seller", seller)
