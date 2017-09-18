@@ -121,22 +121,50 @@ def get_person(entity_id):
     popit_client = popit.PopitClient()
     person = popit_client.get_entity("persons", entity_id)
     if "error" in person:
-        return render_template("error.html", error=organizations["error"])
+        return render_template("error.html", error=person["error"])
 
     coll = conn_wrapper("award")
     result = person["result"]
     contracts = []
-
+    check = set()
     for membership in result["memberships"]:
-        for contract in coll.find({ "parties.name": membership["organizations"]["name"]}):
+        for contract in coll.find({ "parties.name": membership["organization"]["name"]}):
             temp = {
-                "company": membership["organizations"]["name"],
-                "description": contraction["awards"][0]["description"],
+                "company": membership["organization"]["name"],
+                "description": contract["awards"][0]["description"],
                 "procuring_agency":contract["buyer"]["name"],
                 "start_date": contract["date"],
-                "amount": contract.value.amount
+                "amount": contract["value"]["amount"]
             }
+            check.add(membership["organizations"]["name"])
             contracts.append(temp)
+
+    dir_coll = conn_wrapper("director")
+    
+    for entry in dir_coll.find({"directors.name": {'$regex': result["name"].upper() }}):
+        
+        if entry["name"] not in check:
+            for contract in coll.find({ "parties.name": entry["name"]}):
+                print(contract)
+                if contract["buyer"]:
+                    buyer = contract["buyer"]["name"]
+                else:
+                    buyer = ""
+                
+                if contract["award"][0]["value"]:
+                    amount = contract["award"][0]["value"]["amount"]
+                else:
+                    amount = None
+
+                temp = {
+                    "company": entry["name"],
+                    "description": contract["award"][0]["description"],
+                    "procuring_agency":buyer,
+                    "start_date": contract["award"][0]["date"],
+                    "amount": amount
+                }
+                check.add(entry["name"])
+                contracts.append(temp)
     
     return render_template("person.html", person=result, contracts=contracts)
 

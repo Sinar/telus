@@ -16,6 +16,7 @@ class CIDBProcessor(DocumentProcessor):
             for project in parser.projects:
                 award = parser.ocds_award_record(project)
                 self.store_record("award", award)
+            self.store_record("director", parser.company_with_director)
 
 
 class CIDBParser(object):
@@ -40,6 +41,16 @@ class CIDBParser(object):
 
         # Each CIDB record is about 1 party. 1 contractor. 
         return data 
+
+    @property
+    def company_with_director(self):
+        data = {
+            "id": self.profiles["Nombor Pendaftaran"],
+            "name": self.data["name"],
+            "directors": self.data.get("directors", [])
+        }
+        return data
+
 
     # CIDB entry have multiple projects/award
     # So instead of have a list awards, we convert project into record
@@ -72,7 +83,7 @@ class CIDBParser(object):
             "tag":[ "contract" ], 
             "initiationType":"Tender", # We assume that CIDB initiated by tender. Mostly true
             "parties": [ self.ocds_party ],
-            "buyer": [], # CIDB record don't show buyer information
+            "buyer": {}, # CIDB record don't show buyer information
             "award":[
                 self.ocds_award(data),
             ]
