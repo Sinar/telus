@@ -154,7 +154,7 @@ def get_person(entity_id):
     for entry in dir_coll.find({"directors.name": {'$regex': result["name"].upper()}}):
         
         if entry["name"] not in check:
-            for contract in coll.find({ "parties.name": entry["name"]}):
+            for contract in coll.find({"parties.name": entry["name"]}):
                 print(contract)
                 if contract["buyer"]:
                     buyer = contract["buyer"]["name"]
@@ -169,7 +169,7 @@ def get_person(entity_id):
                 temp = {
                     "company": entry["name"],
                     "description": contract["award"][0]["description"],
-                    "procuring_agency":buyer,
+                    "procuring_agency": buyer,
                     "start_date": contract["award"][0]["date"],
                     "amount": amount
                 }
