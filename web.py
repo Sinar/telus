@@ -6,11 +6,13 @@ import popit
 
 app = Flask(__name__)
 
+
 def conn_wrapper(entity):
     client = MongoClient('mongodb://localhost:27017/')
     db = client["ocds_hack"]
     collection = db[entity]
     return collection
+
 
 @app.route("/ocds/<entity>/")
 def list_ocds_entity(entity):
@@ -24,18 +26,20 @@ def list_ocds_entity(entity):
         del temp["_id"]
         data.append(i)
      
-    return jsonify({ 'results': data })
+    return jsonify({'results': data})
 
-@app.route("/ocds/<entity>/<id>")
-def get_ocds_entity(entity, id):
+
+@app.route("/ocds/<entity>/<entity_id>")
+def get_ocds_entity(entity, entity_id):
     client = MongoClient('mongodb://localhost:27017/')
     db = client["ocds_hack"]
     collection = db[entity]
 
-    result = collection.find_one({"id":id})
+    result = collection.find_one({"id": entity_id})
     del result["_id"]
 
-    return jsonify({ 'result': result })
+    return jsonify({'result': result})
+
 
 # I can use short cut but each popit entity have different action
 # Also list view and single item view is different
@@ -46,23 +50,27 @@ def get_organizations():
     if "error" in organizations:
         return render_template("error.html", error=organizations["error"])
 
+    contracts = None
+
     return render_template("agency.html", organization=organizations["result"], contracts=contracts)
+
 
 @app.route("/organizations/<entity_id>")
 def get_organization(entity_id):
     popit_client = popit.PopitClient()
-    organization = popit_client.get_entity("organizations", entity_id)
-    if "error" in organization:
+    organizations = popit_client.get_entity("organizations", entity_id)
+    if "error" in organizations:
         return render_template("error.html", error=organizations["error"])
 
     memberships = []
 
-    for membership in organization.memberships:
+    for membership in organizations.memberships:
         email = ""
         phone = ""
         for contact_details in membership["contact_details"]:
             if contact_details["type"] == "phone":
-                phone = value
+                phone = phone
+
                 continue
             if contact_details["type"] == "email":
                 email = email
@@ -96,8 +104,8 @@ def get_organization(entity_id):
 
         temp = {
             "company": company,
-            "description": contraction["awards"][0]["description"],
-            "procuring_agency":contract["buyer"]["name"],
+            "description": contract["awards"][0]["description"],
+            "procuring_agency": contract["buyer"]["name"],
             "start_date": contract["date"],
             "amount": contract.value.amount
 
@@ -107,6 +115,7 @@ def get_organization(entity_id):
     return render_template("agency.html", organization=organizations["result"], contracts=contracts, 
                            memberships=memberships)
 
+
 @app.route("/persons/")
 def get_persons():
     popit_client = popit.PopitClient()
@@ -115,6 +124,7 @@ def get_persons():
         return render_template("error.html", error=organizations["error"])
     
     pass
+
 
 @app.route("/persons/<entity_id>")
 def get_person(entity_id):
@@ -128,11 +138,11 @@ def get_person(entity_id):
     contracts = []
     check = set()
     for membership in result["memberships"]:
-        for contract in coll.find({ "parties.name": membership["organization"]["name"]}):
+        for contract in coll.find({"parties.name": membership["organization"]["name"]}):
             temp = {
                 "company": membership["organization"]["name"],
                 "description": contract["awards"][0]["description"],
-                "procuring_agency":contract["buyer"]["name"],
+                "procuring_agency": contract["buyer"]["name"],
                 "start_date": contract["date"],
                 "amount": contract["value"]["amount"]
             }
@@ -141,7 +151,7 @@ def get_person(entity_id):
 
     dir_coll = conn_wrapper("director")
     
-    for entry in dir_coll.find({"directors.name": {'$regex': result["name"].upper() }}):
+    for entry in dir_coll.find({"directors.name": {'$regex': result["name"].upper()}}):
         
         if entry["name"] not in check:
             for contract in coll.find({ "parties.name": entry["name"]}):
@@ -168,12 +178,13 @@ def get_person(entity_id):
     
     return render_template("person.html", person=result, contracts=contracts)
 
+
 @app.route("/contracts/<entity_id>")
 def get_contract(entity_id):
     popit_client = popit.PopitClient()
 
     coll = conn_wrapper("award")
-    contract = coll.find_one({"id":entity_id})
+    contract = coll.find_one({"id": entity_id})
     
     supplier = None
     for party in contract["parties"]:
@@ -181,11 +192,33 @@ def get_contract(entity_id):
             supplier = party
             break
 
+    conflict = []
+
     result = popit_client.search_entity("organizations", "name", supplier["name"])
+
+    # TODO: modify template
+    # TODO: Maybe add new table, 
+    
     if result["results"]:
         organization = result["results"][0]
+        director_coll = conn_wrapper("director")
+        # There shall only be one
+        company = director_coll.find_one({"name": supplier["name"]})
+        directors = company["directors"]
+
+        for membership in organization["memberships"]:
+            if membership["person"]["name"] in directors:
+                temp = {
+                    "name": membership["person"]["name"],
+                    "company": supplier["name"],
+                    "official_post": membership["label"],
+                }
+                
+                conflict.append(temp)
+
     else:
         organization = {}
-    return render_template("contracts.html", organization=organization)
+
+    return render_template("contracts.html", organization=organization, conflict=conflict)
 
 
