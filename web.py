@@ -115,15 +115,33 @@ def get_organization(entity_id):
     return render_template("agency.html", organization=organizations["result"], contracts=contracts, 
                            memberships=memberships)
 
-
+# TODO: How does this work
+# TODO: Why
 @app.route("/persons/")
 def get_persons():
     popit_client = popit.PopitClient()
-    organizations = popit_client.get_entities("persons")
-    if "error" in organizations:
-        return render_template("error.html", error=organizations["error"])
-    
-    pass
+    persons = popit_client.get_entities("persons")
+    if "error" in persons:
+        return render_template("error.html", error=persons["error"])
+
+    coll = conn_wrapper("award")
+
+    result = persons["result"]
+
+    output = []
+
+    for membership in result["memberships"]:
+        for contract in coll.find({"parties.name": membership["organization"]["name"]}):
+            temp = {
+                "company": membership["organization"]["name"],
+                "description": contract["awards"][0]["description"],
+                "procuring_agency": contract["buyer"]["name"],
+                "start_date": contract["date"],
+                "amount": contract["value"]["amount"]
+            }
+            output.append(temp)
+
+    return render_template("persons.html", persons=output)
 
 
 @app.route("/persons/<entity_id>")
