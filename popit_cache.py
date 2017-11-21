@@ -11,12 +11,19 @@ class BasePopitCache(object):
         return collection
 
 
-class PopitCacheLoader(BasePopitCache):
-    def __init__(self, api_url):
-        pass
+class PopitCacheWriter(BasePopitCache):
+    def __init__(self):
+        self.popit_client = popit.PopitClient()
 
-    def load_cache(self):
-        pass
+    def fetch_persons(self):
+        companies = self.conn_wrapper("director")
+        for company in companies.find():
+            for director in company["directors"]:
+                pass
+
+    def write_cache(self, entity, data):
+        collection = self.conn_wrapper(entity)
+        collection.update({"id":data["id"]}, data, upsert=True)
 
 
 class PopitCacheReader(BasePopitCache):
