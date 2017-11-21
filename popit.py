@@ -14,17 +14,17 @@ class PopitClient(object):
     def search_organization(self, name):
         url = self.search_pattern.format(url=self.url, language=self.language, entity="organizations")
         search_params = "name:{name}".format(name=name)
-        response = self.request_wrapper(url, params=search_params) 
+        response = self.request_wrapper(url, params={"q":search_params})
         return response
 
     def search_entity(self, entity, key, value):
         url = self.search_pattern.format(url=self.url, language=self.language, entity=entity)
         search_params = "{key}:{value}".format(key=key, value=value)
-        response = self.request_wrapper(url, params=search_params) 
+        response = self.request_wrapper(url, params={"q":search_params})
         return response
 
     def get_entities(self, entity, page=None):
-        url = self.entities_pattern.format(url=self.url, language=self.langauge, entity=entity)
+        url = self.entities_pattern.format(url=self.url, language=self.language, entity=entity)
         if page:
             response = self.request_wrapper(url, params={"page": page})
         else:
