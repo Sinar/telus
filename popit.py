@@ -23,9 +23,12 @@ class PopitClient(object):
         response = self.request_wrapper(url, params=search_params) 
         return response
 
-    def get_entities(self, entity):
+    def get_entities(self, entity, page=None):
         url = self.entities_pattern.format(url=self.url, language=self.langauge, entity=entity)
-        response = self.requests_wrapper(url)
+        if page:
+            response = self.request_wrapper(url, params={"page": page})
+        else:
+            response = self.request_wrapper(url)
         return response
         
     def get_entity(self, entity, entity_id):
