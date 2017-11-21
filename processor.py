@@ -1,7 +1,6 @@
 from pymongo import MongoClient
 import json
 import os
-import datetime
 
 
 class DocumentProcessor(object):
@@ -18,7 +17,6 @@ class DocumentProcessor(object):
                 data = json.loads(entry)
                 yield data
 
-    
     # Assume data is well formed
     def store_record(self, collection_name, data):
         print(data)
@@ -26,8 +24,6 @@ class DocumentProcessor(object):
         if "_id" in data:
             del data["_id"]
         collection.update({"id":data["id"]}, data, upsert=True)
-        
-
 
     # Assume item_id is in ocid. 
     def fetch_record(self, collection_name, item_id):
@@ -41,6 +37,6 @@ class DocumentProcessor(object):
 
     def search(self, collection_name, key, value):
         collection = self.db[collection_name]
-        return colelction.find({ key: value }) 
+        return collection.find({ key: value })
 
 

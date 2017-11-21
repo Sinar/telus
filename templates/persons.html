@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
+  <title>Government Agency</title>
+
+  <!-- CSS  -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+</head>
+<body>
+  <nav class="light-blue lighten-1" role="navigation">
+    <div class="nav-wrapper container"><a id="logo-container" href="#"
+            class="brand-logo">Telus</a>
+      <ul class="right hide-on-med-and-down">
+        <li><a href="person.html#">PEPS</a></li>
+      </ul>
+      <ul class="right hide-on-med-and-down">
+        <li><a href="agency.html#">Agencies</a></li>
+      </ul>
+
+      <ul class="right hide-on-med-and-down">
+        <li><a href="#">Problematic Contracts</a></li>
+      </ul>
+
+      <ul id="nav-mobile" class="side-nav">
+        <li><a href="#">Navbar Link</a></li>
+      </ul>
+      <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
+    </div>
+  </nav>
+
+  <div class="container">
+
+      <!--   Agency Section   -->
+      <div class="row center">
+
+        <div class="col s3">
+          <div class="icon-block">
+            <h2 class="light-blue-text"><i
+                    class="material-icons">account_balance</i></h2>
+            <!-- Popit name --> 
+            <h5 class="center">{{ organization.name }}</h5>
+
+            <!-- Popit image -->
+            <img class="responsive-img"
+                 src="{{ organization.image }}"
+                />
+
+            <p class="light">{{ organization.description }}</p>
+
+            <p class="light-blue-text"><i
+                class="material-icons">contacts</i><p>
+            <p>Phone: {{ organization.contact.phone }}</p>
+            <p>Email: {{ organization.contact.email }}</p>
+
+ 
+          </div>
+        </div>
+      
+        <div class="col s9">
+          <div class="icon-block">
+            <h2 class="center light-blue-text"><i
+                    class="material-icons">person</i></h2>
+
+            <h5 class="left">Public Officals</h5>
+            <table class="striped"  >
+            <thead>
+              <tr>
+                  <th></th>
+                  <th>Name</th>
+                  <th>Post</th>
+                  <th>Start</th>
+                  <th>End</th>
+                  <th>Phone</th>
+                  <th>Email</th>
+
+              </tr>
+            </thead>
+
+            <tbody>
+                {% for membership in memberships %}
+                <tr>
+                    <td><img height="80px" 
+                             src="{{ membership.person.image }}" />
+                    </td>
+                    <td>{{ membership.person_name }}</td>
+                    <td>{{ membership.post_label</td>
+                    <td>{{ membership.start_date</td>
+                    <td>{{ membership.end_date }}</td>
+                    <td>{{ membership.phone }}</td>
+                    <td>{{ membership.email }}</td>
+                </tr>
+                {% endfor %}
+           </tbody>
+          </table> 
+          </div>
+
+
+         <div class="icon-block">
+            <h2 class="light-blue-text"><i
+                    class="material-icons">business</i></h2>
+
+          <h5 class="left">Contracts</h5>
+
+          <table class="striped"  >
+            <thead>
+              <tr>
+                  <th>Company</th>
+                  <th>Procuring Agency</th>
+                  <th>Project Title</th>
+                  <th>Award Date</th>
+                  <th>Value(RM)</th>
+              </tr>
+            </thead>
+
+            <tbody>
+                {% for contract in contracts %}
+                <tr>
+                    <td>{{ contract.company }}</td>
+                    <td>{{ contract.procuring_agency }}</td>
+                    <td>{{ contract.description }}</td>
+                    <td>{{ contract.start_date }}</td>
+                    <td>{{ contract.amount }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+          </table> 
+          </div>
+        </div>
+    </div>
+    <br><br>
+  </div>
+
+  <footer class="page-footer orange">
+    <div class="container">
+      <div class="row">
+        <div class="col l6 s12">
+          <h5 class="white-text">About Telus and Sinar Project</h5>
+          <p class="grey-text text-lighten-4">
+          Telus is proof of concept project to join up open standards
+          of beneficial ownership and government positions and public
+          officials against Open Contracting Standard data. It's aim is
+          to provide transparency on beneficial owners of contractors and accountable
+          public officials responsible for approving public procurement.
+          </p>
+
+
+        </div>
+        <div class="col l3 s12">
+          <h5 class="white-text">Links</h5>
+          <ul>
+            <li><a class="white-text" href="#!">PEPs</a></li>
+            <li><a class="white-text" href="#!">Agencies</a></li>
+            <li><a class="white-text" href="#!">Problematic Contracts</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="footer-copyright">
+      <div class="container">
+      Copyright <a class="orange-text text-lighten-3"
+          href="https://sinarproject.org">Sinar Project</a>
+      </div>
+    </div>
+  </footer>
+
+
+  <!--  Scripts-->
+  <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.js"></script>
+  <script src="js/init.js"></script>
+
+  </body>
+</html>

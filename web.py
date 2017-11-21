@@ -129,17 +129,18 @@ def get_persons():
     result = persons["result"]
 
     output = []
+    for person in result:
 
-    for membership in result["memberships"]:
-        for contract in coll.find({"parties.name": membership["organization"]["name"]}):
-            temp = {
-                "company": membership["organization"]["name"],
-                "description": contract["awards"][0]["description"],
-                "procuring_agency": contract["buyer"]["name"],
-                "start_date": contract["date"],
-                "amount": contract["value"]["amount"]
-            }
-            output.append(temp)
+        for membership in person["memberships"]:
+            for contract in coll.find({"parties.name": membership["organization"]["name"]}):
+                temp = {
+                    "company": membership["organization"]["name"],
+                    "description": contract["awards"][0]["description"],
+                    "procuring_agency": contract["buyer"]["name"],
+                    "start_date": contract["date"],
+                    "amount": contract["value"]["amount"]
+                }
+                output.append(temp)
 
     return render_template("persons.html", persons=output)
 
