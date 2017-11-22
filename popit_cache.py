@@ -1,5 +1,6 @@
 import popit
 from pymongo import MongoClient
+import time
 
 
 class BasePopitCache(object):
@@ -19,12 +20,13 @@ class PopitCacheWriter(BasePopitCache):
         companies = self.conn_wrapper("director")
         for company in companies.find():
             for director in company["directors"]:
-                pass
+                name = director["name"]
+                results = self.popit_client.search_entity("persons", "name", name)
+                # If not zero
+                if results["total"]:
+                    self.write_cache("persons", results["results"][0])
 
     def write_cache(self, entity, data):
         collection = self.conn_wrapper(entity)
         collection.update({"id":data["id"]}, data, upsert=True)
 
-
-class PopitCacheReader(BasePopitCache):
-    pass
