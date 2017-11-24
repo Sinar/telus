@@ -230,6 +230,61 @@ def get_contract(entity_id):
     else:
         organization = {}
 
-    return render_template("contracts.html", organization=organization, conflict=conflict)
+    return render_template("contract.html", organization=organization, conflict=conflict)
+
+
+@app.route("/contracts/")
+def get_contracts():
+    coll = conn_wrapper("award")
+    contracts = coll.find()
+
+    results = []
+
+    for contract in contracts:
+        # Company name
+        # Owner name
+
+        award = contract["award"]
+
+        # This is only awarded
+        if award:
+            award_value = award[0]["value"]["amount"]
+            award_date = award[0]["date"]
+            award_desc = award[0]["description"]
+        else:
+            # Should not happen, it usually means bad data
+            award_value = None
+            award_date = None
+            award_desc = None
+
+        company = None
+        agency = None
+
+        # TODO: we only have one supplier
+        for party in contract["parties"]:
+            if party["role"] == "supplier":
+                company = party["name"]
+            else:
+                agency = party["name"]
+
+        if company:
+            director_coll = conn_wrapper("director")
+            director_query = director_coll.find_one({"name": company})
+            person_coll = conn_wrapper("persons")
+
+            # just ignore if this company have no ignore
+            for director in director_query:
+                temp = {}
+                # If director not in popit ignore
+                # Assume people are not stupid which is not valid in all case.
+                if person_coll.find_one({"name": director["name"]}):
+                    temp["director"] = director["name"]
+                    temp["value"] = award_value
+                    temp["date"] = award_date
+                    temp["description"] = award_desc
+                    temp["company"] = company
+                    results.append(temp)
+
+    return render_template("contracts.html", contracts=results)
 
 
