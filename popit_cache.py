@@ -18,6 +18,7 @@ class PopitCacheWriter(BasePopitCache):
 
     def fetch_persons(self):
         companies = self.conn_wrapper("director")
+        parties = self.conn_wrapper("award")
         error_count = 0
         page = 1
         while True:
@@ -29,10 +30,18 @@ class PopitCacheWriter(BasePopitCache):
                 break
 
             for person in persons["results"]:
+                written = False
                 temp = companies.find({"directors.name": {'$regex': person["name"].upper()}})
                 if temp.count():
-
                     self.write_cache("persons", person)
+                    written = True
+
+                if not written:
+                    for membership in person["memberships"]:
+                        temp = parties.find({"parties.name": membership["organization"]["name"]})
+                        if temp.count():
+                            self.write_cache("persons", person)
+                        
             page = page + 1
 
     def write_cache(self, entity, data):
