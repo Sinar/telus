@@ -7,7 +7,7 @@ class PopitClient(object):
     def __init__(self, url="https://api.popit.sinarproject.org", language="en"):
         self.url = url
         self.language = language
-        self.entities_pattern = "{url}/{language}/{entity}/{entity_id}/"
+        self.entities_pattern = "{url}/{language}/{entity}/"
         self.entity_pattern = "{url}/{language}/{entity}/{entity_id}/"
         self.search_pattern = "{url}/{language}/search/{entity}/"
         

@@ -18,15 +18,33 @@ class PopitCacheWriter(BasePopitCache):
 
     def fetch_persons(self):
         companies = self.conn_wrapper("director")
-        for company in companies.find():
-            for director in company["directors"]:
-                name = director["name"]
-                results = self.popit_client.search_entity("persons", "name", name)
-                # If not zero
-                if results["total"]:
-                    self.write_cache("persons", results["results"][0])
+        error_count = 0
+        page = 1
+        while True:
+            print(page)
+            persons = self.popit_client.get_entities("persons", page)
+
+            if "error" in persons:
+                print(persons["error"])
+                break
+
+            for person in persons["results"]:
+                temp = companies.find({"directors.name": {'$regex': person["name"].upper()}})
+                if temp.count():
+
+                    self.write_cache("persons", person)
+            page = page + 1
 
     def write_cache(self, entity, data):
         collection = self.conn_wrapper(entity)
         collection.update({"id":data["id"]}, data, upsert=True)
+
+    def fetch_cache(self, entity, data):
+        collection = self.conn_wrapper(entity)
+        return collection.find_one({"id": data["id"]})
+
+
+if __name__ == "__main__":
+    cache = PopitCacheWriter()
+    cache.fetch_persons()
 
