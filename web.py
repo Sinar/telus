@@ -124,8 +124,15 @@ def get_persons():
     result = []
 
     # TODO: What information we need in the list template
-    for person in persons:
-        result.append(person)
+    for person in persons.find():
+        temp = {}
+        companies = conn_wrapper("director")
+        company = companies.find_one({"directors.name": {'$regex':person["name"].upper()}})
+        if company:
+            temp["id"] = person["id"]
+            temp["name"] =  person["name"]
+            temp["company"] = company["name"]
+            result.append(temp)
 
     return render_template("persons.html", persons=result)
 

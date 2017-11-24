@@ -3,7 +3,7 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
-  <title>Government Agency</title>
+  <title>Problematic Contracts</title>
 
   <!-- CSS  -->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -34,102 +34,59 @@
 
   <div class="container">
 
-      <!--   Agency Section   -->
+      <!--   Info Section   -->
       <div class="row center">
 
-        <div class="col s3">
+        <div class="col s12">
           <div class="icon-block">
             <h2 class="light-blue-text"><i
-                    class="material-icons">account_balance</i></h2>
-            <!-- Popit name --> 
-            <h5 class="center">{{ organization.name }}</h5>
+                    class="material-icons">warning</i></h2>
+            <!-- Popit name -->
+            <h5 class="center">Problematic Contracts</h5>
 
-            <!-- Popit image -->
-            <img class="responsive-img"
-                 src="{{ organization.image }}"
-                />
+            <p class="light">Problematic contracts are contracts, which
+            for which contractors (seller) beneficial ownesr are
+            politically exposed persons (PEPs)</p>
 
-            <p class="light">{{ organization.description }}</p>
-
-            <p class="light-blue-text"><i
-                class="material-icons">contacts</i><p>
-            <p>Phone: {{ organization.contact.phone }}</p>
-            <p>Email: {{ organization.contact.email }}</p>
-
- 
           </div>
         </div>
-      
-        <div class="col s9">
-          <div class="icon-block">
-            <h2 class="center light-blue-text"><i
-                    class="material-icons">person</i></h2>
 
-            <h5 class="left">Public Officals</h5>
-            <table class="striped"  >
-            <thead>
-              <tr>
-                  <th></th>
-                  <th>Name</th>
-                  <th>Post</th>
-                  <th>Start</th>
-                  <th>End</th>
-                  <th>Phone</th>
-                  <th>Email</th>
+        <div class="row">
+            <div class="col s12">
 
-              </tr>
-            </thead>
+                <div class="icon-block">
+                <h2 class="light-blue-text"><i
+                        class="material-icons">business</i></h2>
 
-            <tbody>
-                {% for membership in memberships %}
-                <tr>
-                    <td><img height="80px" 
-                             src="{{ membership.person.image }}" />
-                    </td>
-                    <td>{{ membership.person_name }}</td>
-                    <td>{{ membership.post_label</td>
-                    <td>{{ membership.start_date</td>
-                    <td>{{ membership.end_date }}</td>
-                    <td>{{ membership.phone }}</td>
-                    <td>{{ membership.email }}</td>
-                </tr>
-                {% endfor %}
-           </tbody>
-          </table> 
-          </div>
+              <h5 class="left">Officials</h5>
+
+              <table class="striped"  >
+                <thead>
+                  <tr>
+                      <th>Beneficial Owner</th>
+                      <th>Company</th>
+                  </tr>
+                </thead>
+
+                <!-- Loop contracts + PEPs here -->
+                <tbody>
+                    {% for person in persons %}
+                        <tr>
+                            <td><a href="/persons/{{ person.id }}">{{ person.name }}</a> </td>
+                            <td>{{ person.company }}</td>
+                        </tr>
+                    {% endfor %}
+
+                </tbody>
+              </table>
+              </div>
+            </div>
 
 
-         <div class="icon-block">
-            <h2 class="light-blue-text"><i
-                    class="material-icons">business</i></h2>
 
-          <h5 class="left">Contracts</h5>
 
-          <table class="striped"  >
-            <thead>
-              <tr>
-                  <th>Company</th>
-                  <th>Procuring Agency</th>
-                  <th>Project Title</th>
-                  <th>Award Date</th>
-                  <th>Value(RM)</th>
-              </tr>
-            </thead>
-
-            <tbody>
-                {% for contract in contracts %}
-                <tr>
-                    <td>{{ contract.company }}</td>
-                    <td>{{ contract.procuring_agency }}</td>
-                    <td>{{ contract.description }}</td>
-                    <td>{{ contract.start_date }}</td>
-                    <td>{{ contract.amount }}</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-          </table> 
-          </div>
         </div>
+
     </div>
     <br><br>
   </div>

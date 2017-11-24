@@ -41,7 +41,7 @@ class PopitCacheWriter(BasePopitCache):
                         temp = parties.find({"parties.name": membership["organization"]["name"]})
                         if temp.count():
                             self.write_cache("persons", person)
-                        
+
             page = page + 1
 
     def write_cache(self, entity, data):
