@@ -232,7 +232,7 @@ def get_contract(entity_id):
                 temp["official_post"] = membership["label"]
                 conflict.append(temp)
 
-    return render_template("contract.html", organization=supplier, conflict=conflict, contract=award)
+    return render_template("contract.html", organization=supplier, conflict=conflict, contract=award, directors=directors)
 
 
 @app.route("/contracts/")

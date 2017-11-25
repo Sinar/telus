@@ -60,10 +60,38 @@
             <thead>
               <tr>
                   <th>Name</th>
+                  <th>Share</th>
+                  <th>Year of Experience</th>
+              </tr>
+            </thead>
+
+            <tbody>
+                {% for director in directors%}
+                <tr>
+                    <td>{{ director.name}}</td>
+                    <td>{{ director.shares }}</td>
+                    <td>{{ director.year_of_experience }}</td>
+
+                 </tr>
+                {% endfor %}
+            </tbody>
+          </table> 
+          </div>
+          <div class="icon-block">
+            <h2 class="light-blue-text"><i
+                    class="material-icons">business</i></h2>
+
+          <h5 class="left">Directors</h5>
+
+          <table class="striped"  >
+            <thead>
+              <tr>
+                  <th>Name</th>
                   <th>Post</th>
                   <th>Company</th>
 
               </tr>
+
             </thead>
 
             <tbody>
@@ -74,11 +102,14 @@
                     <td>{{ conflict.company }}</td>
                 </tr>
                 {% endfor %}
+
+
             </tbody>
-          </table> 
+          </table>
           </div>
 
         </div>
+
 
     </div>
     <br><br>
