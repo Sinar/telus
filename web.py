@@ -3,6 +3,7 @@ from flask import jsonify
 from flask import render_template
 from pymongo import MongoClient
 import popit
+import re
 
 app = Flask(__name__)
 
@@ -198,6 +199,9 @@ def get_contract(entity_id):
     contract = coll.find_one({"id": entity_id})
     
     supplier = None
+    award = None
+    organization = None
+
     for party in contract["parties"]:
         if party["role"] == "supplier":
             supplier = party
@@ -207,30 +211,28 @@ def get_contract(entity_id):
 
     result = popit_client.search_entity("organizations", "name", supplier["name"])
 
-    # TODO: modify template
-    # TODO: Maybe add new table, 
-    
-    if result["results"]:
-        organization = result["results"][0]
-        director_coll = conn_wrapper("director")
-        # There shall only be one
-        company = director_coll.find_one({"name": supplier["name"]})
-        directors = company["directors"]
+    director_coll = conn_wrapper("director")
 
-        for membership in organization["memberships"]:
-            if membership["person"]["name"] in directors:
-                temp = {
-                    "name": membership["person"]["name"],
-                    "company": supplier["name"],
-                    "official_post": membership["label"],
-                }
-                
+    award = contract["award"][0]
+
+    company = director_coll.find_one({"name": supplier["name"]})
+    directors = company["directors"]
+    persons_coll = conn_wrapper("persons")
+
+    for director in directors:
+        name = director["name"]
+        person = persons_coll.find_one({"name":{"$regex": re.compile(name, re.IGNORECASE)}})
+        print(person)
+        if person:
+            for membership in person["memberships"]:
+                temp = {}
+                temp["name"] = person["name"]
+                temp["company"] = supplier["name"]
+                temp["agency"] = membership["organization"]["name"]
+                temp["official_post"] = membership["label"]
                 conflict.append(temp)
 
-    else:
-        organization = {}
-
-    return render_template("contract.html", organization=organization, conflict=conflict)
+    return render_template("contract.html", organization=supplier, conflict=conflict, contract=award)
 
 
 @app.route("/contracts/")
@@ -266,6 +268,8 @@ def get_contracts():
             temp["description"] = award_desc
             temp["date"] = award_date
             temp["company"] = company["name"]
+
+            temp["contract_id"] = contract["id"]
             results.append(temp)
 
     return render_template("contracts.html", contracts=results)

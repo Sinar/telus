@@ -43,14 +43,10 @@
                     class="material-icons">person</i></h2>
             <!-- Popit name --> 
             <h5 class="center">
-                {{ person.name }}</h5>
+                {{ contract.description }}</h5>
 
-            <!-- Popit image -->
-            <img class="responsive-img"
-                 src="{{ person.image }}"
-                />
-
-            <p class="light">{{ person.summary }}</p>
+            <p class="light">Company: {{ organization.name }}</p>
+            <p class="light">value(RM): {{ contract.value.amount }}</p>
           </div>
         </div>
       
@@ -63,64 +59,25 @@
             <table class="striped"  >
             <thead>
               <tr>
-                  <th>Role</th>
+                  <th>Name</th>
                   <th>Post</th>
-                  <th>Start</th>
-                  <th>End</th>
-                  <th>Organization</th>
+                  <th>Company</th>
+
               </tr>
             </thead>
 
             <tbody>
-                {% for membership in person.memberships %}
+                {% for conflict in conflict %}
                 <tr>
-                    <td>{{ membership.role }}</td>
-                    {% if membership.post %}
-                    <td>{{ membership.post.label }}</td>
-                    {% else %}
-                    <td></td>
-                    {% endif %}
-                    <td>{{ membership.start_date}}</td>
-                    <td>{{ membership.end_date}}</td>
-                    <td>{{ membership.organization.name }}</td>
+                    <td>{{ conflict.name }}</td>
+                    <td>{{ conflict.official_post }}</td>
+                    <td>{{ conflict.company }}</td>
                 </tr>
                 {% endfor %}
             </tbody>
           </table> 
           </div>
 
-
-         <div class="icon-block">
-            <h2 class="light-blue-text"><i
-                    class="material-icons">business</i></h2>
-
-          <h5 class="left">Contracts</h5>
-
-          <table class="striped"  >
-            <thead>
-              <tr>
-                  <th>Company</th>
-                  <th>Procuring Agency</th>
-                  <th>Project Title</th>
-                  <th>Award Date</th>
-                  <th>Value(RM)</th>
-              </tr>
-            </thead>
-
-            <tbody>
-                {% for contract in contracts %}
-                <tr>
-                    <td>{{ contract.company }}</td>
-                    <td>{{ contract.procuring_agency }}</td>
-                    <td>{{ contract.description }}</td>
-                    <td>{{ contract.start_date }}</td>
-                    <td>{{ contract.amount }}</td>
-                 </tr>
-                {% endfor %}
-              
-            </tbody>
-          </table> 
-          </div>
         </div>
 
     </div>
