@@ -273,7 +273,8 @@ def get_contracts():
             person_coll = conn_wrapper("persons")
 
             # just ignore if this company have no ignore
-            for director in director_query:
+            print(director_query)
+            for director in director_query["directors"]:
                 temp = {}
                 # If director not in popit ignore
                 # Assume people are not stupid which is not valid in all case.

@@ -74,28 +74,16 @@
 
                 <!-- Loop contracts + PEPs here -->
                 <tbody>
-                    {% for person in persons %}
-
+                    {% for contract in contracts %}
+                        <tr>
+                            <td>{{ contract.company }}</td>
+                            <td>{{ contract.owner }}</td>
+                            <td></td>
+                            <td>{{ contract.description }}</td>
+                            <td>{{ contract.date }}</td>
+                            <td>{{ contract.value }}</td>
+                        </tr>
                     {% endfor %}
-                  <tr>
-                    <td>KONSORTIUM KONTRAKTOR MELAYU JOHOR BERHAD</td>
-                    <td>Abd Latif Bin Bandi @ Nor Sebandi</td>
-                    <td></td>
-                    <td>Cadangan Mengaiktaraf Jalan Tumang Fasa 1,
-                        Daerah Segamat</td>
-                    <td>2011-05-10</td>
-                    <td>16,700,000</td>
-                  </tr>
-                  <tr>
-                    <td>KONSORTIUM KONTRAKTOR MELAYU JOHOR BERHAD</td>
-                    <td>Abd Latif Bin Bandi @ Nor Sebandi</td>
-                    <td></td>
-                    <td>	Cadangan Membaikpulih Jalan Parit Panjang Ke
-                        Bukit Batu</td>
-                    <td>2002-05-28</td>
-                    <td>4,619,276</td>
-                  </tr>
- 
                 </tbody>
               </table> 
               </div>
