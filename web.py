@@ -238,53 +238,35 @@ def get_contracts():
     coll = conn_wrapper("award")
     contracts = coll.find()
 
+    # This is guarantee to be conflicting(Mostly)
+    person_coll = conn_wrapper("persons")
+    director_coll = conn_wrapper("director")
     results = []
 
-    for contract in contracts:
-        # Company name
-        # Owner name
+    for person in person_coll.find():
+        company = director_coll.find_one({"directors.name": {'$regex': person["name"].upper()}})
+        contracts = coll.find({"parties.name": company["name"]})
+        for contract in contracts:
+            temp = {}
+            award = contract["award"]
 
-        award = contract["award"]
-
-        # This is only awarded
-        if award:
-            award_value = award[0]["value"]["amount"]
-            award_date = award[0]["date"]
-            award_desc = award[0]["description"]
-        else:
-            # Should not happen, it usually means bad data
-            award_value = None
-            award_date = None
-            award_desc = None
-
-        company = None
-        agency = None
-
-        # TODO: we only have one supplier
-        for party in contract["parties"]:
-            if party["role"] == "supplier":
-                company = party["name"]
+            # This is only awarded
+            if award:
+                award_value = award[0]["value"]["amount"]
+                award_date = award[0]["date"]
+                award_desc = award[0]["description"]
             else:
-                agency = party["name"]
+                # Should not happen, it usually means bad data
+                award_value = None
+                award_date = None
+                award_desc = None
 
-        if company:
-            director_coll = conn_wrapper("director")
-            director_query = director_coll.find_one({"name": company})
-            person_coll = conn_wrapper("persons")
-
-            # just ignore if this company have no ignore
-            print(director_query)
-            for director in director_query["directors"]:
-                temp = {}
-                # If director not in popit ignore
-                # Assume people are not stupid which is not valid in all case.
-                if person_coll.find_one({"name": director["name"]}):
-                    temp["director"] = director["name"]
-                    temp["value"] = award_value
-                    temp["date"] = award_date
-                    temp["description"] = award_desc
-                    temp["company"] = company
-                    results.append(temp)
+            temp["director"] = person["name"]
+            temp["value"] = award_value
+            temp["description"] = award_desc
+            temp["date"] = award_date
+            temp["company"] = company["name"]
+            results.append(temp)
 
     return render_template("contracts.html", contracts=results)
 
