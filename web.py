@@ -53,7 +53,7 @@ def get_organizations():
 
     contracts = None
 
-    return render_template("agency.html", organization=organizations["result"], contracts=contracts)
+    return render_template("agency.html", organization=organizations["results"], contracts=contracts)
 
 
 @app.route("/organizations/<entity_id>")
