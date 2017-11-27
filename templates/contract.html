@@ -18,7 +18,7 @@
         <li><a href="/persons">PEPS</a></li>
       </ul>
       <ul class="right hide-on-med-and-down">
-        <li><a href="#">Agencies</a></li>
+        <li><a href="#x">Agencies</a></li>
       </ul>
 
       <ul class="right hide-on-med-and-down">
@@ -68,7 +68,11 @@
             <tbody>
                 {% for director in directors%}
                 <tr>
-                    <td>{{ director.name}}</td>
+                    {% if director.person_id %}
+                        <td><a href="/persons/{{ director.person_id }}">{{ director.name}}</a> </td>
+                    {% else %}
+                        <td>{{ director.name}}</td>
+                    {% endif %}
                     <td>{{ director.shares }}</td>
                     <td>{{ director.year_of_experience }}</td>
 
@@ -97,7 +101,11 @@
             <tbody>
                 {% for conflict in conflict %}
                 <tr>
-                    <td>{{ conflict.name }}</td>
+                    {% if conflict.person_id %}
+                        <td><a href="/persons/{{ director.person_id }}">{{ conflict.name }}</a></td>
+                    {% else %}
+                        <td>{{ conflict.name }}</td>
+                    {% endif %}
                     <td>{{ conflict.official_post }}</td>
                     <td>{{ conflict.company }}</td>
                 </tr>

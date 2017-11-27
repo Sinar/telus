@@ -225,20 +225,33 @@ def get_contract(entity_id):
     directors = company["directors"]
     persons_coll = conn_wrapper("persons")
 
+    processed_director = []
+
     for director in directors:
         name = director["name"]
         person = persons_coll.find_one({"name":{"$regex": re.compile(name, re.IGNORECASE)}})
         print(person)
+        dir_temp = {
+            "name": name,
+            "shares": director["shares"],
+            "year_of_experience": director["year_of_experience"],
+        }
         if person:
             for membership in person["memberships"]:
                 temp = {}
                 temp["name"] = person["name"]
+                temp["person_id"] = person["id"]
                 temp["company"] = supplier["name"]
                 temp["agency"] = membership["organization"]["name"]
                 temp["official_post"] = membership["label"]
                 conflict.append(temp)
+            dir_temp["person_id"] = person["id"]
+        else:
+            dir_temp["person_id"] = None
+        processed_director.append(dir_temp)
 
-    return render_template("contract.html", organization=supplier, conflict=conflict, contract=award, directors=directors)
+    return render_template("contract.html", organization=supplier, conflict=conflict, contract=award,
+                           directors=processed_director)
 
 
 @app.route("/contracts/")
