@@ -1,5 +1,6 @@
 from flask import Flask
 from flask import jsonify
+from flask import redirect
 from flask import render_template
 from pymongo import MongoClient
 import popit
@@ -13,6 +14,11 @@ def conn_wrapper(entity):
     db = client["ocds_hack"]
     collection = db[entity]
     return collection
+
+
+@app.route("/")
+def main_page():
+    return redirect("/contracts/")
 
 
 @app.route("/ocds/<entity>/")
